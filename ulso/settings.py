@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'ulsosite.apps.UlsositeConfig',
+    'ulso_admin.apps.UlsoAdminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
