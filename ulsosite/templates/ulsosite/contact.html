@@ -1,0 +1,20 @@
+<h1>Contact Us</h1>
+
+<p>Committee Members' Email Addresses</p>
+
+{% for member in committee_members %}
+
+<h4>{{ member.role }}</h4>
+<p>{{ member.name }}</p>
+<p>{{ member.email }}</p>
+
+{% endfor %}
+
+
+<h2>Contact Form</h2>
+
+<form role="form" action="" method="post">
+  {% csrf_token %}
+{{ contact_form }}
+<input type="submit" value="Submit">
+</form>

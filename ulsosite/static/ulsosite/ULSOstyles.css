@@ -1,0 +1,420 @@
+/* General */
+
+/*
+div {
+	border: 1px solid black;
+}
+	*/
+
+/*ul {
+	margin: 0;
+	padding: 0;
+}*/
+
+section {
+  min-height: 100vh;
+}
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 90%;
+}
+
+.navbar-header {
+  padding: 0 1em 0 1em;
+}
+
+footer {
+  padding: 2em 0 1em 0;
+  margin-top: 5em;
+  color: white;
+  background-color: #404041;
+  border-top: 3px solid #26A9E0;
+}
+
+.flexwrap {
+  display: flex;
+  flex-direction: column;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+/* Navbar */
+
+.navbar-brand {
+  vertical-align: middle;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.navbar-toggle {
+  vertical-align: middle;
+}
+
+@media (max-width: 767px) {
+  .nav>li>a {
+    padding: 10px 40px;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav>li {
+    margin-bottom: 0;
+  }
+  .nav>li>a {
+    margin-bottom: 0;
+  }
+  #ulsoNavbar {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+  #sitemap {
+    display: inline-block;
+  }
+}
+
+/* Text */
+
+p, li {
+  font-family: 'Raleway', sans-serif;
+  text-align: left;
+  line-height: 1.7;
+}
+
+p {
+  min-width: 200px;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+
+h1 {
+  font-family: 'Open Sans Condensed', serif;
+  font-size: 5rem;
+  font-weight: bold;
+  padding-bottom: 2rem;
+}
+
+#logo h1 {
+  text-align: center;
+  font-size: 2.5em;
+}
+
+h2 {
+  font-family: 'Open Sans Condensed', serif;
+  font-weight: bold;
+  color: #26A9E0;
+  padding-bottom: 1rem;
+}
+
+h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+  line-height: 1.7;
+}
+
+h3 {
+  font-size: 1.4em;
+  font-weight: 500;
+  padding-bottom: 1rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+.lower-roman {
+  list-style-type: lower-roman;
+}
+
+.caret {
+  color: #404041;
+}
+
+#committee-text h3, #committee-text h4, #committee-text a {
+  text-align: center;
+}
+
+.committee-email {
+  text-align: center;
+  align: center;
+}
+
+/* Images */
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 2em 0 2rem 0;
+}
+
+@media (min-width: 767px) {
+  body {
+    font-size: 13pt;
+  }
+  nav {
+    font-size: 11pt;
+  }
+  .body-photo {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+  }
+  .thumbnail {
+    margin-bottom: 5%;
+  }
+  .caret {
+    display: none;
+  }
+}
+
+.media-icon {
+  height: 3em;
+  width: auto;
+  display: inline-block;
+}
+
+#media-fb {
+  height: 3em;
+  width: 3em;
+  background-size: 100% 100%;
+  background-image: url(images/fb-white.png);
+}
+
+#media-fb:hover {
+  background-image: url(images/fb-blue.png);
+}
+
+#media-twitter {
+  height: 3em;
+  width: 3em;
+  background-size: 100% 100%;
+  background-image: url(images/twitter-white.png);
+}
+
+#media-twitter:hover {
+  background-image: url(images/twitter-blue.png);
+}
+
+#current-poster {
+  margin-bottom: 0;
+  margin-top: 3%;
+  max-height: 800px;
+}
+
+#alex-mcfarlane {
+  max-width: 75%;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.media-icon:hover {
+  /* background-color: blue; */
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+.inline-icon {
+  display: inline-block;
+  height: 1.2em;
+  padding-bottom: 1px;
+  margin: 0;
+}
+
+.cropped {
+  max-height: 300px;
+  overflow: hidden;
+  position: center;
+}
+
+#homebutton {
+  max-height: 100%;
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  #big-logo {
+    max-width: 55%;
+  }
+  #musicweb-quote h4 {
+    font-size: 12pt;
+    line-height: 1.7em;
+  }
+}
+
+@media (min-width: 767px) {
+  #big-logo {
+    max-width: 25%;
+  }
+  #big-title {
+    font-size: 43pt;
+  }
+  #musicweb-quote {
+    max-width: 40%;
+  }
+  #musicweb-quote h4 {
+    font-size: 14pt;
+    line-height: 1.7em;
+  }
+}
+
+.sub-committee p {
+  font-size: 11pt;
+  padding: 0 1.5em;
+}
+
+#chair-photo {
+  max-height: auto;
+  max-width: 60%;
+}
+
+.committee-photo {
+  max-height: 180px;
+  max-width: auto;
+}
+
+/* Buttons */
+
+.btn {
+  padding: 0.4em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: 2px solid #26A9E0;
+  background-color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.3em;
+  color: #26A9E0;
+}
+
+.large-btn {
+  min-width: 140px;
+  margin-bottom: 5%;
+}
+
+.accent {
+  color: #26A9E0;
+  background-color: #404041;
+  border: 3px solid #26A9E0;
+  font-weight: bold;
+}
+
+.contact-btn {
+  margin-top: 0;
+}
+
+/* Divs */
+
+.space-bot {
+  margin-bottom: 1em;
+}
+
+.space-top {
+  margin-top: 1em;
+}
+
+.button-box {
+  margin: 1em 0 1em 0;
+}
+
+.paragraph {
+  padding-bottom: 0.8em;
+}
+
+#social-media {
+  text-align: center;
+  padding-top: 1em;
+}
+
+#credits {
+  padding-top: 1em;
+}
+
+#chair {
+  display: block;
+  background-color: #ededed;
+  max-width: 700px;
+  padding: 0.5em 2.5em 2em 2.5em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+/* Accordion */
+
+.card-header {
+  border-bottom: 1px solid #404041;
+  margin-top: 2em;
+}
+
+.card-header a {
+  color: #26A9E0;
+  text-decoration: none;
+}
+
+#depping a, #subs a, #competition-structure a {
+  color: #404041;
+  font-size: 1em;
+}
+
+#tips-text, #past-winners-text {
+  border-bottom: 1px solid #404041;
+}
+
+.caret-active {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  transition: 0.5s;
+}
+
+.caret-inactive {
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  transition: 0.5s;
+}
+
+/* Specific Items */
+
+.divSpacer {
+  height: 50em;
+}
+
+div #blurb {
+  width: 80%;
+}
+
+footer p {
+  text-align: center;
+  font-size: 11pt;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  color: #26A9E0;
+}
+
+footer div {
+  padding-bottom: 1em;
+}

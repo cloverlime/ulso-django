@@ -1,62 +1,75 @@
 from django.db import models
 
+
+YEAR_LIST = (
+(1,1),
+(2,2),
+(3,3),
+(4,4),
+(5,5),
+(6,6),
+('N/A','N/A'),
+)
+
+INSTRUMENT_LIST = (
+('Flute', 'Flute'),
+('Clarinet', 'Clarinet'),
+('Oboe', 'Oboe'),
+('Bassoon','Bassoon'),
+('Horn', 'Horn'),
+('Trumpet', 'Trumpet'),
+('Trombone', 'Trombone'),
+('Tuba', 'Tuba'),
+('Violin', 'Violin'),
+('Viola', 'Viola'),
+('Cello', 'Cello'),
+('Bass', 'Bass'),
+('Timpani & Percussion', 'Timpani & Percussion'),
+('Harp','Harp'),
+)
+
+UNI_LIST = (
+('RCM', 'Royal College of Music'),
+('RAM', 'Royal Academy of Music'),
+('Trinity', 'Trinity Laban Conservatoire'),
+('GSMD', 'Guildhall School of Music and Drama'),
+('KCL', 'King\'s College London'),
+('UCL', 'University College London'),
+('ICL', 'Imperial College London'),
+('LSE', 'London School of Economics'),
+('RVC', 'Royal Veterinary College'),
+('SOAS', 'SOAS'),
+('RH', 'Royal Holloway'),
+('City', 'City, University of London'),
+('Goldsmiths', 'Goldsmiths, University of London'),
+('LSHTM', 'London School of Hygiene and Tropical Medicine'),
+('BK', 'Birkbeck'),
+('QMUL', 'Queen Mary University of London'),
+('Graduate', 'Graduate'),
+('Other', 'Other'),
+)
+
 class Musician(models.Model):
+    def __str__(self):
+        return self.name
 
-    # YEAR_LIST = ('1','2','3','4','5','6', 'N/A')
-
-    INSTRUMENT_LIST = (
-    ('Flute', 'Flute'),
-    ('Clarinet', 'Clarinet'),
-    ('Oboe', 'Oboe'),
-    ('Bassoon','Bassoon'),
-    ('Horn', 'Horn'),
-    ('Trumpet', 'Trumpet'),
-    ('Trombone', 'Trombone'),
-    ('Tuba', 'Tuba'),
-    ('Violin', 'Violin'),
-    ('Viola', 'Viola'),
-    ('Cello', 'Cello'),
-    ('Bass', 'Bass'),
-    ('Timpani & Percussion', 'Timpani & Percussion'),
-    ('Harp','Harp'),
-    )
-
-    UNI_LIST = (
-    ('RCM', 'Royal College of Music'),
-    ('RAM', 'Royal Academy of Music'),
-    ('Trinity', 'Trinity Laban Conservatoire'),
-    ('GSMD', 'Guildhall School of Music and Drama'),
-    ('KCL', 'King\'s College London'),
-    ('UCL', 'University College London'),
-    ('ICL', 'Imperial College London'),
-    ('LSE', 'London School of Economics'),
-    ('RVC', 'Royal Veterinary College'),
-    ('SOAS', 'SOAS'),
-    ('RH', 'Royal Holloway'),
-    ('City', 'City, University of London'),
-    ('Goldsmiths', 'Goldsmiths, University of London'),
-    ('LSHTM', 'London School of Hygiene and Tropical Medicine'),
-    ('BK', 'Birkbeck'),
-    ('QMUL', 'Queen Mary University of London'),
-    ('Other', 'Other university'),
-    ('Graduate', 'Graduate'),
-    )
-
-    date = models.DateTimeField('date entered')
+    # date = models.DateTimeField('date entered')
+    season = models.CharField(max_length=10, blank=True, help_text="Academic year currently or last registered e.g. 2017/18")
     name = models.CharField(max_length=50)
-    alias = models.CharField(max_length=50, default=None) # optional
+    alias = models.CharField(max_length=50, default=None, blank=True) # optional
     email = models.EmailField(max_length=100)
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_LIST)
-    doubling = models.CharField(max_length=50, default=None) # optional
-
+    doubling = models.CharField(max_length=50, default=None, blank=True) # optional
     uni = models.CharField(max_length=1, choices=UNI_LIST)
-    other_uni = models.CharField(max_length=50, default=None)
-    # year = models.CharField(max_length=1, choices=YEAR_LIST)
+    other_uni = models.CharField(max_length=50, default=None, blank=True)
+    year = models.CharField(max_length=1, choices=YEAR_LIST, blank=True)
+    experience = models.TextField(default='Briefly summarise your recent orchestral experience')
     returning_member = models.BooleanField(default=False)
-
     subs_paid = models.BooleanField(default=False)
 
 class Conductor(models.Model):
+    def __str__(self):
+        return self.name
     name = models.CharField(max_length=50)
     website = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
@@ -64,3 +77,15 @@ class Conductor(models.Model):
     rate_per_hour = models.IntegerField()
     rate_concert_day = models.IntegerField()
     favourite = models.BooleanField(default=False)
+
+
+class ConcertoApplicant(models.Model):
+    # date = models.DateTimeField('date submitted')
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    instrument = models.CharField(max_length=1, choices=INSTRUMENT_LIST)
+    uni = models.CharField(max_length=1, choices=UNI_LIST)
+    other_uni = models.CharField(max_length=50, default=None, blank=True)
+    year = models.CharField(max_length=1, choices=YEAR_LIST)
+    pieces = models.TextField()
+    years_ulso_member = models.CharField(max_length=30)
