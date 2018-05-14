@@ -1,21 +1,22 @@
 from django.db import models
+from django.utils import timezone
 
 # Useful data
 DEFAULT_VENUE = "St. Stephen's Church, Gloucester Road, SW7 4RL"
 
-# General models
-
 class Concert(models.Model):
     def __str__(self):
-        return self.season + ' ' + str(self.concert_date)
+        return self.project_term + ' ' + str(self.concert_date)
     current = models.BooleanField(default=False)
-    season = models.CharField(max_length=100)
-    concert_date = models.DateTimeField('concert date')
+    project_term = models.CharField(max_length=30, help_text="e.g. Autumn, Winter, Spring, Summer 1, Summer 2")
+    start_time = models.TimeField(help_text="Start time of concert", default='19:00:00')
+    concert_date = models.DateField('concert date')
     conductor = models.CharField(max_length=100)
     conductor_website = models.CharField(max_length=300, blank=True)
     soloist = models.CharField(max_length=100, blank=True)
     soloist_website = models.CharField(max_length=300, blank=True)
     concert_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
+
 
 class Piece(models.Model):
     def __str__(self):

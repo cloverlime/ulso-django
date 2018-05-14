@@ -1,4 +1,4 @@
-import unittest
+import unittest # is this needed?
 # from mock import Mock, MagicMock, patch
 
 from django.test import TestCase
