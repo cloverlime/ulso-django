@@ -1,6 +1,5 @@
 from django.db import models
 
-
 YEAR_LIST = (
 (1,1),
 (2,2),
@@ -49,43 +48,61 @@ UNI_LIST = (
 ('Other', 'Other'),
 )
 
-class Musician(models.Model):
+class Person(models.Model):
     def __str__(self):
-        return self.name
-
-    # date = models.DateTimeField('date entered')
-    season = models.CharField(max_length=10, blank=True, help_text="Academic year currently or last registered e.g. 2017/18")
-    name = models.CharField(max_length=50)
+        return '{} {} ({})'.format(self.first_name, self.last_name, self.instrument)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     alias = models.CharField(max_length=50, default=None, blank=True) # optional
     email = models.EmailField(max_length=100)
     instrument = models.CharField(max_length=1, choices=INSTRUMENT_LIST)
     doubling = models.CharField(max_length=50, default=None, blank=True) # optional
     uni = models.CharField(max_length=1, choices=UNI_LIST)
     other_uni = models.CharField(max_length=50, default=None, blank=True)
+
+    class Meta:
+        abstract = True
+        ordering = ['instrument']
+
+class Musician(Person):
+    # date = models.DateTimeField('date entered')
+    member = models.BooleanField(default=False, help_text="Admitted to ULSO y/n")
+    season = models.CharField(max_length=10, blank=True, help_text="Academic year currently or last registered e.g. 2017/18")
     year = models.CharField(max_length=1, choices=YEAR_LIST, blank=True)
     experience = models.TextField(default='Briefly summarise your recent orchestral experience')
     returning_member = models.BooleanField(default=False)
     subs_paid = models.BooleanField(default=False)
 
+
+class ConcertoApplicant(Person):
+    # date = models.DateTimeField('date submitted')
+    year = models.CharField(max_length=1, choices=YEAR_LIST)
+    pieces = models.TextField()
+    years_ulso_member = models.CharField(max_length=30)
+    notes = models.TextField(blank=True)
+
+
+class CommitteeMember(Person):
+    def __str__(self):
+        return '{}({} {}) - {}'.format(self.role,
+                                       self.first_name,
+                                       self.last_name,
+                                       self.season)
+    season = models.CharField(max_length=10, default='2017/18', help_text='Format yyyy/yy')
+    role = models.CharField(max_length=100)
+    role_description = models.CharField(max_length=1000, help_text="Description provided by personally by the committee member")
+
+    class Meta(Person.Meta):
+        ordering = []
+
 class Conductor(models.Model):
     def __str__(self):
         return self.name
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     website = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100) # change this
     rate_per_hour = models.IntegerField()
     rate_concert_day = models.IntegerField()
-    favourite = models.BooleanField(default=False)
-
-
-class ConcertoApplicant(models.Model):
-    # date = models.DateTimeField('date submitted')
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
-    instrument = models.CharField(max_length=1, choices=INSTRUMENT_LIST)
-    uni = models.CharField(max_length=1, choices=UNI_LIST)
-    other_uni = models.CharField(max_length=50, default=None, blank=True)
-    year = models.CharField(max_length=1, choices=YEAR_LIST)
-    pieces = models.TextField()
-    years_ulso_member = models.CharField(max_length=30)
+    notes = models.TextField()

@@ -13,8 +13,6 @@ from .models import (
                         ConcertoWinner,
                         )
 
-# from ulso_admin.models import Musician
-
 def index(request):
     return HttpResponse("Here is the Index page")
 

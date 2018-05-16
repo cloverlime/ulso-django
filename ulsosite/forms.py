@@ -2,12 +2,12 @@ from django import forms
 from django.db import models
 from django.forms import ModelForm
 
-from ulso_admin.models import Musician, ConcertoApplicant
+from ulsosite.models import Musician, ConcertoApplicant
 
 class SignUp(ModelForm):
     class Meta:
         model = Musician
-        fields = ['name', 'email', 'instrument', 'doubling', 'uni', 'other_uni', 'experience', 'returning_member']
+        fields = ['first_name', 'last_name', 'email', 'instrument', 'doubling', 'uni', 'other_uni', 'experience', 'returning_member']
 
 class ConcertoForm(ModelForm):
     class Meta:

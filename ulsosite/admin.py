@@ -7,6 +7,7 @@ from .models import (
                         Rehearsal,
                         CommitteeMember,
                         ConcertoWinner,
+                        Conductor
                         )
 
 from .models_cms import (
@@ -18,18 +19,27 @@ from .models_cms import (
 # Register your models here.
 
 class PiecesInline(admin.TabularInline):
-    model = Piece
+    model = Piece.concert.through
     extra = 1
 
+class RehearsalInline(admin.TabularInline):
+    model = Rehearsal
+    extra = 0
+
 class ConcertAdmin(admin.ModelAdmin):
-    fields = ['current', 'project_term', 'start_time', 'concert_date', 'conductor', 'conductor_website', 'soloist', 'soloist_website','concert_venue']
+    fields = ['current', 'project_term', 'start_time', 'concert_date', 'conductor', 'soloist', 'soloist_website','concert_venue']
+    inlines = [PiecesInline, RehearsalInline]
+
+class PieceAdmin(admin.ModelAdmin):
     inlines = [PiecesInline]
+    exclude = ('concert',)
 
 admin.site.register(Concert, ConcertAdmin)
-admin.site.register(Piece)
-admin.site.register(Rehearsal)
+admin.site.register(Piece, PieceAdmin)
+# admin.site.register(Rehearsal)
 admin.site.register(CommitteeMember)
 admin.site.register(ConcertoWinner)
+admin.site.register(Conductor)
 
 
 class SubsectionInline(nested_admin.NestedStackedInline):
@@ -50,5 +60,5 @@ class PageAdmin(nested_admin.NestedModelAdmin):
 #     inlines = [SubsectionInline]
 
 admin.site.register(Page, PageAdmin)
-admin.site.register(Section)
-admin.site.register(Subsection)
+# admin.site.register(Section)
+# admin.site.register(Subsection)
