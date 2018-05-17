@@ -1,13 +1,18 @@
 from django.contrib import admin
 import nested_admin
 
+from ulso_admin.models import (
+                        Musician,
+                        Conductor,
+                        ConcertoApplicant,
+                        CommitteeMember,
+                        ConcertoWinner,
+                        )
+
 from .models import (
                         Concert,
                         Piece,
                         Rehearsal,
-                        CommitteeMember,
-                        ConcertoWinner,
-                        Conductor
                         )
 
 from .models_cms import (
@@ -36,11 +41,7 @@ class PieceAdmin(admin.ModelAdmin):
 
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)
-# admin.site.register(Rehearsal)
-admin.site.register(CommitteeMember)
-admin.site.register(ConcertoWinner)
-admin.site.register(Conductor)
-
+admin.site.register(Rehearsal)
 
 class SubsectionInline(nested_admin.NestedStackedInline):
     model = Subsection

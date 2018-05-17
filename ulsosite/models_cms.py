@@ -4,14 +4,14 @@ class Page(models.Model):
     def __str__(self):
         return self.h1_title
     h1_title = models.CharField(max_length=50)
-    main_description = models.TextField()
+    main_description = models.TextField(blank=True)
 
 class Section(models.Model):
     def __str__(self):
         return self.h2_title
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
     h2_title = models.CharField(max_length=100)
-    section_description = models.TextField()
+    section_description = models.TextField(blank=True)
 
 class Subsection(models.Model):
     def __str__(self):

@@ -9,6 +9,9 @@ from .models import (
                         Concert,
                         Piece,
                         Rehearsal,
+                        )
+
+from ulso_admin.models import (
                         CommitteeMember,
                         ConcertoWinner,
                         )

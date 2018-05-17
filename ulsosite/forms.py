@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 from django.forms import ModelForm
 
-from ulsosite.models import Musician, ConcertoApplicant
+from ulso_admin.models import Musician, ConcertoApplicant
 
 class SignUp(ModelForm):
     class Meta:

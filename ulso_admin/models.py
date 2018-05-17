@@ -1,52 +1,9 @@
 from django.db import models
 
-YEAR_LIST = (
-(1,1),
-(2,2),
-(3,3),
-(4,4),
-(5,5),
-(6,6),
-('N/A','N/A'),
-)
-
-INSTRUMENT_LIST = (
-('Flute', 'Flute'),
-('Clarinet', 'Clarinet'),
-('Oboe', 'Oboe'),
-('Bassoon','Bassoon'),
-('Horn', 'Horn'),
-('Trumpet', 'Trumpet'),
-('Trombone', 'Trombone'),
-('Tuba', 'Tuba'),
-('Violin', 'Violin'),
-('Viola', 'Viola'),
-('Cello', 'Cello'),
-('Bass', 'Bass'),
-('Timpani & Percussion', 'Timpani & Percussion'),
-('Harp','Harp'),
-)
-
-UNI_LIST = (
-('RCM', 'Royal College of Music'),
-('RAM', 'Royal Academy of Music'),
-('Trinity', 'Trinity Laban Conservatoire'),
-('GSMD', 'Guildhall School of Music and Drama'),
-('KCL', 'King\'s College London'),
-('UCL', 'University College London'),
-('ICL', 'Imperial College London'),
-('LSE', 'London School of Economics'),
-('RVC', 'Royal Veterinary College'),
-('SOAS', 'SOAS'),
-('RH', 'Royal Holloway'),
-('City', 'City, University of London'),
-('Goldsmiths', 'Goldsmiths, University of London'),
-('LSHTM', 'London School of Hygiene and Tropical Medicine'),
-('BK', 'Birkbeck'),
-('QMUL', 'Queen Mary University of London'),
-('Graduate', 'Graduate'),
-('Other', 'Other'),
-)
+from ulsosite.info import (INSTRUMENT_LIST,
+                   YEAR_LIST,
+                   UNI_LIST,
+                   DEFAULT_VENUE)
 
 class Person(models.Model):
     def __str__(self):
@@ -68,7 +25,7 @@ class Musician(Person):
     # date = models.DateTimeField('date entered')
     member = models.BooleanField(default=False, help_text="Admitted to ULSO y/n")
     season = models.CharField(max_length=10, blank=True, help_text="Academic year currently or last registered e.g. 2017/18")
-    year = models.CharField(max_length=1, choices=YEAR_LIST, blank=True)
+    year = models.CharField(max_length=1, choices=YEAR_LIST)
     experience = models.TextField(default='Briefly summarise your recent orchestral experience')
     returning_member = models.BooleanField(default=False)
     subs_paid = models.BooleanField(default=False)
@@ -78,8 +35,13 @@ class ConcertoApplicant(Person):
     # date = models.DateTimeField('date submitted')
     year = models.CharField(max_length=1, choices=YEAR_LIST)
     pieces = models.TextField()
-    years_ulso_member = models.CharField(max_length=30)
+    years_ulso_member = models.CharField(max_length=50)
     notes = models.TextField(blank=True)
+    second_round = models.BooleanField(blank=True, default=False)
+
+class ConcertoWinner(Person):
+    website = models.CharField(max_length=300)
+    biography = models.TextField()
 
 
 class CommitteeMember(Person):
@@ -95,14 +57,15 @@ class CommitteeMember(Person):
     class Meta(Person.Meta):
         ordering = []
 
+
 class Conductor(models.Model):
     def __str__(self):
-        return self.name
+        return '{} {}'.format(self.first_name, self.last_name)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    website = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    phone = models.CharField(max_length=100) # change this
-    rate_per_hour = models.IntegerField()
-    rate_concert_day = models.IntegerField()
-    notes = models.TextField()
+    website = models.CharField(max_length=100, blank=True)
+    email = models.EmailField(max_length=100, blank=True, help_text='This field is not required to facilitate quick fill-in. However, it is highly advised for you fill this in ASAP.')
+    phone = models.CharField(max_length=15, blank=True) # change this
+    rate_per_rehearsal = models.IntegerField(default=125, help_text="Fee charged per 3 hour rehearsal.")
+    rate_concert_day = models.IntegerField(default=500, help_text="If only the price of the entire project was agreed, put zero per rehearsal and enter the entire fee here")
+    notes = models.TextField(blank=True)
