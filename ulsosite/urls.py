@@ -1,6 +1,7 @@
 from django.urls import path
 
-from . import views
+from ulsosite import views
+from ulsosite.views import SignUp, ConcertoSignUp
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -9,5 +10,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('concerto/', views.concerto, name='concerto'),
     path('auditions/', views.auditions, name='auditions'),
-    path('signup/', views.signup, name='signup')
+    path('auditions/signup/', SignUp.as_view(), name='signup'),
+    path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
 ]

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMessage, BadHeaderError
 from django.urls import reverse
+from django.views import View
 
 from .forms import SignUp, ContactForm, ConcertoForm
 
@@ -85,14 +86,35 @@ def contact(request):
 def concerto(request):
     return HttpResponse("Here is the page for the concerto competition")
 
-def signup(request):
-    form = SignUp()
-    context = {'form': form}
-    return render(request, 'ulsosite/signup.html', context)
-    # return HttpResponse("Here is the page for signing up for an audition")
+# def signup(request):
+#     form = SignUp()
+#     context = {'form': form}
+#     return render(request, 'ulsosite/signup.html', context)
+#     # return HttpResponse("Here is the page for signing up for an audition")
 
-def signup_success(request):
-    return HttpResponse("Thank you for signing up. We will get back to you soon.")
+class SignUp(View):
+    form_class = SignUp
+    form_template = 'ulsosite/signup.html'
+    success_template = 'ulsosite/signup-success.html'
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        context = { 'form': form }
+        return render(request, self.form_template , context)
+
+    def post(self, request, *args, **kwargs):
+        # Create a form instance and populate it with data from the request (binding):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, self.success_template)
+        else:
+            return HttpResponse("Form wasn't valid")    
+
+class ConcertoSignUp(SignUp):
+    form_class = ConcertoForm
+
+# def signup_success(request):
+#     return HttpResponse("Thank you for signing up. We will get back to you soon.")
 
 
 def auditions(request):

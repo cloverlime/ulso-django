@@ -6,19 +6,22 @@ from ulso_admin.models import (
                         Conductor,
                         ConcertoApplicant,
                         CommitteeMember,
+                        ConcertoWinner
                         )
 
 from ulsosite.models import Concert, Piece, Rehearsal
 
-# class Orchestration(model.ModelAdmin):
-#     pass
-#
+class MusicianAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'instrument', 'status', 'subs_paid')
 
+class CommitteeMemberAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'role', 'email', 'season')
 
+class ConductorAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'email', 'phone')
 
-admin.site.register(CommitteeMember)
-admin.site.register(Conductor)
-admin.site.register(Musician)
+admin.site.register(CommitteeMember, CommitteeMemberAdmin)
+admin.site.register(Conductor, ConductorAdmin)
+admin.site.register(Musician, MusicianAdmin)
+admin.site.register(ConcertoWinner)
 admin.site.register(ConcertoApplicant)
-# admin.site.register(Piece)
-# admin.site.register(Orchestration)

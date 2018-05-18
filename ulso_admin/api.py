@@ -12,7 +12,7 @@ from .models import (
 
 from ulsosite.models import (
                         Concert,
-                        # Piece,
+                        Piece,
                         Rehearsal,
                         )
 
@@ -28,3 +28,15 @@ class ConcertResource(ModelResource):
         queryset = Concert.objects.all()
         resource_name = 'concerts'
         excludes = ['id', 'current']
+
+class OrchestrationResource(ModelResource):
+    class Meta:
+        queryset = Piece.objects.all()
+        resource_name = 'orchestrations'
+        excludes = ['id']
+
+class PieceResource(ModelResource):
+    class Meta:
+        queryset = Piece.objects.all()
+        resource_name = 'pieces'
+        includes = ['composer', 'piece']

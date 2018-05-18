@@ -2,19 +2,12 @@
 
 {% block content %}
 
-<h1>Audition Sign-Up</h1>
+<h1>{{ form.title }}</h1>
 
-<form>
-{{ form }}
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form }}
+ <input type="submit" value="Submit" />
 </form>
-
-
-
-
-
-
-
-
-
 
 {% endblock %}

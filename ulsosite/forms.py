@@ -5,14 +5,17 @@ from django.forms import ModelForm
 from ulso_admin.models import Musician, ConcertoApplicant
 
 class SignUp(ModelForm):
+    title = "Audition Sign-Up"
     class Meta:
         model = Musician
-        fields = ['first_name', 'last_name', 'email', 'instrument', 'doubling', 'uni', 'other_uni', 'experience', 'returning_member']
+        exclude = ['status', 'subs_paid']
+
 
 class ConcertoForm(ModelForm):
+    title = "Concerto Competition Sign-Up"
     class Meta:
         model = ConcertoApplicant
-        fields = '__all__'
+        exclude = ['alias', 'second_round']
 
 class ContactForm(forms.Form):
     EMAIL_TOPIC_CHOICES = (

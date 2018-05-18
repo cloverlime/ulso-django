@@ -29,23 +29,72 @@ class Piece(models.Model):
         return '{} - {}'.format(self.composer, self.piece)
 
     def __repr__(self):
-        return '{} - {}'.format(self.composer, self.piece)
+        return """{} - {}, {} mins,
+            Wind: {}.{}.{}.{}
+            Brass: {}.{}.{}.{}
+            Strings: {}.{}.{}.{}
+            Timps: {}
+            Perc: {}
+            Harps: {}
+            Notes: {}
+                   {}
+                   {}
+                   {}
+        """.format(self.composer,
+                    self.piece,
+                    self.flutes,
+                    self.clarinets,
+                    self.oboes,
+                    self.bassoons,
+                    self.horns,
+                    self.trumpets,
+                    self.trombones,
+                    self.tubas,
+                    self.violin_1,
+                    self.violin_2,
+                    self.violas,
+                    self.cellos,
+                    self.basses,
+                    self.timps,
+                    self.percussionists,
+                    self.harps,
+                    self.wind_notes,
+                    self.brass_notes,
+                    self.strings_notes,
+                    self.other,
+                    )
+
+    def return_orchestration(self):
+        return self.__repr__
 
     concert = models.ManyToManyField(Concert, blank=True)
     composer = models.CharField(max_length=20, help_text='Surname only')
     piece = models.CharField(max_length=200)
     order = models.IntegerField(blank=True, help_text='The order of the piece in the concert e.g. 1')
-    notes = models.CharField(max_length=200, blank=True, help_text='Give any particular details e.g. "needs 3 contrabassoons"')
 
-    duration = models.IntegerField(blank=True, help_text="Length in minutes")
-    wind = models.CharField(blank=True, max_length=10, help_text="e.g. 3.4.3.3 for flutes.clarinets.oboes.bassoons")
-    brass = models.CharField(blank=True, max_length=10, help_text="e.g. 4.2.2.0 for horns.trumpets.trombones.tubas")
-    strings = models.CharField(blank=True, max_length=10, help_text="e.g. 10.8.6.5.3 for vln1.vln2.vla.vc.bass")
-    harps = models.IntegerField(default=0, help_text="Number of harps")
+    duration = models.IntegerField(blank=True, null=True, default=0, help_text="Length in minutes")
+    flutes = models.IntegerField(blank=True, null=True)
+    clarinets = models.IntegerField(blank=True, null=True)
+    oboes = models.IntegerField(blank=True, null=True)
+    bassoons = models.IntegerField(blank=True, null=True)
+    wind_notes = models.CharField(blank=True, max_length=200, help_text='e.g. alto, picc, contra requirements')
+    horns = models.IntegerField(blank=True, null=True)
+    trumpets = models.IntegerField(blank=True, null=True)
+    trombones = models.IntegerField(blank=True, null=True)
+    tubas = models.IntegerField(blank=True, null=True)
+    brass_notes = models.CharField(blank=True, max_length=200)
+
+    violin_1 = models.IntegerField('First violins', blank=True, null=True)
+    violin_2 = models.IntegerField('Second violins', blank=True, null=True)
+    violas = models.IntegerField(blank=True, null=True)
+    cellos = models.IntegerField(blank=True, null=True)
+    basses = models.IntegerField('Double basses', blank=True, null=True)
+    strings_notes = models.CharField(blank=True, max_length=200)
+
+    harps = models.IntegerField(blank=True, help_text="Number of harps", null=True)
     timps = models.BooleanField(blank=True, default=True)
-    percussionists = models.IntegerField(blank=True, default=3, help_text="Number of percussionists requried")
-    percussion_equipment = models.CharField(max_length=300, blank=True, help_text="Brief description of percussion equipment required")
-    other = models.TextField(blank=True)
+    percussionists = models.IntegerField(blank=True, default=3, help_text="Number of percussionists requried", null=True)
+    other = models.TextField(blank=True, help_text="Equipment notes")
 
 class Rehearsal(models.Model):
     def __str__(self):
@@ -56,17 +105,3 @@ class Rehearsal(models.Model):
     end_time = models.TimeField(default='22:00:00')
     rehearsal_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
     notes = models.CharField(max_length=400, blank=True)
-
-
-# Managers and QuerySets
-
-# class MemberQuerySet(models.QuerySet):
-#     def members(self):
-#         return self.filter(member=True)
-#
-# class InstrumentQuerySet(models.QuerySet):
-#     def instrument(self, instrument):
-#         return self.filter(instrument=instrument)
-#
-# class MusicnaManager(models.Manager)
-#

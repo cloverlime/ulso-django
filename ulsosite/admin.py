@@ -40,14 +40,27 @@ class PieceAdmin(admin.ModelAdmin):
     fieldsets = [
     (None, { 'fields': ['composer', 'piece','order']}),
     ('Orchestration', {'fields': ['duration',
-                                    'wind',
-                                    'brass',
-                                    'timps',
-                                    'percussionists',
-                                    'percussion_equipment',
-                                    'other'],
-                        'classes': ['collapse']}),
-                        ]
+                                  ('flutes',
+                                  'clarinets',
+                                  'oboes',
+                                  'bassoons'),
+                                  'wind_notes',
+                                  ('horns',
+                                  'trumpets',
+                                  'trombones',
+                                  'tubas'),
+                                  'brass_notes',
+                                  ('violin_1',
+                                  'violin_2',
+                                  'violas',
+                                  'cellos',
+                                  'basses'),
+                                  'strings_notes',
+                                  'harps',
+                                  'timps',
+                                  'percussionists',
+                                  'other'],
+                                  }),]
     inlines = [PiecesInline]
     exclude = ('concert',)
 
