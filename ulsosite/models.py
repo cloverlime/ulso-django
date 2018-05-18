@@ -9,7 +9,6 @@ from .info import (INSTRUMENT_LIST,
 
 from ulso_admin.models import Conductor
 
-
 # Project/Concerts
 
 class Concert(models.Model):
@@ -28,11 +27,25 @@ class Concert(models.Model):
 class Piece(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.composer, self.piece)
+
+    def __repr__(self):
+        return '{} - {}'.format(self.composer, self.piece)
+
     concert = models.ManyToManyField(Concert, blank=True)
     composer = models.CharField(max_length=20, help_text='Surname only')
     piece = models.CharField(max_length=200)
     order = models.IntegerField(blank=True, help_text='The order of the piece in the concert e.g. 1')
     notes = models.CharField(max_length=200, blank=True, help_text='Give any particular details e.g. "needs 3 contrabassoons"')
+
+    duration = models.IntegerField(blank=True, help_text="Length in minutes")
+    wind = models.CharField(blank=True, max_length=10, help_text="e.g. 3.4.3.3 for flutes.clarinets.oboes.bassoons")
+    brass = models.CharField(blank=True, max_length=10, help_text="e.g. 4.2.2.0 for horns.trumpets.trombones.tubas")
+    strings = models.CharField(blank=True, max_length=10, help_text="e.g. 10.8.6.5.3 for vln1.vln2.vla.vc.bass")
+    harps = models.IntegerField(default=0, help_text="Number of harps")
+    timps = models.BooleanField(blank=True, default=True)
+    percussionists = models.IntegerField(blank=True, default=3, help_text="Number of percussionists requried")
+    percussion_equipment = models.CharField(max_length=300, blank=True, help_text="Brief description of percussion equipment required")
+    other = models.TextField(blank=True)
 
 class Rehearsal(models.Model):
     def __str__(self):
@@ -43,6 +56,7 @@ class Rehearsal(models.Model):
     end_time = models.TimeField(default='22:00:00')
     rehearsal_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
     notes = models.CharField(max_length=400, blank=True)
+
 
 # Managers and QuerySets
 

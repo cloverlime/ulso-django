@@ -21,11 +21,12 @@ from .models_cms import (
                         Subsection,
                         )
 
-# Register your models here.
+
 
 class PiecesInline(admin.TabularInline):
     model = Piece.concert.through
     extra = 1
+
 
 class RehearsalInline(admin.TabularInline):
     model = Rehearsal
@@ -36,8 +37,29 @@ class ConcertAdmin(admin.ModelAdmin):
     inlines = [PiecesInline, RehearsalInline]
 
 class PieceAdmin(admin.ModelAdmin):
+    fieldsets = [
+    (None, { 'fields': ['composer', 'piece','order']}),
+    ('Orchestration', {'fields': ['duration',
+                                    'wind',
+                                    'brass',
+                                    'timps',
+                                    'percussionists',
+                                    'percussion_equipment',
+                                    'other'],
+                        'classes': ['collapse']}),
+                        ]
     inlines = [PiecesInline]
     exclude = ('concert',)
+
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,               {'fields': ['question_text']}),
+        ('Date information', {'fields': ['pub_date']}),
+    ]
+
+
 
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)

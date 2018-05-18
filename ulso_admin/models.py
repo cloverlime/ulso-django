@@ -3,7 +3,9 @@ from django.db import models
 from ulsosite.info import (INSTRUMENT_LIST,
                    YEAR_LIST,
                    UNI_LIST,
-                   DEFAULT_VENUE)
+                   DEFAULT_VENUE
+                   )
+
 
 class Person(models.Model):
     def __str__(self):
@@ -39,6 +41,7 @@ class ConcertoApplicant(Person):
     notes = models.TextField(blank=True)
     second_round = models.BooleanField(blank=True, default=False)
 
+
 class ConcertoWinner(Person):
     website = models.CharField(max_length=300)
     biography = models.TextField()
@@ -69,3 +72,14 @@ class Conductor(models.Model):
     rate_per_rehearsal = models.IntegerField(default=125, help_text="Fee charged per 3 hour rehearsal.")
     rate_concert_day = models.IntegerField(default=500, help_text="If only the price of the entire project was agreed, put zero per rehearsal and enter the entire fee here")
     notes = models.TextField(blank=True)
+
+# class Orchestration(models.Model):
+#     duration = models.IntegerField(blank=True, help_text="Length in minutes")
+#     wind = models.CharField(blank=True, max_length=10, help_text="e.g. 3.4.3.3 for flutes.clarinets.oboes.bassoons")
+#     brass = models.CharField(blank=True, max_length=10, help_text="e.g. 4.2.2.0 for horns.trumpets.trombones.tubas")
+#     strings = models.CharField(blank=True, max_length=10, help_text="e.g. 10.8.6.5.3 for vln1.vln2.vla.vc.bass")
+#     harps = models.IntegerField(blank=True, default=0, help_text="Number of harps")
+#     timps = models.BooleanField(blank=True, default=True)
+#     percussionists = models.IntegerField(blank=True, default=3, help_text="Number of percussionists requried")
+#     percussion_equipment = models.CharField(max_length=300, blank=True, help_text="Brief description of percussion equipment required")
+#     other = models.TextField(blank=True)
