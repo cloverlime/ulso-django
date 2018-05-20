@@ -8,9 +8,11 @@ Admin Site
 As **Chair**, I would like to:
 
 * easily create mailing lists for specific groups of people, e.g by:
+
     * committee
     * members
     * players per project
+
 * have contact details of conductors handy
 * be able to check important information about all aspects of ULSO
 * tweak website contents without danger of breaking anything
@@ -19,15 +21,19 @@ As **Orchestral Manager**, I would like to:
 
 * easily see check the orchestration for pieces
 * access player databases sorted by player status
+
     * member
     * reserve
     * contact list
     * rejected
+
 * create concert-specific player lists
 * easily create mailing lists for specific groups of players, e.g by:
+
     * audition results
     * project
     * section
+
 
 As **Treasurer**, I would like to:
 
