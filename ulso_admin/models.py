@@ -35,6 +35,7 @@ class Musician(Person):
     experience = models.TextField(default='Briefly summarise your recent orchestral experience')
     returning_member = models.BooleanField(default=False)
     subs_paid = models.BooleanField(default=False)
+    share_details = models.BooleanField('Allow your details to be passed to other London orchestras', default=False, help_text='Please check this box if you grant ULSO permission to pass your contact details to other London orchestras who approach us for recruitment. We will also occasionally advertise vacencies in other orchestras. In these cases, you may choose to contact the orchestra directly.')
     def __repr__(self):
         return '{} {} ({})'.format(self.first_name, self.last_name, self.instrument)
 
