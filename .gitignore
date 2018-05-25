@@ -1,4 +1,7 @@
 *.pyc
+*.db
 .idea/
 __pycache__/
 tastypie/
+settings.py
+wsgi.py

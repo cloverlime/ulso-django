@@ -4,11 +4,11 @@ from django.forms import ModelForm
 
 from ulso_admin.models import Musician, ConcertoApplicant
 
-class SignUp(ModelForm):
-    title = "Audition Sign-Up"
-    class Meta:
-        model = Musician
-        exclude = ['status', 'subs_paid']
+# class SignUp(ModelForm):
+#     title = "Audition Sign-Up"
+#     class Meta:
+#         model = AuditionApplicant
+#         exclude = ['status', 'subs_paid', 'alias', 'season']
 
 
 class ConcertoForm(ModelForm):

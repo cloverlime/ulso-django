@@ -5,6 +5,7 @@ from ulsosite.info import (INSTRUMENT_LIST,
                    UNI_LIST,
                    DEFAULT_VENUE,
                    MEMBERSHIP_STATUS,
+                   AUDITION_DATES,
                    )
 
 
@@ -39,6 +40,11 @@ class Musician(Person):
 
     def __repr__(self):
         return '{} {} ({})'.format(self.first_name, self.last_name, self.instrument)
+
+
+class AuditionApplicant(Musician):
+    audition_date = models.CharField(max_length=30, choices=AUDITION_DATES, blank=True)
+    audition_time = models.CharField(max_length=30, choices=AUDITION_TIMES, blank=True)
 
 
 class ConcertoApplicant(Person):

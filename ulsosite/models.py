@@ -2,10 +2,14 @@ from django.db import models
 from django.utils import timezone
 from django.db import models
 
-from .info import (INSTRUMENT_LIST,
+from .info import (
+                   INSTRUMENT_LIST,
                    YEAR_LIST,
                    UNI_LIST,
-                   DEFAULT_VENUE)
+                   DEFAULT_VENUE,
+                   # AUDITION_DATES,
+                   # AUDITION_TIMES,
+                   )
 
 from ulso_admin.models import Conductor
 
@@ -72,7 +76,7 @@ class Piece(models.Model):
     piece = models.CharField(max_length=200)
     order = models.IntegerField(blank=True, help_text='The order of the piece in the concert e.g. 1')
 
-    duration = models.IntegerField(blank=True, null=True, default=0, help_text="Length in minutes")
+    duration = models.IntegerField(default=0, help_text="Length in minutes",blank=True, null=True)
     flutes = models.IntegerField(blank=True, null=True)
     clarinets = models.IntegerField(blank=True, null=True)
     oboes = models.IntegerField(blank=True, null=True)
