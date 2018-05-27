@@ -14,16 +14,16 @@ from . import views
 
 # API resources
 
-conductors = ConductorResource()
+# conductors = ConductorResource()
 
-v1_api = Api(api_name='v1')
-v1_api.register(ConductorResource())
-v1_api.register(ConcertResource())
-v1_api.register(OrchestrationResource())
-v1_api.register(PieceResource())
+# v1_api = Api(api_name='v1')
+# v1_api.register(ConductorResource())
+# v1_api.register(ConcertResource())
+# v1_api.register(OrchestrationResource())
+# v1_api.register(PieceResource())
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('api/', include(v1_api.urls)),
+    # path('api/', include(v1_api.urls)),
     path('json/', views.testjson)
 ]

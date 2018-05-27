@@ -1,17 +1,14 @@
 from django.db import models
 from django.utils import timezone
-from django.db import models
 
-from .info import (
+from ulsosite.info.info import (
                    INSTRUMENT_LIST,
                    YEAR_LIST,
                    UNI_LIST,
                    DEFAULT_VENUE,
-                   # AUDITION_DATES,
-                   # AUDITION_TIMES,
                    )
 
-from ulso_admin.models import Conductor
+from ulso_admin.models import Conductor, Musician
 
 # Project/Concerts
 
@@ -26,7 +23,6 @@ class Concert(models.Model):
     soloist = models.CharField(max_length=100, blank=True)
     soloist_website = models.CharField(max_length=200, blank=True)
     concert_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
-
 
 class Piece(models.Model):
     def __str__(self):

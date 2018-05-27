@@ -1,12 +1,12 @@
 DEFAULT_VENUE = "St. Stephen's Church, Gloucester Road, SW7 4RL"
 
 MEMBERSHIP_STATUS = (
-('Candidate', 'Audition Candidate'),
+('Candidate', 'Candidate'),
 ('Member', 'Member'),
 ('Reserve', 'Reserve'),
-('Dep', 'Depped only'),
 ('Contact', 'Contact List'),
 ('Rejected', 'Rejected'),
+('Other', 'Other'),
 )
 
 YEAR_LIST = (
