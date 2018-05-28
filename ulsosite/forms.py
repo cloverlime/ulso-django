@@ -2,22 +2,44 @@ from django import forms
 from django.db import models
 from django.forms import ModelForm
 
-from ulso_admin.models import (
+
+from ulsosite.info.info import INSTRUMENT_LIST
+from ulsosite.models.models_concerts import PlayerPerProject
+from ulsosite.models.models_people import (
                                 Musician,
                                 ConcertoApplicant,
                                                     )
 
-class SignUp(ModelForm):
+
+
+class AuditionSignUp(ModelForm):
     title = "Audition Sign-Up"
     class Meta:
         model = Musician
-        exclude = ['status', 'subs_paid', 'alias']
+        exclude = ['modified', 'status', 'subs_paid', 'alias']
 
 class ConcertoForm(ModelForm):
     title = "Concerto Competition Sign-Up"
     class Meta:
         model = ConcertoApplicant
         exclude = ['alias', 'second_round']
+
+class ProjectSignUp(ModelForm):
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+    instrument = forms.ChoiceField(choices=INSTRUMENT_LIST)
+
+    can_make_concert = forms.BooleanField(label="I can make the concert")
+
+
+
+
+
+    class Meta:
+        model = PlayerPerProject
+        exclude = ['project', 'musician']
+
+
 
 class ContactForm(forms.Form):
     EMAIL_TOPIC_CHOICES = (

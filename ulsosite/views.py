@@ -5,18 +5,18 @@ from django.urls import reverse
 from django.views import View
 
 from .forms import (
-                    SignUp,
+                    AuditionSignUp,
                     ContactForm,
                     ConcertoForm,
                     )
 
-from .models import (
+from ulsosite.models.models_concerts import (
                         Concert,
                         Piece,
                         Rehearsal,
                         )
 
-from ulso_admin.models import (
+from ulsosite.models.models_people import (
                         CommitteeMember,
                         ConcertoWinner,
                         )
@@ -96,8 +96,8 @@ def signup(request):
     return render(request, 'ulsosite/signup.html', context)
     # return HttpResponse("Here is the page for signing up for an audition")
 
-class SignUp(View):
-    form_class = SignUp
+class SignUpView(View):
+    form_class = AuditionSignUp
     form_template = 'ulsosite/signup.html'
     success_template = 'ulsosite/signup-success.html'
     def get(self, request, *args, **kwargs):
@@ -114,7 +114,7 @@ class SignUp(View):
         else:
             return HttpResponse("Form wasn't valid")
 
-class ConcertoSignUp(SignUp):
+class ConcertoSignUp(SignUpView):
     form_class = ConcertoForm
 
 def signup_success(request):

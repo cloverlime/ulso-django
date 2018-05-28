@@ -1,32 +1,33 @@
 from django.contrib import admin
 import nested_admin
 
-from ulso_admin.models import (
-                        Musician,
-                        Conductor,
-                        ConcertoApplicant,
-                        CommitteeMember,
-                        ConcertoWinner,
-                        )
-
-from .models import (
+from ulsosite.models.models_concerts import (
                         Concert,
                         Piece,
                         Rehearsal,
                         )
 
-from .models_cms import (
+from ulsosite.models.models_cms import (
                         Page,
                         Section,
                         Subsection,
                         )
 
+from ulsosite.models.models_people import (
+                        Musician,
+                        Conductor,
+                        ConcertoApplicant,
+                        CommitteeMember,
+                        ConcertoWinner,
+                        AuditionSlot
+                        )
 
+
+# Concerts etc
 
 class PiecesInline(admin.TabularInline):
     model = Piece.concert.through
     extra = 1
-
 
 class RehearsalInline(admin.TabularInline):
     model = Rehearsal
@@ -66,17 +67,13 @@ class PieceAdmin(admin.ModelAdmin):
 
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None,               {'fields': ['question_text']}),
-        ('Date information', {'fields': ['pub_date']}),
-    ]
-
-
-
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)
 admin.site.register(Rehearsal)
+
+
+
+# CMS Admin
 
 class SubsectionInline(nested_admin.NestedStackedInline):
     model = Subsection
@@ -98,3 +95,45 @@ class PageAdmin(nested_admin.NestedModelAdmin):
 admin.site.register(Page, PageAdmin)
 # admin.site.register(Section)
 # admin.site.register(Subsection)
+
+
+
+
+# Auditions Admin
+
+
+
+class AuditionSlotInline(admin.StackedInline):
+    model = AuditionSlot
+
+
+class MusicianAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'instrument', 'status', 'subs_paid')
+
+    fieldsets = [
+    (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid']}),
+    ('Contact', {'fields': ['email', 'phone']}),
+    ('Details', {'fields': ['instrument', 'doubling', 'uni', 'other_uni', 'year', 'experience',]}),
+    ('Audition Info', {'fields': ['returning_member']})
+    ]
+    inlines = [AuditionSlotInline]
+
+
+class CommitteeMemberAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'role', 'email', 'season')
+
+
+class ConductorAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'email', 'phone')
+    fieldsets = [
+    (None, {'fields': ['first_name', 'last_name', 'alias', 'email', 'phone', 'website']}),
+    ('Fees', {'fields': ['rate_per_rehearsal', 'rate_concert_day', 'notes']})
+    ]
+
+
+#-----------------------------------
+admin.site.register(CommitteeMember, CommitteeMemberAdmin)
+admin.site.register(Conductor, ConductorAdmin)
+admin.site.register(Musician, MusicianAdmin)
+admin.site.register(ConcertoWinner)
+admin.site.register(ConcertoApplicant)
