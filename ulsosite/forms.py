@@ -22,7 +22,7 @@ class ConcertoForm(ModelForm):
     title = "Concerto Competition Sign-Up"
     class Meta:
         model = ConcertoApplicant
-        exclude = ['alias', 'second_round']
+        exclude = ['created', 'modified','alias', 'second_round']
 
 class ProjectSignUp(ModelForm):
     first_name = forms.CharField(max_length=50)
@@ -31,15 +31,9 @@ class ProjectSignUp(ModelForm):
 
     can_make_concert = forms.BooleanField(label="I can make the concert")
 
-
-
-
-
     class Meta:
         model = PlayerPerProject
         exclude = ['project', 'musician']
-
-
 
 class ContactForm(forms.Form):
     EMAIL_TOPIC_CHOICES = (

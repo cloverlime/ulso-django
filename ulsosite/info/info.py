@@ -10,12 +10,12 @@ MEMBERSHIP_STATUS = (
 )
 
 YEAR_LIST = (
-(1,1),
-(2,2),
-(3,3),
-(4,4),
-(5,5),
-(6,6),
+('1','1'),
+('2','2'),
+('3','3'),
+('4','4'),
+('5','5'),
+('6','6'),
 ('N/A','N/A'),
 )
 
@@ -26,15 +26,14 @@ INSTRUMENT_LIST = (
 ('Bassoon','Bassoon'),
 ('Horn', 'Horn'),
 ('Trumpet', 'Trumpet'),
-('Trombone', 'Trombone'),
+('Trombone (Tenor)', 'Trombone (Tenor)'),
+('Trombone (Bass)', 'Trombone (Bass)'),
 ('Tuba', 'Tuba'),
 ('Violin', 'Violin'),
 ('Viola', 'Viola'),
 ('Cello', 'Cello'),
 ('Bass', 'Bass'),
 ('TimpaniPercussion', 'Timpani & Percussion'),
-('Timpani', 'Timpani only'),
-('Percussion', 'Percussion only'),
 ('Harp','Harp'),
 )
 

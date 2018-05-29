@@ -109,3 +109,14 @@ class PlayerPerProject(models.Model):
     project = models.ForeignKey(Concert, on_delete=models.SET_NULL, blank=True, null=True)
     rehearsal = models.ForeignKey(Rehearsal, on_delete=models.SET_NULL, blank=True, null=True)
     musician = models.OneToOneField(Musician, on_delete=models.SET_NULL, blank=True, null=True)
+
+class Venue(models.Model):
+    concert = models.ForeignKey(Concert, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=40, help_text="Official name e.g. 'St Stephen\'s Church'")
+    address_1 =  models.CharField(max_length=200, help_text="First line of address")
+    address_2 =  models.CharField(max_length=200, help_text="Second line of address", blank=True, null=True)
+    email = models.EmailField(max_length=200)
+    contact_number = models.CharField(max_length=10, blank=True, null=True)
+    rate_per_rehearsal = models.IntegerField(default=90, help_text="Fee charged per 3 hour rehearsal.", blank=True, null=True)
+    rate_concert_day = models.IntegerField(default=140, help_text="If only the price of the entire project was agreed, put zero per rehearsal and enter the entire fee here.", blank=True, null=True)
+    rate_per_hour = models.IntegerField(default=90, help_text="Alternative to the above fee structures", blank=True, null=True)

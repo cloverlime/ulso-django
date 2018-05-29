@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.db.models import Q
+
+from django.utils.translation import gettext_lazy as _
 import nested_admin
 
 from ulsosite.models.models_concerts import (
@@ -19,8 +22,14 @@ from ulsosite.models.models_people import (
                         ConcertoApplicant,
                         CommitteeMember,
                         ConcertoWinner,
-                        AuditionSlot
+                        UsefulContact,
                         )
+
+from ulsosite.models.models_auditions import (
+                                            AuditionSlot,
+                                            AuditionDate,
+                                            )
+
 
 
 # Concerts etc
@@ -65,8 +74,6 @@ class PieceAdmin(admin.ModelAdmin):
     inlines = [PiecesInline]
     exclude = ('concert',)
 
-
-
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)
 admin.site.register(Rehearsal)
@@ -100,40 +107,119 @@ admin.site.register(Page, PageAdmin)
 
 
 # Auditions Admin
+class AuditionSlotAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'first_name', 'last_name', 'instrument']
 
-
-
-class AuditionSlotInline(admin.StackedInline):
+class AuditionSlotInline(admin.TabularInline):
     model = AuditionSlot
+    extra = 1
+
+class AuditionDateAdmin(admin.ModelAdmin):
+    list_display = ['day_date', 'season']
+    readonly_fields = ['season']
+    inlines = [AuditionSlotInline]
+
+# Musicians Admin
+class MusicianListFilter(admin.SimpleListFilter):
+    title = _('section')
+    parameter_name = 'instrument'
+
+    def lookups(self, request, model_admin):
+        return (
+        ('Wind', 'Wind' ),
+        ('Brass', 'Brass'),
+        ('Strings', 'Strings'),
+        ('Percussion', 'Percussion'),
+        ('Other', 'Other'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == "Wind":
+            return queryset.filter(
+                                    Q(instrument='Flute') |
+                                    Q(instrument='Clarinet') |
+                                    Q(instrument='Oboe') |
+                                    Q(instrument='Bassoon')
+                                    )
+        if self.value() == "Brass":
+            return queryset.filter(
+                                    Q(instrument='Horn') |
+                                    Q(instrument='Trumpet') |
+                                    Q(instrument='Trombone') |
+                                    Q(instrument='Tuba')
+                                    )
+        if self.value() == "Strings":
+            return queryset.filter(
+                                    Q(instrument='Violin') |
+                                    Q(instrument='Viola') |
+                                    Q(instrument='Cello') |
+                                    Q(instrument='Bass')
+                                    )
+        if self.value() == "Percussion":
+            return queryset.filter(instrument='Percussion')
 
 
 class MusicianAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'instrument', 'status', 'subs_paid')
+    list_display = ('__str__', 'instrument', 'status', 'subs_paid', 'privacy_policy', 'season')
+    list_filter = ('status', MusicianListFilter, 'instrument', 'subs_paid')
+    readonly_fields = ('created', 'modified')
 
     fieldsets = [
-    (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid']}),
+    (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid', 'season']}),
     ('Contact', {'fields': ['email', 'phone']}),
     ('Details', {'fields': ['instrument', 'doubling', 'uni', 'other_uni', 'year', 'experience',]}),
-    ('Audition Info', {'fields': ['returning_member']})
+    ('Audition Info', {'fields': ['returning_member']}),
+    ('Agreements', {'fields': ['depping_policy', 'privacy_policy']}),
+    ('Read-only', {'fields': ['created', 'modified']})
     ]
     inlines = [AuditionSlotInline]
+
+    actions = ['mark_subs_paid','mark_as_member', 'mark_as_reserve', 'mark_as_rejected']
+
+    def mark_subs_paid(self, request, queryset):
+        queryset.update(subs_paid=True)
+        mark_subs_paid.short_description = "Mark selected as subs paid"
+
+    def mark_as_member(self, request, queryset):
+        queryset.update(status='Member')
+        mark_subs_paid.short_description = "Mark selected as members"
+
+    def mark_as_reserve(self, request, queryset):
+        queryset.update(status='Reserve')
+        mark_subs_paid.short_description = "Mark selected as reserves"
+
+    def mark_as_rejected(self, request, queryset):
+        queryset.update(status='Rejected')
+        mark_subs_paid.short_description = "Mark selected as rejected"
 
 
 class CommitteeMemberAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'role', 'email', 'season')
+    exclude = ['created', 'modified']
 
 
 class ConductorAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'email', 'phone')
     fieldsets = [
     (None, {'fields': ['first_name', 'last_name', 'alias', 'email', 'phone', 'website']}),
-    ('Fees', {'fields': ['rate_per_rehearsal', 'rate_concert_day', 'notes']})
+    ('Fees', {'fields': ['rate_per_rehearsal', 'rate_concert_day', 'notes']}),
+    # (None, {'fields': ['created', 'modified']})
     ]
 
+
+class ConcertoApplicantAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'instrument', 'piece', 'second_round')
+
+class UsefulContactAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'role', 'email')
+    exclude = ['modified']
 
 #-----------------------------------
 admin.site.register(CommitteeMember, CommitteeMemberAdmin)
 admin.site.register(Conductor, ConductorAdmin)
 admin.site.register(Musician, MusicianAdmin)
 admin.site.register(ConcertoWinner)
-admin.site.register(ConcertoApplicant)
+admin.site.register(ConcertoApplicant, ConcertoApplicantAdmin)
+admin.site.register(UsefulContact, UsefulContactAdmin)
+admin.site.register(AuditionDate, AuditionDateAdmin)
+admin.site.register(AuditionSlot, AuditionSlotAdmin)

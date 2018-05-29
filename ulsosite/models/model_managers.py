@@ -38,7 +38,8 @@ class BrassManager(models.Manager):
         return super().get_queryset().filter(
                                         Q(instrument='Horn') |
                                         Q(instrument='Trumpet') |
-                                        Q(instrument='Trombone') |
+                                        Q(instrument='Trombone (Tenor)') |
+                                        Q(instrument='Trombone (Bass)') |
                                         Q(instrument='Tuba')
                                             )
 
