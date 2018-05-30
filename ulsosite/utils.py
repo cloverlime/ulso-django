@@ -18,3 +18,11 @@ def academic_year_calc(date):
 
     else:
         return '{}/{}'.format(str(date.year), str(date.year-1999))
+
+
+# show image preview in Admin
+# NOT correct, currently
+def image_tag(self):
+    return '<img src={} />'.format(self.url)
+image_tag.short_description = 'Image'
+image_tag.allow_tags = True

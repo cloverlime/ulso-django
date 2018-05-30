@@ -93,8 +93,9 @@ class ConcertoApplicant(Person):
 
 
 class ConcertoWinner(Person):
-    website = models.URLField()
+    website = models.URLField(blank=True, null=True)
     biography = models.TextField()
+    photo = models.ImageField(null=True, blank=True,  upload_to='concertowinners/')
 
 class CommitteeMember(Person):
     def __repr__(self):
@@ -107,9 +108,9 @@ class CommitteeMember(Person):
     role = models.CharField(max_length=100)
     season = models.CharField(max_length=10, default='2017/18', help_text='Format yyyy/yy')
     role_description = models.TextField(max_length=1000, help_text="Introduce yourself and tell people a bit about your role in ULSO.")
-
+    photo = models.ImageField(blank=True, null=True, upload_to='committee')
     class Meta(Person.Meta):
-        ordering = []
+        ordering = ['role']
 
 
 class Conductor(Person):
