@@ -4,4 +4,6 @@
 __pycache__/
 tastypie/
 media/
+static/admin/
+static/nested_admin/
 
