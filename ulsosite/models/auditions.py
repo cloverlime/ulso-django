@@ -2,6 +2,7 @@ from django.db import models
 from .people import *
 
 # Main Auditions
+
 class AuditionDate(models.Model):
     day_date = models.DateField()
     panel1 = models.CharField('panel member and instrument', max_length=40, help_text="e.g. Nathan Halsing (Flute)")

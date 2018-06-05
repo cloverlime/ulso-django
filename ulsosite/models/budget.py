@@ -1,9 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-# from djmoney.models.fields import models.DecimalField
-# from djmoney.models.validators import MaxMoneyValidator, MinMoneyValidator
-
 
 class Account(models.Model):
     """"Student Central gives its societies three separate pots of grant money.
