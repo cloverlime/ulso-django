@@ -10,13 +10,13 @@ from .forms import (
                     ConcertoForm,
                     )
 
-from ulsosite.models.models_concerts import (
+from ulsosite.models.concerts import (
                         Concert,
                         Piece,
                         Rehearsal,
                         )
 
-from ulsosite.models.models_people import (
+from ulsosite.models.people import (
                         CommitteeMember,
                         ConcertoWinner,
                         )

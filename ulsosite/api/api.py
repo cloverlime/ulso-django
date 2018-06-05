@@ -2,7 +2,7 @@ from tastypie.resources import ModelResource
 from tastypie import fields
 
 
-from ulsosite.models.models_people import (
+from ulsosite.models.people import (
                         Musician,
                         Conductor,
                         ConcertoApplicant,
@@ -10,7 +10,7 @@ from ulsosite.models.models_people import (
                         CommitteeMember,
                         )
 
-from ulsosite.models.models_concerts import (
+from ulsosite.models.concerts import (
                         Concert,
                         Piece,
                         Rehearsal,

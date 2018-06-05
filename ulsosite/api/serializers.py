@@ -1,5 +1,5 @@
 from django.core import serializers
-from ulsosite.models.models_people import Conductor
+from ulsosite.models.people import Conductor
 
 # Django serializers translate Django objects into standard formats like xml and json
 # Django's built-in serializers are classes derived from Python's encoders

@@ -1,5 +1,5 @@
 from django.db import models
-from .models_people import *
+from .people import *
 
 # Main Auditions
 class AuditionDate(models.Model):
@@ -60,6 +60,6 @@ class ConcertoAuditionDate(models.Model):
     pass
 
 class ConcertoAuditionRound(models.Model):
-    audition_date = models.CharField(max_length=30, choices=CONCERTO_DATES_2017, blank=True, null=True)
+    audition_date = models.CharField(max_length=30, blank=True, null=True)
     time = models.TimeField(blank=True, null=True)
     musician = models.ForeignKey('ConcertoApplicant', null=True, on_delete=models.SET_NULL)

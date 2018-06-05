@@ -1,15 +1,12 @@
 from django import forms
-from django.db import models
 from django.forms import ModelForm
 
-
 from ulsosite.info.info import INSTRUMENT_LIST
-from ulsosite.models.models_concerts import PlayerPerProject
-from ulsosite.models.models_people import (
+from ulsosite.models.concerts import PlayerPerProject
+from ulsosite.models.people import (
                                 Musician,
                                 ConcertoApplicant,
                                                     )
-
 
 
 class AuditionSignUp(ModelForm):

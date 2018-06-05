@@ -3,7 +3,7 @@ All common QuerySets for ULSO admin models are coded here.
 """
 
 from django.db import models
-from .models_people import *
+from .people import *
 
 
 

@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 
+# TODO refactor all admin pages
 # TODO write out everything imported
 from ulsosite.utils import academic_year_calc
 from .model_managers import *
@@ -10,13 +11,8 @@ from ulsosite.info.info import (
                    INSTRUMENT_LIST,
                    YEAR_LIST,
                    UNI_LIST,
-                   DEFAULT_VENUE,
                    MEMBERSHIP_STATUS,
                    )
-
-from ulsosite.info.dates import AUDITION_DATES_2017, CONCERTO_DATES_2017
-
-
 
 class Person(models.Model):
     created = models.DateTimeField(editable=False, blank=True, null=True)
@@ -69,6 +65,7 @@ class Musician(Person):
     reserves = ReserveManager()
     candidates = CandidateManager()
     rejected = RejectedManager()
+
     # For individual instruments not listed here, use regular filters.
     wind = WindManager()
     brass = BrassManager()
@@ -96,6 +93,7 @@ class ConcertoWinner(Person):
     website = models.URLField(blank=True, null=True)
     biography = models.TextField()
     photo = models.ImageField(null=True, blank=True,  upload_to='concertowinners/')
+
 
 class CommitteeMember(Person):
     def __repr__(self):
@@ -127,4 +125,4 @@ class UsefulContact(Person):
     phone = models.CharField(blank=True, null=True, max_length=30)
     role = models.CharField(max_length=30, blank=True, help_text="What do they do? e.g. poster artist, percussion hire")
     website = models.URLField(blank=True, null=True)
-    notes = models.TextField(help_text='Insert fee structures here, e.g. £30 per poster')
+    notes = models.TextField(blank=True, null=True, help_text='Insert fee structures here, e.g. £30 per poster')

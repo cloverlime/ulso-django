@@ -1,14 +1,9 @@
 from django.db import models
 from django.utils import timezone
 
-from ulsosite.info.info import (
-                   INSTRUMENT_LIST,
-                   YEAR_LIST,
-                   UNI_LIST,
-                   DEFAULT_VENUE,
-                   )
+from ulsosite.info.info import DEFAULT_VENUE
 
-from .models_people import Conductor, Musician
+from .people import Conductor, Musician
 
 
 class Concert(models.Model):

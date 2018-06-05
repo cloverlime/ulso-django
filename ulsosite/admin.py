@@ -8,20 +8,20 @@ from ulso.settings import BASE_DIR
 
 # from ulsosite.utils import image_preview
 
-from ulsosite.models.models_concerts import (
+from ulsosite.models.concerts import (
                         Concert,
                         Piece,
                         Rehearsal,
                         )
 
-from ulsosite.models.models_cms import (
+from ulsosite.models.cms import (
                         Page,
                         Section,
                         Subsection,
                         ImageSection
                         )
 
-from ulsosite.models.models_people import (
+from ulsosite.models.people import (
                         Musician,
                         Conductor,
                         ConcertoApplicant,
@@ -30,27 +30,29 @@ from ulsosite.models.models_people import (
                         UsefulContact,
                         )
 
-from ulsosite.models.models_auditions import (
+from ulsosite.models.auditions import (
                                             AuditionSlot,
                                             AuditionDate,
                                             )
 
-
-
+from ulsosite.models.budget import (
+                        Account,
+                        Transaction
+                        )
 
 # Admin-Wide Utils ------------------
 
 def mark_as_member(self, request, queryset):
     queryset.update(status='Member')
-    mark_subs_paid.short_description = "Mark selected as members"
+    mark_as_member.short_description = "Mark selected as members"
 
 def mark_as_reserve(self, request, queryset):
     queryset.update(status='Reserve')
-    mark_subs_paid.short_description = "Mark selected as reserves"
+    mark_as_reserve.short_description = "Mark selected as reserves"
 
 def mark_as_rejected(self, request, queryset):
     queryset.update(status='Rejected')
-    mark_subs_paid.short_description = "Mark selected as rejected"
+    mark_as_rejected.short_description = "Mark selected as rejected"
 
 def full_name(obj):
     return '{} {}'.format(obj.first_name, obj.last_name)
@@ -173,9 +175,11 @@ admin.site.register(Page, PageAdmin)
 
 
 # Auditions Admin
+
 class AuditionSlotAdmin(admin.ModelAdmin):
     list_display = ['__str__', full_name, 'instrument','date']
     list_filter  = ['date', SectionListFilter, 'instrument',]
+    search_fields = (['^first_name', '^last_name', '^instrument'])
 
 
 class AuditionSlotInline(admin.TabularInline):
@@ -197,6 +201,7 @@ class MusicianAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'instrument', 'status', 'subs_paid', 'privacy_policy', 'season')
     list_filter = ('status', SectionListFilter, 'instrument', 'subs_paid')
     readonly_fields = ('created', 'modified')
+    search_fields = (['^first_name', '^last_name', '^instrument', '^university'])
 
     fieldsets = [
     (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid', 'season']}),
@@ -210,7 +215,8 @@ class MusicianAdmin(admin.ModelAdmin):
 
     def mark_subs_paid(self, request, queryset):
         queryset.update(subs_paid=True)
-        mark_subs_paid.short_description = "Mark selected as subs paid"
+
+    mark_subs_paid.short_description = "Mark selected as subs paid"
 
     actions = ['mark_subs_paid',mark_as_member, mark_as_reserve, mark_as_rejected]
 
@@ -243,6 +249,24 @@ class UsefulContactAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'role', 'email')
     exclude = ['modified']
 
+
+
+#----------------------------------------
+
+# BUDGET AND ACCOUNTS
+
+class TransactionInline(admin.TabularInline):
+    model = Transaction
+    extra = 1
+    exclude = ['modified']
+
+class AccountAdmin(admin.ModelAdmin):
+    readonly_fields=['balance']
+    inlines = [TransactionInline]
+
+
+
+
 #-----------------------------------
 admin.site.register(CommitteeMember, CommitteeMemberAdmin)
 admin.site.register(Conductor, ConductorAdmin)
@@ -252,3 +276,4 @@ admin.site.register(ConcertoApplicant, ConcertoApplicantAdmin)
 admin.site.register(UsefulContact, UsefulContactAdmin)
 admin.site.register(AuditionDate, AuditionDateAdmin)
 admin.site.register(AuditionSlot, AuditionSlotAdmin)
+admin.site.register(Account, AccountAdmin)
