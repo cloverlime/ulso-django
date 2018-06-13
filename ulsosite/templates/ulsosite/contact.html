@@ -1,20 +1,25 @@
-<h1>Contact Us</h1>
+{% extends 'ulsosite/base.html' %} {% load staticfiles %} {% block content %}
 
-<p>Committee Members' Email Addresses</p>
+<div class="container">
+  <h1>Contact Us</h1>
 
-{% for member in committee_members %}
+  <p>Committee Members' Email Addresses</p>
 
-<h4>{{ member.role }}</h4>
-<p>{{ member.name }}</p>
-<p>{{ member.email }}</p>
+  {% for member in committee_members %}
 
-{% endfor %}
+  <h4>{{ member.role }}</h4>
+  <p>{{ member.name }}</p>
+  <p>{{ member.email }}</p>
+
+  {% endfor %}
 
 
-<h2>Contact Form</h2>
+  <h2>Contact Form</h2>
 
-<form role="form" action="" method="post">
-  {% csrf_token %}
-{{ contact_form }}
-<input type="submit" value="Submit">
-</form>
+  <form role="form" action="" method="post">
+    {% csrf_token %} {{ contact_form }}
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+{% endblock %}

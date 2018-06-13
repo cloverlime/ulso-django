@@ -51,7 +51,6 @@ class Account(models.Model):
 
 
 class Transaction(models.Model):
-
     date = models.DateTimeField(editable=False, blank=True, null=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     deposit = models.DecimalField("In £", max_digits=10, decimal_places=2, default=0, help_text="Enter positive number")

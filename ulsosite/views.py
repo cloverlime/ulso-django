@@ -120,6 +120,14 @@ class ConcertoSignUp(SignUpView):
 def signup_success(request):
     return HttpResponse("Thank you for signing up. We will get back to you soon.")
 
-
 def auditions(request):
     return HttpResponse("Here is the page for info about auditions!")
+
+def about(request):
+    return HttpResponse("Here is the page for info about ULSO!")
+
+def join(request):
+    return HttpResponse("Join ULSO!")
+
+def media(request):
+    return HttpResponse("ULSO's media page")

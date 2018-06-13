@@ -1,22 +1,23 @@
-{# {% extends 'ulsosite/base.html' %} #}
+{% extends 'ulsosite/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
+
+<div class="container">
 
 <h1>{{ section.title }}</h1>
 
 <p>This is the rehearsals page.</p>
 
-<p>Current Concert</p>
-
 {% for concert in current_concert %}
-<h2>{{ concert.season }} - {{concert.concert_date|date:"D d M y"}}</h2>
+<h2>{{concert.concert_date|date:"D d M y"}}</h2>
 
 <h4>Conductor</h4>
 <p>{{ concert.conductor }}</p>
 
 {% endfor %}
 
-<h2>Future Concerts</h2>
+<h3>Future Concerts</h3>
 {% for concert in upcoming_concerts %}
 
 <h3>{{ concert.season }}</h3>
@@ -24,5 +25,6 @@
 <p>{{ concert.conductor }}</p>
 
 {% endfor %}
+</div>
 
 {% endblock %}

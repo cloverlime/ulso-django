@@ -1,6 +1,6 @@
-*******************
+***************
 User Stories
-*******************
+***************
 
 Admin Site
 ============
@@ -34,12 +34,14 @@ As **Orchestral Manager**, I would like to:
     * project
     * section
 
+* know who is absent for a rehearsal (if notified in advance)
+
 
 As **Treasurer**, I would like to:
 
 * see a list of all transactions from all or chosen accounts
 * easily record transactions
-* be reminded of how much money we had at the beginning of the year
+* recall how much money we had at the beginning of the year
 * forecast budgets for the year/project
 * see who's paid subs or not and check off those who do
 

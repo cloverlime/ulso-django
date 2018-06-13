@@ -1,5 +1,5 @@
 """
-Useful functons across the board
+Useful functions across the board
 """
 import datetime
 

@@ -1,0 +1,35 @@
+{% extends 'ulsosite/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<section>
+  <!-- Content -->
+  <div class="container flexwrap">
+    <img src="{% static 'ulsosite/images/ULSOlogoblue.png' %}" alt="ULSO Logo" id="big-logo">
+    <h1 id="big-title">University of London<br>Symphony Orchestra</h1>
+    <div id="musicweb-quote">
+      <h5><i>“Unanimity of sound that was as rich, full-bodied and the equal of many professional ensembles”</i> - Musicweb International</h5></div>
+    <!-- <p>ULSO is a professionally conducted multi-collegiate student orchestra in London where music students and dedicated amateurs combine to perform challenging repertoire at a very high standard.</p> -->
+  </div>
+  <div class="container">
+    <div class="row button-box">
+      <div class="col-lg-4">
+        <a href="whatson.htm">
+                      <button type="button" class="btn large-btn center-block">What's On</button>
+                  </a>
+      </div>
+      <div class="col-lg-4">
+        <a href="join.htm">
+                      <button type="button" class="btn large-btn center-block">Join</button>
+                  </a>
+      </div>
+      <div class="col-lg-4">
+        <a href="contact.htm">
+                      <button type="button" class="btn large-btn center-block">Contact</button>
+                  </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

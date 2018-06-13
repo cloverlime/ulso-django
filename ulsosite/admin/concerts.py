@@ -5,6 +5,7 @@ from ulsosite.models.concerts import (
                         Concert,
                         Piece,
                         Rehearsal,
+                        Absence
                         )
 
 class PiecesInline(admin.TabularInline):
@@ -15,9 +16,11 @@ class RehearsalInline(admin.TabularInline):
     model = Rehearsal
     extra = 0
 
+
 class ConcertAdmin(admin.ModelAdmin):
     fields = ['current', 'project_term', 'start_time', 'concert_date', 'conductor', 'soloist', 'soloist_website','concert_venue']
     inlines = [PiecesInline, RehearsalInline]
+
 
 class PieceAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -48,7 +51,16 @@ class PieceAdmin(admin.ModelAdmin):
     exclude = ('concert',)
 
 
+class AbsenceInline(admin.TabularInline):
+    model = Absence
+    extra = 0
+
+
+class RehearsalAdmin(admin.ModelAdmin):
+    inlines = [AbsenceInline]
+
+
 #--------Registrations ---------
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)
-admin.site.register(Rehearsal)
+admin.site.register(Rehearsal, RehearsalAdmin)

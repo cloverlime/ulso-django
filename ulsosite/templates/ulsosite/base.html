@@ -1,10 +1,9 @@
-{% load static %}
+{% load staticfiles %}
 
 <html lang="en">
-
 <head>
   <title>University of London Symphony Orchestra</title>
-  <link rel="shortcut icon" href="images/ULSOlogoblue.png">
+  <link rel="shortcut icon" href="{% static 'ulsosite/images/ULSOlogoblue.png' %}" />
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Raleway|Francois+One|Open+Sans+Condensed:300" rel="stylesheet">
 
-<link rel="stylesheet" type="text/css" href="{% static 'ulsosite/ULSOstyles.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'ulsosite/styles.css' %}" />
 </head>
 
 <body>
@@ -29,23 +28,23 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-          <a class="navbar-brand" href="index.htm"><img src="images/ULSOlogoblue.png" alt="Home" id="homebutton">
+          <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static "ulsosite/images/ULSOlogoblue.png" %}" alt="Home" id="homebutton">
                </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="ulsoNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.htm">Home<span class="sr-only">(current)</span></a></li>
-            <li><a href="about.htm">About</a></li>
-            <li><a href="whatson.htm">What's On</a></li>
-            <li><a href="join.htm">Join</a></li>
-            <li><a href="construction.htm">Media</a></li>
-            <li><a href="rehearsals.htm">Rehearsals</a></li>
-            <li><a href="concerto.htm">Concerto Competition</a></li>
+            <li class="active"><a href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'whatson' %}">What's On</a></li>
+            <li><a href="{% url 'join' %}">Join</a></li>
+            <li><a href="{% url 'media' %}">Media</a></li>
+            <li><a href="{% url 'rehearsals' %}">Rehearsals</a></li>
+            <li><a href="{% url 'concerto' %}">Concerto Competition</a></li>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="contact.htm">Contact</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -76,10 +75,9 @@
     </div>
   </div>
 </footer>
-<!-- End of Footer-->
 </div>
 <!-- End of footer -->
-<!-- Optional JavaScript -->
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

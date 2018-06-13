@@ -17,6 +17,10 @@ class Concert(models.Model):
     soloist = models.CharField(max_length=100, blank=True)
     soloist_website = models.CharField(max_length=200, blank=True)
     concert_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
+    
+    # player list
+    player = models.ManyToManyField(Musician)
+
 
 class Piece(models.Model):
     def __str__(self):
@@ -63,7 +67,7 @@ class Piece(models.Model):
 
     concert = models.ManyToManyField(Concert, blank=True)
     composer = models.CharField(max_length=20, help_text='Surname only')
-    piece = models.CharField(max_length=200)
+    piece = models.CharField(max_length=200, help_text='Name of piece')
     order = models.IntegerField(blank=True, help_text='The order of the piece in the concert e.g. 1')
     duration = models.IntegerField(default=0, help_text="Length in minutes",blank=True, null=True)
 
@@ -90,7 +94,16 @@ class Piece(models.Model):
     percussionists = models.IntegerField(blank=True, default=3, help_text="Number of percussionists requried", null=True)
     other = models.TextField(blank=True, help_text="Equipment notes")
 
+
 class Rehearsal(models.Model):
+    """
+    Each project has many rehearsals. 
+    Each rehearsal has one venue.
+    Each rehearsal has an absence list, preferable pre-populated by forms filled
+    in by players, but entries can be added manually too.
+
+    NB. GDPR!!!!!
+    """
     def __str__(self):
         return '{} {}-{}'.format(str(self.rehearsal_date), str(self.start_time), str(self.end_time))
     concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
@@ -98,15 +111,34 @@ class Rehearsal(models.Model):
     start_time = models.TimeField(default='19:00:00')
     end_time = models.TimeField(default='22:00:00')
     rehearsal_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
+    # venue = models.ManyToManyField(Venue)
     notes = models.CharField(max_length=400, blank=True)
 
-class PlayerPerProject(models.Model):
-    project = models.ForeignKey(Concert, on_delete=models.SET_NULL, blank=True, null=True)
-    rehearsal = models.ForeignKey(Rehearsal, on_delete=models.SET_NULL, blank=True, null=True)
-    musician = models.OneToOneField(Musician, on_delete=models.SET_NULL, blank=True, null=True)
 
+# class PlayerPerProject(models.Model):
+#     project = models.ForeignKey(Concert, on_delete=models.SET_NULL, blank=True, null=True)
+#     musician = models.OneToOneField(Musician, on_delete=models.SET_NULL, blank=True, null=True)
+
+
+class Absence(models.Model):
+    """
+    In each rehearsal, there will inevitably be some players who have to miss it. 
+    The orchestral manager needs to keep track of these. 
+    Ideally, the players would report these in advance.
+    The players must already be in the list of players assigned to the concert.
+    """
+    rehearsal = models.ForeignKey(Rehearsal, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=20, help_text="First name and last name as registered")
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
+    dep_first_name = models.CharField(max_length=20, help_text="Dep's first name")
+    dep_last_name = models.CharField(max_length=20, help_text="Dep's last name")
+    reasons = models.CharField(max_length=200, help_text="Reasons for absence")
+
+
+
+# TODO - Currently not linked to anything - sort this out
 class Venue(models.Model):
-    concert = models.ForeignKey(Concert, on_delete=models.SET_NULL, null=True, blank=True)
+    # concert = models.ForeignKey(Concert, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=40, help_text="Official name e.g. 'St Stephen\'s Church'")
     address_1 =  models.CharField(max_length=200, help_text="First line of address")
     address_2 =  models.CharField(max_length=200, help_text="Second line of address", blank=True, null=True)
@@ -115,3 +147,4 @@ class Venue(models.Model):
     rate_per_rehearsal = models.IntegerField(default=90, help_text="Fee charged per 3 hour rehearsal.", blank=True, null=True)
     rate_concert_day = models.IntegerField(default=140, help_text="If only the price of the entire project was agreed, put zero per rehearsal and enter the entire fee here.", blank=True, null=True)
     rate_per_hour = models.IntegerField(default=90, help_text="Alternative to the above fee structures", blank=True, null=True)
+

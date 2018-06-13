@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'ulsosite.apps.UlsositeConfig',
+    'nested_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'nested_admin',
 ]
 
 MIDDLEWARE = [
@@ -75,11 +75,6 @@ WSGI_APPLICATION = 'ulso.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    # 'test_db': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # },
-
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': 'ulso_db',
@@ -128,7 +123,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+
 
 MEDIA_ROOT = '/home/wenye/Documents/Projects/ulso/media/'
 MEDIA_URL = '/media/'
