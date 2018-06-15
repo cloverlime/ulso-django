@@ -1,7 +1,5 @@
 from django.db import models
 
-# TODO Fix all broken things.......
-
 class Page(models.Model):
     def __str__(self):
         return self.title
@@ -11,12 +9,23 @@ class Page(models.Model):
 
 class Section(models.Model):
     def __str__(self):
-        return self.title
+        return "{} {}".format(self.order, self.heading)
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    body = models.TextField(blank=True)
+    order = models.PositiveIntegerField(primary_key=True)
+    heading = models.CharField(max_length=100, blank=True, null=True)
+    subheading = models.CharField(max_length=100, blank=True, null=True)
+    body = models.TextField(blank=True, help_text="HTML tags required!")
 
-#
+class AccordionCard(models.Model):
+    def __str__(self):
+        return "{} {}".format(self.order, self.heading)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE)
+    heading = models.CharField(max_length=100)
+    order = models.PositiveIntegerField(primary_key=True, help_text="Order of display in the page.")
+    body = models.TextField(blank=True, help_text="HTML tags required!")
+    html_id = models.CharField(max_length=20, help_text="REQUIRED for accordions. No spaces and case-sensitive!")
+
+
 # class Subsection(models.Model):
 #     def __str__(self):
 #         return self.h3_title

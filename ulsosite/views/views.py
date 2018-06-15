@@ -4,7 +4,7 @@ from django.core.mail import EmailMessage, BadHeaderError
 from django.urls import reverse
 from django.views import View
 
-from .forms import (
+from ulsosite.forms import (
                     AuditionSignUp,
                     ContactForm,
                     ConcertoForm,
@@ -24,6 +24,7 @@ from ulsosite.models.people import (
 from ulsosite.models.cms import (
                         Page,
                         Section,
+                        AccordionCard,
                         )
 
 
@@ -137,7 +138,11 @@ def about(request):
     return HttpResponse("Here is the page for info about ULSO!")
 
 def join(request):
-    return HttpResponse("Join ULSO!")
+    page = Page.objects.get(title="How to Join")
+    accordion = page.accordioncard_set.all().order_by('order')
+    context = {'accordion': accordion, 'page': page}
+    return render(request, 'ulsosite/accordion.html', context)
+
 
 def media(request):
     return HttpResponse("ULSO's media page")

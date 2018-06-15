@@ -4,6 +4,7 @@ from django.contrib import admin
 from ulsosite.models.cms import (
                         Page,
                         Section,
+                        AccordionCard
                         # Subsection,
                         # ImageSection
                         )
@@ -22,9 +23,13 @@ class SectionInline(admin.StackedInline):
     extra = 0
     # inlines = [SubsectionInline]
 
+class AccordionCardInline(admin.TabularInline):
+    model = AccordionCard
+    extra = 0
+
 class PageAdmin(admin.ModelAdmin):
     fields = ['title', 'body']
-    inlines = [SectionInline]
+    inlines = [SectionInline, AccordionCardInline]
 
 # class SectionAdmin(admin.ModelAdmin):
 #     # fields = ['h2_title', 'section_description']

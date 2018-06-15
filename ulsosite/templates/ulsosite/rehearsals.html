@@ -3,8 +3,6 @@
 
 {% block content %}
 
-<div class="container">
-
 <h1>{{ page.title }}</h1>
 
 {{ page.body | safe }}
@@ -17,7 +15,7 @@
 
 {% endfor %}
 
-<h3>Future Concerts</h3>
+
 {% for concert in upcoming_concerts %}
 
 <h3>{{ concert.season }}</h3>
@@ -25,6 +23,5 @@
 <p>{{ concert.conductor }}</p>
 
 {% endfor %}
-</div>
 
 {% endblock %}
