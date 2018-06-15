@@ -30,6 +30,40 @@ The orchestra's current tool is the Google Admin Suite, which has created proble
 
 ulso-django seeks to put all management-related information in one organised and easily-searchable place, and provide as many shortcuts as possible for common actions.
 
+#### Model Structure
+
+The following contains the models used in for the suite. but does not show detailed relations.
+
+The hierarchical representation below aims to show how they are grouped conceptually. The names in bold are conceptual groupings only; their children are models. Anything in square brackets means it is planned but not yet implemented.
+
+```
+[ulso-django]
+|
+|── *People*
+|     |── Musician
+|     |── Conductor
+|     |── Committee Member
+|     └── Useful Contacts
+|
+|── *Projects*
+|     └── Concert
+|            |── Rehearsal
+|            |── Piece
+|            └── Venue
+|
+|── *Auditions*
+|     |── Audition Date
+|     └── Audition Slot
+|
+|── *CMS*
+|     └── Page
+|            |── Section
+|            └── [ImageSection]
+|
+└── *Budget*
+      |── Accounts
+      └── [BudgetPlan]
+```
 
 ### Priorities
 
@@ -47,7 +81,7 @@ It is vitally important for the system to be easy to learn and intuitive and rob
 
 Scalability and performance are not so much of an issue. The player list and committee line-up refresh every year, there is no user-generated content on the website, and the size and complexity of the system is expected to remain roughly constant. For this reason, Django's templating system was deemed more than sufficient for the purposes of the website.
 
-##### Maintainability
+###### Maintainability
 
 Having said the above, it is still important for the codebase to be as clearly organised, modular and easy to tweak as possible to accommodate new features, different committee preferences and potential changes to the orchestra's financial model.
 
