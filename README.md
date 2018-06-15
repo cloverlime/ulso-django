@@ -1,6 +1,6 @@
 # ULSO-Django
 
-### Student Orchestra Management Tool and Website
+Student Orchestra Management Tool and Website
 
 ### Introduction
 
