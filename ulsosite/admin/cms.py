@@ -19,15 +19,15 @@ from ulsosite.models.cms import (
 
 class SectionInline(admin.StackedInline):
     model = Section
-    extra = 1
+    extra = 0
     # inlines = [SubsectionInline]
 
 class PageAdmin(admin.ModelAdmin):
-    fields = ['page_title', 'main_description']
+    fields = ['title', 'body']
     inlines = [SectionInline]
 
-class SectionAdmin(admin.ModelAdmin):
-    fields = ['h2_title', 'section_description']
-    # inlines = [SubsectionInline]
+# class SectionAdmin(admin.ModelAdmin):
+#     # fields = ['h2_title', 'section_description']
+#     # inlines = [SubsectionInline]
 
 admin.site.register(Page, PageAdmin)

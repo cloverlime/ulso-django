@@ -21,6 +21,12 @@ from ulsosite.models.people import (
                         ConcertoWinner,
                         )
 
+from ulsosite.models.cms import (
+                        Page,
+                        Section,
+                        )
+
+
 def index(request):
     return HttpResponse("Here is the Index page")
 
@@ -28,9 +34,10 @@ def whatson(request):
     return HttpResponse("Here is the whatson page")
 
 def rehearsals(request):
+    page = Page.objects.get(title="Rehearsals")
     current_concert = Concert.objects.filter(current=True)
     upcoming_concerts = Concert.objects.filter(current=False).order_by('concert_date')
-    context = {'upcoming_concerts': upcoming_concerts, 'current_concert': current_concert}
+    context = {'upcoming_concerts': upcoming_concerts, 'current_concert': current_concert, 'page': page}
     return render(request, 'ulsosite/rehearsals.html', context)
 
 def contact(request):
@@ -38,9 +45,12 @@ def contact(request):
     Logic for the website's contact form. Sends an email directly to committee members' role@ulso.co.uk email addresses depending on the topic chosen by the sender.
     """
     if request.method != 'POST':
+        page = Page.objects.get(title="Contact Us")
         form = ContactForm()
-        committee_members = CommitteeMember.objects.all()
-        context = {'committee_members': committee_members, 'contact_form': form }
+        committee_member = CommitteeMember.objects.all()
+        context = {'committee_members': committee_member,
+                   'contact_form': form,
+                   'page': page }
         return render(request, 'ulsosite/contact.html', context)
 
     else:

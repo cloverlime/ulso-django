@@ -1,18 +1,36 @@
-{% extends 'ulsosite/base.html' %} {% load staticfiles %} {% block content %}
+{% extends 'ulsosite/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
 
 <div class="container">
-  <h1>Contact Us</h1>
+  <h1>{{ page.title }}</h1>
 
-  <p>Committee Members' Email Addresses</p>
+  {{ page.body | safe }}
 
-  {% for member in committee_members %}
+  <h2>Specific Enquiries</h2>
+  <ul>
+    <li>
+      <p>Absences, deps and vacancies enquiries: contact Esme at <a href="mailto:orchestral.manager@ulso.co.uk">orchestral.manager@ulso.co.uk</a>.</p>
+    </li>
+      <li>
+        <p>Membership fees, reimbursements and equipment hire: contact Joanna at <a href="mailto:treasurer@ulso.co.uk">treasurer@ulso.co.uk</a>.</p>
+      </li>
 
-  <h4>{{ member.role }}</h4>
-  <p>{{ member.name }}</p>
-  <p>{{ member.email }}</p>
-
-  {% endfor %}
-
+        <li>
+          <p>Parts and sheet music: contact Natalie at <a href="mailto:librarian@ulso.co.uk">librarian@ulso.co.uk</a>.</p>
+        </li>
+          <li>
+            <p>Website-related: contact Wenye at <a href="mailto:webmaster@ulso.co.uk">webmaster@ulso.co.uk</a>.</p>
+          </li>
+  </ul>
+  <br>
+  <h2>General Enquiries</h2>
+  <ul>
+    <li>
+      <p>For general enquiries, please email Tom at <a href="mailto:chair@ulso.co.uk">chair@ulso.co.uk</a>.</p>
+    </li>
+  </ul>
 
   <h2>Contact Form</h2>
 

@@ -17,7 +17,7 @@ class Concert(models.Model):
     soloist = models.CharField(max_length=100, blank=True)
     soloist_website = models.CharField(max_length=200, blank=True)
     concert_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
-    
+
     # player list
     player = models.ManyToManyField(Musician)
 
@@ -97,7 +97,7 @@ class Piece(models.Model):
 
 class Rehearsal(models.Model):
     """
-    Each project has many rehearsals. 
+    Each project has many rehearsals.
     Each rehearsal has one venue.
     Each rehearsal has an absence list, preferable pre-populated by forms filled
     in by players, but entries can be added manually too.
@@ -122,8 +122,8 @@ class Rehearsal(models.Model):
 
 class Absence(models.Model):
     """
-    In each rehearsal, there will inevitably be some players who have to miss it. 
-    The orchestral manager needs to keep track of these. 
+    In each rehearsal, there will inevitably be some players who have to miss it.
+    The orchestral manager needs to keep track of these.
     Ideally, the players would report these in advance.
     The players must already be in the list of players assigned to the concert.
     """
@@ -147,4 +147,3 @@ class Venue(models.Model):
     rate_per_rehearsal = models.IntegerField(default=90, help_text="Fee charged per 3 hour rehearsal.", blank=True, null=True)
     rate_concert_day = models.IntegerField(default=140, help_text="If only the price of the entire project was agreed, put zero per rehearsal and enter the entire fee here.", blank=True, null=True)
     rate_per_hour = models.IntegerField(default=90, help_text="Alternative to the above fee structures", blank=True, null=True)
-

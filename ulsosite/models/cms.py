@@ -4,14 +4,14 @@ from django.db import models
 
 class Page(models.Model):
     def __str__(self):
-        return self.page_title
-    page_title = models.CharField(max_length=50)
-    main_description = models.TextField(blank=True)
+        return self.title
+    title = models.CharField(max_length=50)
+    body = models.TextField(blank=True)
 
 
 class Section(models.Model):
     def __str__(self):
-        return self.h2_title
+        return self.title
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     body = models.TextField(blank=True)
