@@ -34,7 +34,7 @@ ulso-django seeks to put all management-related information in one organised and
 
 The following contains the models used in for the suite. but does not show detailed relations.
 
-The hierarchical representation below aims to show how they are grouped conceptually. The names in bold are conceptual groupings only; their children are models. Anything in square brackets means it is planned but not yet implemented.
+The hierarchical representation below aims to show how they are grouped conceptually. The names inside asterisks are conceptual groupings only; their children are models. Anything in square brackets means it is planned but not yet implemented.
 
 ```
 [ulso-django]
