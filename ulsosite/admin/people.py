@@ -55,7 +55,7 @@ class CommitteeMemberAdmin(admin.ModelAdmin):
     def display_photo(self, obj):
         from django.utils.html import mark_safe
         if obj.id:
-            return mark_safe('<img src="{}{}" height="150" />'.format(BASER_DIR, obj.photo.url))
+            return mark_safe('<img src="{}{}" height="150" />'.format(BASE_DIR, obj.photo.url))
         return ''
     display_photo.allow_tags = True
 

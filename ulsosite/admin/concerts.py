@@ -4,6 +4,7 @@ from django.contrib import admin
 from ulsosite.models.concerts import (
                         Concert,
                         Piece,
+                        Poster,
                         Rehearsal,
                         Absence
                         )
@@ -16,10 +17,14 @@ class RehearsalInline(admin.TabularInline):
     model = Rehearsal
     extra = 0
 
+class PosterInline(admin.StackedInline):
+    model = Poster
+    extra = 0
 
 class ConcertAdmin(admin.ModelAdmin):
-    fields = ['current', 'project_term', 'start_time', 'concert_date', 'conductor', 'soloist', 'soloist_website','concert_venue']
-    inlines = [PiecesInline, RehearsalInline]
+    fields = ['current', 'project_term', 'start_time', 'date',
+    'conductor', 'soloist', 'soloist_website','concert_venue']
+    inlines = [PiecesInline, RehearsalInline, PosterInline]
 
 
 class PieceAdmin(admin.ModelAdmin):

@@ -8,19 +8,23 @@ from .people import Conductor, Musician
 
 class Concert(models.Model):
     def __str__(self):
-        return '{} - {} - {}'.format(self.project_term, self.concert_date, self.conductor)
+        return '{} - {} - {}'.format(self.project_term, self.date, self.conductor)
     current = models.BooleanField(default=False)
     project_term = models.CharField(max_length=30, help_text="e.g. Autumn, Winter, Spring, Summer 1, Summer 2")
     start_time = models.TimeField(help_text="Start time of concert", default='19:00:00')
-    concert_date = models.DateField('concert date')
+    date = models.DateField('concert date')
     conductor = models.ForeignKey(Conductor, on_delete=models.SET_NULL, blank=True, null=True)
     soloist = models.CharField(max_length=100, blank=True)
     soloist_website = models.CharField(max_length=200, blank=True)
     concert_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
-
     # player list
     player = models.ManyToManyField(Musician)
 
+class Poster(models.Model):
+    concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
+    poster = models.ImageField(null=True, blank=True, upload_to='posters')
+    artist = models.CharField(max_length=30, help_text='name of the artist')
+    website = models.CharField(max_length=200, blank=True, help_text="Artist's website, if exists")
 
 class Piece(models.Model):
     def __str__(self):
@@ -105,19 +109,14 @@ class Rehearsal(models.Model):
     NB. GDPR!!!!!
     """
     def __str__(self):
-        return '{} {}-{}'.format(str(self.rehearsal_date), str(self.start_time), str(self.end_time))
+        return '{} {}-{}'.format(str(self.date), str(self.start_time), str(self.end_time))
     concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
-    rehearsal_date = models.DateField('rehearsal date')
+    date = models.DateField('rehearsal date')
     start_time = models.TimeField(default='19:00:00')
     end_time = models.TimeField(default='22:00:00')
     rehearsal_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
     # venue = models.ManyToManyField(Venue)
     notes = models.CharField(max_length=400, blank=True)
-
-
-# class PlayerPerProject(models.Model):
-#     project = models.ForeignKey(Concert, on_delete=models.SET_NULL, blank=True, null=True)
-#     musician = models.OneToOneField(Musician, on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class Absence(models.Model):
@@ -135,10 +134,9 @@ class Absence(models.Model):
     reasons = models.CharField(max_length=200, help_text="Reasons for absence")
 
 
-
 # TODO - Currently not linked to anything - sort this out
 class Venue(models.Model):
-    # concert = models.ForeignKey(Concert, on_delete=models.SET_NULL, null=True, blank=True)
+    concert = models.ForeignKey(Concert, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=40, help_text="Official name e.g. 'St Stephen\'s Church'")
     address_1 =  models.CharField(max_length=200, help_text="First line of address")
     address_2 =  models.CharField(max_length=200, help_text="Second line of address", blank=True, null=True)

@@ -17,4 +17,5 @@ urlpatterns = [
     path('media/', views.media, name='media'),
     path('auditions/signup/', SignUpView.as_view(), name='signup'),
     path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
+    path('committee', views.committee, name='committee'),
 ]

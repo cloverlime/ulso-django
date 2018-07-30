@@ -1,27 +1,54 @@
 {% extends 'ulsosite/base.html' %}
 {% load staticfiles %}
-
 {% block content %}
 
-<h1>{{ page.title }}</h1>
+<div class="row">
+  <div class="col-lg-6">
+    <h2>{{ concert.project_term }}</h2>
+    <h3>{{ concert.start_time }} - {{ concert.date|date:"D d M y"}}</h3>
+    <div class="paragraph">
+      <h4>Repertoire</h4>
+      {% for piece in pieces %}
+        <p><strong>{{ piece.composer }}</strong> - {{ piece.piece }}</p>
+      {% endfor %}
+    </div>
+    <div class="paragraph">
+      <h4>Conductor</h4>
+      <p><a href="{{ concert.conductor.website }}">{{ concert.conductor.name }}</a></p>
+    </div>
+    {% if concert.soloist %}
+      <div class="paragraph">
+        <h4>Soloist</h4>
+        <p><a href="{{ concert.soloist_website }}">{{ concert.soloist }}</a></p>
+      </div>
+    {% endif %}
+    <div class="paragraph">
+      <h4>Rehearsals</h4>
+      <p>
+        {% for rehearsal in rehearsals %}
+          {{ rehearsal.date }} {{ rehearsal.start_time }} - {{rehearsal.end_time }}<br>
+        {% endfor %}
+      </p>
+    </div>
+    <div class="paragraph">
+      <h4>Concert</h4>
+      <p>{{ concert.date }} - {{ concert.start_time }}</p>
+    </div>
+    <div class="paragraph">
+      <h4>Venue</h4>
+      <p>{{ concert.concert_venue }}</p>
 
-{{ page.body | safe }}
+    </div>
+    <div class="paragraph">
+      <p>
+        {{ concert.notes | safe }}
+      </p>
 
-{% for concert in current_concert %}
-<h2>{{concert.concert_date|date:"D d M y"}}</h2>
-
-<h4>Conductor</h4>
-<p>{{ concert.conductor }}</p>
-
-{% endfor %}
-
-
-{% for concert in upcoming_concerts %}
-
-<h3>{{ concert.season }}</h3>
-<h4>Conductor</h4>
-<p>{{ concert.conductor }}</p>
-
-{% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <img src="{% static 'ulsosite/images/DSC_5329-min.jpg' %}" class="thumbnail"/>
+  </div>
+</div>
 
 {% endblock %}

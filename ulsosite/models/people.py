@@ -26,6 +26,9 @@ class Person(models.Model):
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
+    def name(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         if not self.id or not self.created:
@@ -105,7 +108,7 @@ class CommitteeMember(Person):
     uni = models.CharField(max_length=50, choices=UNI_LIST)
     role = models.CharField(max_length=100)
     season = models.CharField(max_length=10, default='2017/18', help_text='Format yyyy/yy')
-    role_description = models.TextField(max_length=1000, help_text="Introduce yourself and tell people a bit about your role in ULSO.")
+    description = models.TextField(max_length=1000, help_text="Introduce yourself and tell people a bit about your role in ULSO.")
     photo = models.ImageField(blank=True, null=True, upload_to='committee')
     class Meta(Person.Meta):
         ordering = ['role']

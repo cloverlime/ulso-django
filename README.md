@@ -48,6 +48,7 @@ The hierarchical representation below aims to show how they are grouped conceptu
 |── *Projects*
 |     └── Concert
 |            |── Rehearsal
+|            |      └── Absence
 |            |── Piece
 |            └── Venue
 |

@@ -16,15 +16,15 @@ class Section(models.Model):
     subheading = models.CharField(max_length=100, blank=True, null=True)
     body = models.TextField(blank=True, help_text="HTML tags required!")
 
+
 class AccordionCard(models.Model):
     def __str__(self):
-        return "{} {}".format(self.order, self.heading)
+        return self.heading
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
     heading = models.CharField(max_length=100)
-    order = models.PositiveIntegerField(primary_key=True, help_text="Order of display in the page.")
+    order = models.PositiveIntegerField(help_text="Order of display in the page.", default=0)
     body = models.TextField(blank=True, help_text="HTML tags required!")
     html_id = models.CharField(max_length=20, help_text="REQUIRED for accordions. No spaces and case-sensitive!")
-
 
 # class Subsection(models.Model):
 #     def __str__(self):
@@ -32,10 +32,11 @@ class AccordionCard(models.Model):
 #     section = models.ForeignKey(Section, on_delete=models.CASCADE)
 #     h3_title = models.CharField(max_length=100)
 #     sub_description = models.TextField()
-#
-#
-# class ImageSection(models.Model):
-#     page = models.ForeignKey(Page, on_delete=models.CASCADE, blank=True, null=True)
-#     image = models.ImageField()
-#     alt = models.CharField(max_length=200, blank=True, null=True, help_text='Text to show on hover and if image fails')
-#     caption = models.CharField(max_length=400, blank=True, null=True, help_text='Public description/figcaption to go below image. Optional!')
+
+
+class Image(models.Model):
+    accordion_card = models.ForeignKey(AccordionCard, on_delete=models.CASCADE, blank=True, null=True)
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, blank=True, null=True)
+    image = models.ImageField()
+    alt = models.CharField(max_length=200, blank=True, null=True, help_text='Text to show on hover and if image fails')
+    caption = models.CharField(max_length=400, blank=True, null=True, help_text='Public description/figcaption to go below image. Optional!')

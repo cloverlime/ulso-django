@@ -5,6 +5,8 @@
 
 <h1>{{ form.title }}</h1>
 
+{# Form text {{ form.text | safe }} #}
+
 <form action="" method="post">
   {% csrf_token %}
   {{ form }}

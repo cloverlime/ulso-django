@@ -31,14 +31,20 @@ from ulsosite.models.cms import (
 def index(request):
     return HttpResponse("Here is the Index page")
 
-def whatson(request):
-    return HttpResponse("Here is the whatson page")
-
 def rehearsals(request):
     page = Page.objects.get(title="Rehearsals")
-    current_concert = Concert.objects.filter(current=True)
-    upcoming_concerts = Concert.objects.filter(current=False).order_by('concert_date')
-    context = {'upcoming_concerts': upcoming_concerts, 'current_concert': current_concert, 'page': page}
+    current_concert = Concert.objects.get(current=True)
+    pieces = current_concert.piece_set.all()
+    rehearsals = current_concert.rehearsal_set.all()
+    venue = current_concert.venue_set.first()
+    # upcoming_concerts = Concert.objects.filter(current=False).order_by('date')
+    context = {
+                'concert': current_concert,
+                'page': page,
+                'pieces': pieces,
+                'rehearsals': rehearsals,
+                'venue': venue
+                }
     return render(request, 'ulsosite/rehearsals.html', context)
 
 def contact(request):
@@ -135,14 +141,49 @@ def auditions(request):
     return HttpResponse("Here is the page for info about auditions!")
 
 def about(request):
-    return HttpResponse("Here is the page for info about ULSO!")
+    page = Page.objects.get(title="About")
+    accordion = page.accordioncard_set.all().order_by("order")
+    chair = CommitteeMember.objects.get(role="Chair")
+    committee = CommitteeMember.objects.all().exclude(role="Chair")
+    context = {
+    'accordion': accordion,
+    'page': page
+    }
+    return render(request, 'ulsosite/accordion.html', context)
+
+def committee(request):
+    page = Page.objects.get(title="Committee")
+    chair = CommitteeMember.objects.get(role="Chair")
+    committee = CommitteeMember.objects.all().exclude(role="Chair")
+    context = {
+    'chair': chair,
+    'committee': committee
+    }
+    return render(request, 'ulsosite/committee.html', context)
+
 
 def join(request):
     page = Page.objects.get(title="How to Join")
     accordion = page.accordioncard_set.all().order_by('order')
-    context = {'accordion': accordion, 'page': page}
+    context = {
+    'accordion': accordion,
+    'page': page
+    }
     return render(request, 'ulsosite/accordion.html', context)
 
 
 def media(request):
     return HttpResponse("ULSO's media page")
+
+def whatson(request):
+    page = Page.objects.get(title="What's On")
+    current_concert = Concert.objects.get(current=True)
+    current_pieces = current_concert.piece_set.all().order_by('order')
+    concerts = Concert.objects.exclude(current=True)
+    context = {
+                'current_concert': current_concert,
+                'page': page,
+                'current_pieces': current_pieces,
+                'concerts': concerts,
+                }
+    return render(request, 'ulsosite/whatson.html', context)
