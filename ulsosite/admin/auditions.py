@@ -29,7 +29,7 @@ class AuditionSlotInline(admin.TabularInline):
 
 class AuditionDateAdmin(admin.ModelAdmin):
     inlines = [AuditionSlotInline]
-    list_display = ['day_date', 'season']
+    list_display = ['date', 'season']
     list_filter = ['season']
     readonly_fields = ['season']
 

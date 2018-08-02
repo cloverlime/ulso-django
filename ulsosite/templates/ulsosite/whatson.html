@@ -8,7 +8,7 @@
       <div class="flexwrap">
         <h3>{{ current_concert.start_time }} - {{ current_concert.date|date:"D d M y"}}</h3>
           {% for piece in current_pieces %}
-        <h4><strong>{{ piece.composer }}</strong> {{ piece.piece }}</h4>
+            <h4><strong>{{ piece.composer }}</strong> {{ piece.piece }}</h4>
           {% endfor %}
       </div>
       <img src="{{ current_concert.poster_set.first.poster.url }}" class="body-photo thumbnail" alt="Poster for current project"/>
@@ -42,12 +42,18 @@
             {% if concerts %}
               {% for concert in concerts %}
               <div class="col-lg-6">
-                <h3>{{ concert.conductor.website }}</h3>
-                <p><strong>{{ piece.composer }}</strong> {{ piece.piece }}</p>
+                <h3>{{ concert.start_time }} - {{ concert.date|date:"D d M y"}}</h3>
+                {% for piece in concert.piece_set.all %}
+                  <p><strong>{{ piece.composer }}</strong> {{ piece.piece }}</p>
+                {% endfor %}
                 <br>
                 <p>Conductor - <a href="{{ concert.conductor.website }}">{{ concert.conductor.name }}</a></p>
                 {% if concert.soloist %}
-                <p>Soloist - {{concert.soloist.name }}</p><br>
+                  {% if concert.soloist_website %}
+                    <p>Soloist - <a href="{{ concert.soloist_website }}">{{concert.soloist }}</p></a><br>
+                  {% else %}
+                    <p>Soloist - {{concert.soloist }}</p><br>
+                  {% endif %}
                 {% endif %}
               </div>
               {% endfor %}

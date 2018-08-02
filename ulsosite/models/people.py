@@ -93,9 +93,16 @@ class ConcertoApplicant(Person):
 
 
 class ConcertoWinner(Person):
+    season = models.CharField(max_length=10, null=True, blank=True)
+    instrument = models.CharField(max_length=10, null=True, blank=True)
+    uni = models.CharField(max_length=30, null=True, blank=True)
     website = models.URLField(blank=True, null=True)
     biography = models.TextField()
     photo = models.ImageField(null=True, blank=True,  upload_to='concertowinners/')
+    email = models.EmailField(max_length=50, null=True, blank=True)
+    phone = models.CharField(max_length=30, null=True, blank=True)
+
+    piece = models.CharField(max_length=50, null=True, blank=True, help_text="Piece performed with ULSO")
 
 
 class CommitteeMember(Person):

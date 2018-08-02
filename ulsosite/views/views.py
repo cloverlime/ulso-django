@@ -179,7 +179,7 @@ def whatson(request):
     page = Page.objects.get(title="What's On")
     current_concert = Concert.objects.get(current=True)
     current_pieces = current_concert.piece_set.all().order_by('order')
-    concerts = Concert.objects.exclude(current=True)
+    concerts = Concert.objects.all().exclude(current=True).order_by('date')
     context = {
                 'current_concert': current_concert,
                 'page': page,
