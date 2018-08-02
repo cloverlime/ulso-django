@@ -55,8 +55,11 @@ class Musician(Person):
 
     def save(self, *args, **kwargs):
         ''' On creation, assign the academic year '''
+        if not self.id or not self.created:
+            self.created = timezone.now()
         if not self.season:
-            self.season = academic_year_calc(timezone.now())
+            self.season = academic_year_calc(self.created)
+        self.modified = timezone.now()
         return super(Person, self).save(*args, **kwargs)
 
     def __repr__(self):

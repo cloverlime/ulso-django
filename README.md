@@ -66,6 +66,17 @@ The hierarchical representation below aims to show how they are grouped conceptu
       └── [BudgetPlan]
 ```
 
+### Custom Management Commands
+
+Create empty audition timetables:
+
+    python manage.py create_audition_slots date [start_time] [end_time] [slot_length]
+
+To see help text, type:
+
+    python manage.py <command> --help
+
+
 ### Priorities
 
 ###### Usability

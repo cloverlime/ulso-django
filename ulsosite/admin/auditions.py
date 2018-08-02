@@ -12,13 +12,11 @@ from ulsosite.models.auditions import (
                                         AuditionDate,
                                         )
 
-
-# Auditions Admin
-
 class AuditionSlotAdmin(admin.ModelAdmin):
     list_display = ['__str__', full_name, 'instrument','date']
     list_filter  = ['date', SectionListFilter, 'instrument',]
     search_fields = (['^first_name', '^last_name', '^instrument'])
+    ordering = ['date', 'time']
 
 
 class AuditionSlotInline(admin.TabularInline):
@@ -32,7 +30,6 @@ class AuditionDateAdmin(admin.ModelAdmin):
     list_display = ['date', 'season']
     list_filter = ['season']
     readonly_fields = ['season']
-
 
 #--------Registrations ---------
 admin.site.register(AuditionSlot, AuditionSlotAdmin)

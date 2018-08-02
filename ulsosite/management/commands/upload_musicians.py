@@ -1,15 +1,11 @@
-""" Result of an evening at codebar, do not commit"""
-
 import argparse
 import csv
 
 from django.core.management.base import BaseCommand, CommandError
-from ulsosite.models.people import CommitteeMember
+from ulsosite.models.people import Musician
 
 class Command(BaseCommand):
-    """Uploads one or more CSV files and creates new database entries"""
-    # use create_or_update?
-    help = "Upload data from a CSV file into the database"
+    help = "Upload data from a CSV file into the Musician database"
 
     def add_arguments(self, parser):
         parser.add_argument('filenames', nargs='+', type=argparse.FileType('r'))
@@ -22,6 +18,7 @@ class Command(BaseCommand):
             # for row in rows:
             #     self.stdout.write(row[0])
             #     { 'first_name' = row[0] }
+
 
             reader = csv.DictReader(file, delimiter='|')
             for row in reader: # row is an OrderedDict
@@ -42,7 +39,5 @@ class Command(BaseCommand):
                 )
                 entry.save()
 
-
-            #
             # text = file.readline()
             # self.stdout.write(text)
