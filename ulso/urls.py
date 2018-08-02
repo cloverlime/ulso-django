@@ -21,6 +21,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ulsosite.urls')),
-    re_path(r'^_nested_admin/', include('nested_admin.urls')),
+    path('', include('website.urls')),
+    # re_path(r'^_nested_admin/', include('nested_admin.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'ulsosite.apps.UlsositeConfig',
+    'website.apps.WebsiteConfig',
     'nested_admin',
     'django.contrib.admin',
     'django.contrib.auth',

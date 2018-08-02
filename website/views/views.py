@@ -4,7 +4,7 @@ from django.core.mail import EmailMessage, BadHeaderError
 from django.urls import reverse
 from django.views import View
 
-from ulsosite.forms import (
+from website.forms import (
                     AuditionSignUp,
                     ContactForm,
                     ConcertoForm,
@@ -21,7 +21,7 @@ from ulsosite.models.people import (
                         ConcertoWinner,
                         )
 
-from ulsosite.models.cms import (
+from website.models import (
                         Page,
                         Section,
                         AccordionCard,
