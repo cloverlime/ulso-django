@@ -2,13 +2,12 @@
 {% block content %}
 {% load staticfiles %}
 
-<h1>{{ title }} {{ season }}</h1>
-<p>
-  {{ page.body }}
-</p>
+<h2>{{ season }} Season</h2>
 <div id="chair" class="center-block">
   <h3 align="center" id="chair-title">Chair</h3>
-  <img src="{{ chair.photo.url }}" alt="Photo of current Chair" class="center-block thumbnail" id="chair-photo"></img>
+  {% if chair.photo %}
+    <img src="{{ chair.photo.url }}" alt="Photo of current Chair" class="center-block thumbnail" id="chair-photo"></img>
+  {% endif %}
   <h4>{{ chair.name }} <small>{{ chair.instrument}}, {{ chair.uni }}</small></h4>
   <a href="mailto:{{chair.email}}">
     <p class="committee-email"><img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{chair.email}}</p>

@@ -1,8 +1,11 @@
+import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMessage, BadHeaderError
 from django.urls import reverse
 from django.views import View
+
+from ulsosite.utils import academic_year_calc
 
 from website.forms import (
                     AuditionSignUp,
@@ -27,6 +30,7 @@ from website.models import (
                         AccordionCard,
                         )
 
+CURRENT_SEASON = "2018/19"
 
 def index(request):
     return HttpResponse("Here is the Index page")
@@ -54,7 +58,7 @@ def contact(request):
     if request.method != 'POST':
         page = Page.objects.get(title="Contact Us")
         form = ContactForm()
-        committee_member = CommitteeMember.objects.all()
+        committee_member = CommitteeMember.objects.all().filter(season=CURRENT_SEASON)
         context = {'committee_members': committee_member,
                    'contact_form': form,
                    'page': page }
@@ -143,8 +147,6 @@ def auditions(request):
 def about(request):
     page = Page.objects.get(title="About")
     accordion = page.accordioncard_set.all().order_by("order")
-    chair = CommitteeMember.objects.get(role="Chair")
-    committee = CommitteeMember.objects.all().exclude(role="Chair")
     context = {
     'accordion': accordion,
     'page': page
@@ -152,12 +154,16 @@ def about(request):
     return render(request, 'ulsosite/accordion.html', context)
 
 def committee(request):
+    season = CURRENT_SEASON
     page = Page.objects.get(title="Committee")
-    chair = CommitteeMember.objects.get(role="Chair")
-    committee = CommitteeMember.objects.all().exclude(role="Chair")
+    # chair = CommitteeMember.objects.get(role="Chair", season=academic_year_calc(datetime.now()))
+    committee = CommitteeMember.objects.all().filter(season=season).exclude(role="Chair")
+    chair = CommitteeMember.objects.all().filter(season=season).get(role="Chair")
     context = {
     'chair': chair,
-    'committee': committee
+    'committee': committee,
+    'page': page,
+    'season': season
     }
     return render(request, 'ulsosite/committee.html', context)
 
