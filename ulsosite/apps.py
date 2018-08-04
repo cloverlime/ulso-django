@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class UlsositeConfig(AppConfig):
+class ulsositeConfig(AppConfig):
     name = 'ulsosite'

@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'ulsosite.apps.UlsositeConfig',
+    'ulsosite.apps.ulsositeConfig',
     'website.apps.WebsiteConfig',
     'nested_admin',
     'django.contrib.admin',

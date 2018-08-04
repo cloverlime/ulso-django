@@ -21,10 +21,9 @@ from .utils import (SectionListFilter,
 from .auditions import AuditionSlotInline
 
 # Musicians Admin
-
 class MusicianAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'instrument', 'status', 'subs_paid', 'privacy_policy', 'season')
-    list_filter = ('status', SectionListFilter, 'instrument', 'subs_paid')
+    list_filter = ('season', 'status', SectionListFilter, 'instrument', 'subs_paid')
     readonly_fields = ('created', 'modified')
     search_fields = (['^first_name', '^last_name', '^instrument', '^university'])
 

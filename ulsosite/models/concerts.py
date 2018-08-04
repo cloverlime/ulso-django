@@ -141,7 +141,7 @@ class Absence(models.Model):
     dep_name = models.CharField('Full name of dep', max_length=20, blank=True, null=True)
     dep_email = models.EmailField("Dep's email address", max_length=100, help_text="This is for us to notify your dep about our privacy policy, and gives them information on how to contact us if need be.", blank=True, null=True)
     dep_phone = models.CharField(max_length=20, blank=True, null=True, help_text="Please give us your dep's phone number if at all possible. We will only contact them in the case of unexpected events to do with the rehearsal.")
-    reasons = models.TextField(max_length=200, blank=True, null=True)
+    reasons = models.CharField(max_length=500, blank=True, null=True)
     timestamp = models.DateTimeField(editable=False, blank=True, null=True)
 
     def save(self, *args, **kwargs):
