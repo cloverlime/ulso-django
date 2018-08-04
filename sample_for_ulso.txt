@@ -1,3 +1,0 @@
-first_name|last_name|alias|email|phone|instrument|uni|role|season|description|
-Amy|Edwards||amyedwards@gmail.com|01234567890|Viola|KCL|Chair|2018/19|I help out|
-Wenye|Zhao||wenye.zhao@gmail.com|01234567890|Violin|ICL|Webmaster|2017/18|I was a chair once|

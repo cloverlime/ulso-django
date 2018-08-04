@@ -3,7 +3,6 @@ from django.contrib import admin
 from ulsosite.models.budget import Account, Transaction
 
 
-
 class TransactionInline(admin.TabularInline):
     model = Transaction
     extra = 1
@@ -16,5 +15,3 @@ class AccountAdmin(admin.ModelAdmin):
 
 #--------Registrations ---------
 admin.site.register(Account, AccountAdmin)
-
-

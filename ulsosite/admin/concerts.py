@@ -69,3 +69,4 @@ class RehearsalAdmin(admin.ModelAdmin):
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
+admin.site.register(Absence)

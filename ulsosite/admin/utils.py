@@ -23,6 +23,7 @@ def full_name(obj):
 full_name.short_description = 'Name'
 
 class SectionListFilter(admin.SimpleListFilter):
+    """Some queryset shortcuts to help us search players by section or instrument"""
     title = _('section')
     parameter_name = 'instrument'
 

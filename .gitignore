@@ -6,3 +6,4 @@ tastypie/
 media/
 static/
 .vscode/
+migrations/

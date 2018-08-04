@@ -2,11 +2,28 @@ from django import forms
 from django.forms import ModelForm
 
 from ulsosite.info.info import INSTRUMENT_LIST
-# from ulsosite.models.concerts import PlayerPerProject
+from ulsosite.models.concerts import (
+    # PlayerPerProject,
+    Rehearsal,
+    Absence,
+    Concert
+)
+
 from ulsosite.models.people import (
-                                Musician,
-                                ConcertoApplicant,
-                                                    )
+    Musician,
+    ConcertoApplicant,
+)
+
+class AbsenceForm(ModelForm):
+    current_project = Concert.objects.get(current=True)
+    rehearsal_set = Rehearsal.objects.filter(concert=current_project)
+    # rehearsal_set = Concert.objects.all().get(current=True).rehearsal_set()
+
+    rehearsal = forms.ModelMultipleChoiceField(queryset=rehearsal_set, widget=forms.Select)
+
+    class Meta:
+        model = Absence
+        exclude = ['timestamp', 'musician', 'rehearsal']
 
 
 class AuditionSignUp(ModelForm):

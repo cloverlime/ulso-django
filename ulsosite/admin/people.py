@@ -48,10 +48,12 @@ class MusicianAdmin(admin.ModelAdmin):
 
 class CommitteeMemberAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'role', 'email', 'season')
+    list_filter = ('season', 'role')
     exclude = ['created', 'modified']
     readonly_fields = ['display_photo']
+    search_fields = (['^first_name', '^last_name', '^role'])
 
-    # TODO Sort this bit out
+    # # TODO Sort photo display in admin
     def display_photo(self, obj):
         from django.utils.html import mark_safe
         if obj.id:

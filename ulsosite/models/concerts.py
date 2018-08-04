@@ -126,12 +126,41 @@ class Absence(models.Model):
     Ideally, the players would report these in advance.
     The players must already be in the list of players assigned to the concert.
     """
+    def __str__(self):
+        return self.full_name
     rehearsal = models.ForeignKey(Rehearsal, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=20, help_text="First name and last name as registered")
-    musician = models.ForeignKey(Musician, on_delete=models.CASCADE)
-    dep_first_name = models.CharField(max_length=20, help_text="Dep's first name")
-    dep_last_name = models.CharField(max_length=20, help_text="Dep's last name")
-    reasons = models.CharField(max_length=200, help_text="Reasons for absence")
+    full_name = models.CharField(max_length=20, help_text="As registered")
+    email = models.EmailField("Your email address", max_length=100, help_text="As registered")
+    musician = models.ForeignKey(Musician, on_delete=models.CASCADE, blank=True, null=True)
+    instrument = models.CharField(max_length=20)
+    dep_name = models.CharField('Full name of dep', max_length=20, blank=True, null=True)
+    dep_email = models.EmailField("Dep's email address", max_length=100, help_text="This is for us to notify your dep about our privacy policy, and gives them information on how to contact us if need be.", blank=True, null=True)
+    dep_phone = models.CharField(max_length=20, blank=True, null=True, help_text="Please give us your dep's phone number if at all possible. We will only contact them in the case of unexpected events to do with the rehearsal.")
+    reasons = models.TextField(max_length=200, blank=True, null=True)
+    timestamp = models.DateTimeField(editable=False, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        ''' On receipt, create timestamps and assign to an existing Musician '''
+        if not self.id or not self.timestamp:
+            self.timestamp = timezone.now()
+        # Try to reference musician from Musician database
+        # TODO decide if this part goes in the form or not....
+        if not self.musician:
+            try:
+                self.musician = Musician.candidates.get(
+                    first_name=self.first_name,
+                    last_name=self.last_name,
+                    email=self.email
+                )
+            except:
+                return super(AuditionSlot, self).save(*args, **kwargs)
+        return super(AuditionSlot, self).save(*args, **kwargs)
+
+
+
+
+
+        return super(Absence, self).save(*args, **kwargs)
 
 
 # TODO - Currently not linked to anything - sort this out
