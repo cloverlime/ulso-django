@@ -8,10 +8,10 @@ from ulsosite.models.people import (
     CommitteeMember,
     ConcertoWinner,
 )
-
-from website.forms import ContactForm
-
 from ulsosite.info.dates import CURRENT_SEASON
+
+from website.forms.contact import ContactForm
+
 
 def contact(request):
     """

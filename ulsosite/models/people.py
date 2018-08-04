@@ -50,7 +50,7 @@ class Musician(Person):
     returning_member = models.BooleanField(default=False)
     subs_paid = models.BooleanField(default=False)
     depping_policy = models.BooleanField(default=False, help_text='Tick here to agree to abide to our depping policy.')
-    privacy_policy = models.BooleanField(default=False, help_text='Tick her to inicate that you have read and agreed to our privacy policy.')
+    privacy_policy = models.BooleanField(default=False, help_text='Tick her to indicate that you have read and agreed to our privacy policy.')
     season = models.CharField(max_length=10, null=True, blank=True)
 
     def save(self, *args, **kwargs):

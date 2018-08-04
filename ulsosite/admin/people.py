@@ -29,12 +29,12 @@ class MusicianAdmin(admin.ModelAdmin):
     search_fields = (['^first_name', '^last_name', '^instrument', '^university'])
 
     fieldsets = [
-    (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid', 'season']}),
-    ('Contact', {'fields': ['email', 'phone']}),
-    ('Details', {'fields': ['instrument', 'doubling', 'uni', 'other_uni', 'year', 'experience',]}),
-    ('Audition Info', {'fields': ['returning_member']}),
-    ('Agreements', {'fields': ['depping_policy', 'privacy_policy']}),
-    ('Read-only', {'fields': ['created', 'modified']})
+        (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid', 'season']}),
+        ('Contact', {'fields': ['email', 'phone']}),
+        ('Details', {'fields': ['instrument', 'doubling', 'uni', 'other_uni', 'year', 'experience',]}),
+        ('Audition Info', {'fields': ['returning_member']}),
+        ('Agreements', {'fields': ['depping_policy', 'privacy_policy']}),
+        ('Read-only', {'fields': ['created', 'modified']})
     ]
     inlines = [AuditionSlotInline]
 

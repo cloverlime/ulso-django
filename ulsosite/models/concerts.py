@@ -5,6 +5,7 @@ from ulsosite.info.info import DEFAULT_VENUE
 
 from .people import Conductor, Musician
 
+from ulsosite.utils import format_time, format_date
 
 class Concert(models.Model):
     def __str__(self):
@@ -26,6 +27,7 @@ class Poster(models.Model):
     artist = models.CharField(max_length=30, help_text='name of the artist')
     website = models.CharField(max_length=200, blank=True, help_text="Artist's website, if exists")
 
+# TODO Sort this out or put into a different app
 class Piece(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.composer, self.piece)
@@ -106,10 +108,13 @@ class Rehearsal(models.Model):
     Each rehearsal has an absence list, preferable pre-populated by forms filled
     in by players, but entries can be added manually too.
 
-    NB. GDPR!!!!!
     """
     def __str__(self):
-        return '{} {}-{}'.format(str(self.date), str(self.start_time), str(self.end_time))
+        return '{} {}-{}'.format(
+            format_date(self.date),
+            format_time(self.start_time),
+            format_time(self.end_time)
+        )
     concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
     date = models.DateField('rehearsal date')
     start_time = models.TimeField(default='19:00:00')
@@ -147,19 +152,16 @@ class Absence(models.Model):
         # TODO decide if this part goes in the form or not....
         if not self.musician:
             try:
+                split = (self.full_name).split(' ')
+                first_name = split[0]
+                last_name = split[1]
                 self.musician = Musician.candidates.get(
-                    first_name=self.first_name,
-                    last_name=self.last_name,
+                    first_name=first_name,
+                    last_name=last_name,
                     email=self.email
                 )
             except:
-                return super(AuditionSlot, self).save(*args, **kwargs)
-        return super(AuditionSlot, self).save(*args, **kwargs)
-
-
-
-
-
+                return super(Absence, self).save(*args, **kwargs)
         return super(Absence, self).save(*args, **kwargs)
 
 

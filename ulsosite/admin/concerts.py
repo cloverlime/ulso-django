@@ -64,9 +64,16 @@ class AbsenceInline(admin.TabularInline):
 class RehearsalAdmin(admin.ModelAdmin):
     inlines = [AbsenceInline]
 
+class AbsenceAdmin(admin.ModelAdmin):
+    list_display = (
+        'rehearsal', 'full_name', 'instrument',
+        'dep_name', 'dep_email', 'dep_phone'
+    )
+    list_filter = ('rehearsal',)
+
 
 #--------Registrations ---------
 admin.site.register(Concert, ConcertAdmin)
 admin.site.register(Piece, PieceAdmin)
 admin.site.register(Rehearsal, RehearsalAdmin)
-admin.site.register(Absence)
+admin.site.register(Absence, AbsenceAdmin)
