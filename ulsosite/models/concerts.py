@@ -11,6 +11,7 @@ class Concert(models.Model):
     def __str__(self):
         return '{} - {} - {}'.format(self.project_term, self.date, self.conductor)
     current = models.BooleanField(default=False)
+    season = models.CharField(max_length=10, null=True, blank=True)
     project_term = models.CharField(max_length=30, help_text="e.g. Autumn, Winter, Spring, Summer 1, Summer 2")
     start_time = models.TimeField(help_text="Start time of concert", default='19:00:00')
     date = models.DateField('concert date')

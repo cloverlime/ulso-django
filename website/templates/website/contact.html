@@ -26,11 +26,8 @@
     </li>
   </ul>
 
-  <h2>Contact Form</h2>
+  {% comment %} <h2>Contact Form</h2> {% endcomment %}
 
-  <form role="form" action="" method="post">
-    {% csrf_token %} {{ contact_form }}
-    <input type="submit" value="Submit">
-  </form>
+  {% include 'website/forms/form-headless.html' %}
 
 {% endblock %}

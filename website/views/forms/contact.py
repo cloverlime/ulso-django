@@ -4,6 +4,8 @@ from django.core.mail import EmailMessage, BadHeaderError
 from django.urls import reverse
 from django.views import View
 
+from website.models import Page
+
 from ulsosite.models.people import (
     CommitteeMember,
     ConcertoWinner,
@@ -20,13 +22,15 @@ def contact(request):
     if request.method != 'POST':
         page = Page.objects.get(title="Contact Us")
         form = ContactForm()
+        form_title = 'Contact Form'
         committee_member = CommitteeMember.objects.all().filter(season=CURRENT_SEASON)
         context = {
             'committee_members': committee_member,
-            'contact_form': form,
+            'form': form,
+            'title': form_title,
             'page': page
         }
-        return render(request, 'ulsosite/contact.html', context)
+        return render(request, 'website/contact.html', context)
 
     else:
         form = ContactForm(request.POST)
