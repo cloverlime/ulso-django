@@ -1,6 +1,4 @@
-{% extends 'website/base.html' %}
 {% load staticfiles %}
-
 {% block content %}
   {# <img src="{% static 'website/images/IMG_5857-min.jpg' %}" class="body-photo thumbnail"/> #}
   <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -28,7 +26,6 @@
     </div>
   {% endfor %}
   </div>
-
 {% if page.section_set.last %}
 
 <h2>{{ page.section_set.last.heading }}</h2>

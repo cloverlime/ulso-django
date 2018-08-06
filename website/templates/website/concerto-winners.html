@@ -1,0 +1,60 @@
+{% load staticfiles %}
+{% block content %}
+
+<!-- Current Winners -->
+<div id="accordion" role="tablist" aria-multiselectable="true"></div>
+    <div class="card">
+        <div class="card-header" role="tab" id="current-winners">
+            <h2>
+                <a data-toggle="collapse" data-target="#current-winners-text" href="#current-winners-text" aria-expanded="true" aria-controls="current-winners-text">Current Winners
+                    <span class="caret"></span>
+                </a>
+            </h2>
+        </div>
+        <div id="current-winners-text" class="collapse show" role="tabpanel" aria-labelledby="current-winners">
+            <div class="card-block">
+                <p>The winners of the 2016/17 competition are:</p>
+                {% for winner in winners %}
+                    <h3>{{ winner }}
+                        <small>{{ winner.instrument }}</small>
+                    </h3>
+                    <h5>{{ winner.uni }}</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {% if winner.photo %}
+                            <img src="{{ winner.photo.url }}" class="thumbnail" alt="Photo of {{ winner.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ winner.biography | safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Past Winners -->
+    <div class="card">
+        <div class="card-header" role="tab" id="past-winners">
+            <h2><a data-toggle="collapse" data-target="#past-winners-text" href="#past-winners-text" aria-expanded="true" aria-controls="past-winners-text">Past Winners <span class="caret"></span></a></h2>
+        </div>
+        <div id="past-winners-text" class="collapse show" role="tabpanel" aria-labelledby="past-winners">
+            <div class="card-block">
+            <p>Previous winners of the competition include:</p>
+            <ul>
+                {% for past_winner in past_winners %}
+                    {% if past_winner.website %}
+                    <li><a href="{{ past_winner.website }}">{{ past_winner.name }} </a> - {{ past_winner.instrument }} - {{ past_winner.season }}<br>
+                        <em>{{ past_winner.piece }}</em></li>
+                    {% else %}
+                    <li><a href="#">{{ past_winner.name }} </a> - {{ past_winner.instrument }} - {{ past_winner.season }}<br>
+                        <em>{{ past_winner.piece }}</em></li>                    
+                    {% endif %}
+                {% endfor %}
+            ​</ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

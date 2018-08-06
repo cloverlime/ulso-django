@@ -40,7 +40,7 @@ def rehearsals(request):
         'rehearsals': rehearsals,
         'venue': venue
     }
-    return render(request, 'ulsosite/rehearsals.html', context)
+    return render(request, 'website/rehearsals.html', context)
 
 def about(request):
     page = Page.objects.get(title="About")
@@ -49,7 +49,7 @@ def about(request):
         'accordion': accordion,
         'page': page
     }
-    return render(request, 'ulsosite/accordion.html', context)
+    return render(request, 'website/accordion.html', context)
 
 def committee(request):
     season = CURRENT_SEASON
@@ -63,7 +63,7 @@ def committee(request):
         'page': page,
         'season': season
     }
-    return render(request, 'ulsosite/committee.html', context)
+    return render(request, 'website/committee.html', context)
 
 
 def join(request):
@@ -73,13 +73,23 @@ def join(request):
         'accordion': accordion,
         'page': page
     }
-    return render(request, 'ulsosite/accordion.html', context)
+    return render(request, 'website/accordion.html', context)
 
 def media(request):
     return HttpResponse("ULSO's media page")
 
 def concerto(request):
-    return HttpResponse("ULSO's concerto competition page")
+    page = Page.objects.get(title="Concerto Competition")
+    accordion = page.accordioncard_set.all().order_by("order")
+    winners = ConcertoWinner.objects.filter(season="2016/17")
+    past_winners = ConcertoWinner.objects.exclude(season="2016/17")
+    context = {
+        'page': page,
+        'accordion': accordion,
+        'winners': winners,
+        'past_winners': past_winners
+    }
+    return render(request, 'website/concerto.html', context)
 
 def whatson(request):
     page = Page.objects.get(title="What's On")
@@ -92,4 +102,4 @@ def whatson(request):
         'current_pieces': current_pieces,
         'concerts': concerts,
     }
-    return render(request, 'ulsosite/whatson.html', context)
+    return render(request, 'website/whatson.html', context)
