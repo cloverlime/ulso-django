@@ -46,7 +46,6 @@ def about(request):
     page = Page.objects.get(title="About")
     accordion = page.accordioncard_set.all().order_by("order")
     season = CURRENT_SEASON
-    page = Page.objects.get(title="Committee")
     committee = CommitteeMember.objects.all().filter(season=season).exclude(role="Chair")
     chair = CommitteeMember.objects.all().filter(season=season).get(role="Chair")
     context = {

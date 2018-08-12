@@ -1,39 +1,49 @@
-{% load staticfiles %}
-{% block content %} 
+{% load staticfiles %} {% block content %}
 
-<h2>{{ season }} Season</h2>
-<div id="chair" class="center-block">
-  <h3 align="center" id="chair-title">Chair</h3>
-  {% if chair.photo %}
-  <img src="{{ chair.photo.url }}" alt="Photo of current Chair" class="center-block thumbnail" id="chair-photo"></img>
-  {% endif %}
-  <h4>{{ chair.name }}
-    <small>{{ chair.instrument}}, {{ chair.uni }}</small>
-  </h4>
-  <a href="mailto:{{chair.email}}">
-    <p class="committee-email">
-      <img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{chair.email}}</p>
-  </a>
-  <p>{{ chair.description }}</p>
-</div>
-<div class="row sub-committee">
-  {% for member in committee %}
-  <div class="col-sm-6 col-md-4 col-lg-3">
-    <h3 align="center">{{ member.role }}</h3>
-    {% if member.photo %}
-    <img src="{{ member.photo.url }}" alt="Photo of current {{ member.role }}" class="circle committee-photo center-block"></img>
-    {% else %}
-    <img src="{% static 'ulsosite/images/dahlia.jpg' %}" alt="Photo of current {{ member.role }}" class="circle committee-photo center-block"></img>
-    {% endif %}
-    <h4>{{ member.name }}
-      <small>{{ member.instrument}}, {{ member.uni }}</small>
-    </h4>
-    <a href="mailto:{{ member.email }}">
-      <p class="committee-email">
-        <img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{member.email}}</p>
-    </a>
-    <p>{{ member.description }}</p>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="committee">
+      <h2>
+        <a data-toggle="collapse" data-target="#committee-text" href="#committee-text" aria-expanded="true" aria-controls="committee-text">
+          Committee {{ season }}
+          <span class="caret"></span>
+        </a>
+      </h2>
+    </div>
+    <div id="committee-text" class="collapse show" role="tabpanel" aria-labelledby="committee">
+      <div class="card-block">
+        <div id="chair" class="center-block">
+          <h3 align="center" id="chair-title">Chair</h3>
+          {% if chair.photo %}
+          <img src="{{ chair.photo.url }}" alt="Photo of current Chair" class="center-block thumbnail" id="chair-photo"></img>
+          {% endif %}
+          <h4>{{ chair.name }}
+            <small>{{ chair.instrument}}, {{ chair.uni }}</small>
+          </h4>
+          <a href="mailto:{{chair.email}}">
+            <p class="committee-email">{{chair.email}}</p>
+          </a>
+          <p>{{ chair.description }}</p>
+        </div>
+
+        <div class="row sub-committee">
+          {% for member in committee %}
+          <div class="col-sm-6 col-md-3 col-lg-3">
+            <h3 align="center">{{ member.role }}</h3>
+            {% if member.photo %}
+            <img src="{{ member.photo.url }}" alt="Photo of current {{ member.role }}" class="circle committee-photo center-block"></img>
+            {% else %}
+            <img src="{% static 'ulsosite/images/dahlia.jpg' %}" alt="Photo of current {{ member.role }}" class="circle committee-photo center-block"></img>
+            {% endif %}
+            <h4>{{ member.name }}</h4>
+            <h4><small>{{ member.instrument}}, {{ member.uni }}</small></h4>
+            <a href="mailto:{{ member.email }}"><p class="committee-email">{{member.email}}</p></a>
+            <p>{{ member.description }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
-  {% endfor %}
 </div>
 {% endblock %}

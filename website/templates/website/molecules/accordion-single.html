@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+{% block content %}
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+  {% for card in accordion %}
+    <div class="card">
+      <div class="card-header" role="tab" id="card">
+        <h2><a data-toggle="collapse"
+               data-target="#card-text"
+               href="#card-text"
+               aria-expanded="true"
+               aria-controls="card-text">
+               {{ card.heading }}
+               <span class="caret"></span>
+             </a>
+        </h2>
+      </div>
+      <div id="card-text" class="collapse show" role="tabpanel" aria-labelledby="card">
+        <div class="card-block">
+       
+          {# Should just be includes? #}
+          {% block content %}
+
+          {% endblock %}
+
+
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+
+{% endblock %}

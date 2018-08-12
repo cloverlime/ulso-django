@@ -4,7 +4,9 @@
 
 <h1>{{ title }}</h1>
 
-{# Form text {{ form.text | safe }} #}
+{% if form_text %}
+  {{ form_text | safe }}
+{% endif %}
 
 <form action="{{ action }}" method="post">
   {% csrf_token %}

@@ -14,7 +14,6 @@ from ulsosite.info.dates import CURRENT_SEASON
 
 from website.forms.contact import ContactForm
 
-
 def contact(request):
     """
     Logic for the website's contact form. Sends an email directly to committee members' role@ulso.co.uk email addresses depending on the topic chosen by the sender.
@@ -22,15 +21,15 @@ def contact(request):
     if request.method != 'POST':
         page = Page.objects.get(title="Contact Us")
         form = ContactForm()
-        form_title = 'Contact Form'
+        form_text = '<h2>Contact Form</h2>'
         committee_member = CommitteeMember.objects.all().filter(season=CURRENT_SEASON)
         context = {
             'committee_members': committee_member,
             'form': form,
-            'title': form_title,
+            'form_text': form_text,
             'page': page
         }
-        return render(request, 'website/contact.html', context)
+        return render(request, 'website/pages/contact.html', context)
 
     else:
         form = ContactForm(request.POST)
@@ -79,7 +78,7 @@ def contact(request):
                 return HttpResponse("Invalid header found.")
 
             # Redirect back to contacts page with a success message
-            return redirect(reverse('rehearsals'))
+            return redirect(reverse('contact'))
 
         # Form is not valid
         else:
