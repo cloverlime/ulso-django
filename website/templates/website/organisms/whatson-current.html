@@ -1,0 +1,34 @@
+{% load staticfiles %}
+{% block content %}
+
+<h1>{{ page.tite }}</h1>
+<h2>Next Performance</h2>
+<div class="flexwrap">
+    <h3>{{ current_concert.start_time }} - {{ current_concert.date|date:"D d M y"}}</h3>
+        
+        {% for piece in current_pieces %}
+            <h4><strong>{{ piece.composer }}</strong> {{ piece.piece }}</h4>
+        {% endfor %}
+        
+</div>
+<img src="{{ current_concert.poster_set.first.poster.url }}" class="body-photo thumbnail" alt="Poster for current project"/>
+<figcaption>
+    <p class="center-text"><small>Poster designed by <a href="{{ current_concert.poster_set.first.website }}">{{ current_concert.poster_set.first.artist }}</a></small></p>
+</figcaption>
+<br>
+<div class="row">
+    <div class="col-lg-4">
+        <h3>Conductor</h3>
+        <p><a href="{{ current_concert.conductor.website }}">{{ current_concert.conductor.name }}</a></p><br>
+    </div>
+    <div class="col-lg-4">
+        <h3>Venue</h3>
+        <p>{{ current_concert.concert_venue }}</p>
+    </div>
+    <div class="col-lg-4">
+        <h3>Tickets</h3>
+        <p>£10 Adults</p>
+        <p>£5 Concessions & Students</p><br>
+    </div>
+</div>
+{% endblock %}

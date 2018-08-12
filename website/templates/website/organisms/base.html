@@ -40,8 +40,7 @@
             <li><a href="{% url 'join' %}">Join</a></li>
             <!-- <li><a href="{% url 'media' %}">Media</a></li> -->
             <li><a href="{% url 'rehearsals' %}">Rehearsals</a></li>
-            <li><a href="{% url 'concerto' %}">Concerto</a></li>
-            <li><a href="{% url 'committee' %}">Committee</a></li>
+            <li><a href="{% url 'concerto' %}">Concerto Competition</a></li>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -52,19 +51,11 @@
     </nav>
 
 <div class="container">
-  <h1>{{ page.title }}</h1>
-
-  {% if page.image_set.first %}
-    <img src='{{ page.image_set.first.image.url }}' class="body-photo thumbnail"/>
-  {% endif %}
-
-  {% if page.body %}
-    {{ page.body | safe }}
-  {% endif %}
 
 {% block content %}
 
 {% endblock %}
+
 </div>
 
 <footer>

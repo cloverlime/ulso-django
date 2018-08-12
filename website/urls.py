@@ -12,7 +12,7 @@ from website.views.forms.audition_signup import AuditionSignUpView
 # from ulsosite.views.views import SignUpView, ConcertoSignUp
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='website/index.html'), name='index'),
+    path('', TemplateView.as_view(template_name='website/pages/index.html'), name='index'),
     path('whatson/', views.whatson, name='whatson'),
     path('rehearsals/', views.rehearsals, name='rehearsals'),
     path('contact/', contact.contact, name='contact'),
@@ -23,6 +23,6 @@ urlpatterns = [
     path('media/', views.media, name='media'),
     path('auditions/signup/', AuditionSignUpView.as_view(), name='signup'),
     # path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
-    path('committee', views.committee, name='committee'),
+    # path('committee', views.committee, name='committee'),
     path('absence', AbsenceFormView.as_view(), name='absence')
 ]

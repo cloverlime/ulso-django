@@ -1,0 +1,37 @@
+{% load staticfiles %}
+{% block content %}
+
+<div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="current-winners">
+            <h2>
+                <a data-toggle="collapse" data-target="#current-winners-text" href="#current-winners-text" aria-expanded="true" aria-controls="current-winners-text">Current Winners
+                    <span class="caret"></span>
+                </a>
+            </h2>
+        </div>
+        <div id="current-winners-text" class="collapse show" role="tabpanel" aria-labelledby="current-winners">
+            <div class="card-block">
+                <p>The winners of the 2016/17 competition are:</p>
+                {% for winner in winners %}
+                    <h3>{{ winner }}
+                        <small>{{ winner.instrument }}</small>
+                    </h3>
+                    <h5>{{ winner.uni }}</h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {% if winner.photo %}
+                            <img src="{{ winner.photo.url }}" class="column-photo thumbnail" alt="Photo of {{ winner.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-6">
+                            {{ winner.biography | safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

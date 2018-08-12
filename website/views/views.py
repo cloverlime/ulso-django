@@ -40,30 +40,38 @@ def rehearsals(request):
         'rehearsals': rehearsals,
         'venue': venue
     }
-    return render(request, 'website/rehearsals.html', context)
+    return render(request, 'website/pages/rehearsals.html', context)
 
 def about(request):
     page = Page.objects.get(title="About")
     accordion = page.accordioncard_set.all().order_by("order")
-    context = {
-        'accordion': accordion,
-        'page': page
-    }
-    return render(request, 'website/accordion.html', context)
-
-def committee(request):
     season = CURRENT_SEASON
     page = Page.objects.get(title="Committee")
-    # chair = CommitteeMember.objects.get(role="Chair", season=academic_year_calc(datetime.now()))
     committee = CommitteeMember.objects.all().filter(season=season).exclude(role="Chair")
     chair = CommitteeMember.objects.all().filter(season=season).get(role="Chair")
     context = {
+        'accordion': accordion,
+        'page': page,
         'chair': chair,
         'committee': committee,
         'page': page,
         'season': season
     }
-    return render(request, 'website/committee.html', context)
+    return render(request, 'website/pages/about.html', context)
+
+# def committee(request):
+#     season = CURRENT_SEASON
+#     page = Page.objects.get(title="Committee")
+#     # chair = CommitteeMember.objects.get(role="Chair", season=academic_year_calc(datetime.now()))
+#     committee = CommitteeMember.objects.all().filter(season=season).exclude(role="Chair")
+#     chair = CommitteeMember.objects.all().filter(season=season).get(role="Chair")
+#     context = {
+#         'chair': chair,
+#         'committee': committee,
+#         'page': page,
+#         'season': season
+#     }
+#     return render(request, 'website/committee.html', context)
 
 
 def join(request):
@@ -73,7 +81,7 @@ def join(request):
         'accordion': accordion,
         'page': page
     }
-    return render(request, 'website/accordion.html', context)
+    return render(request, 'website/pages/join.html', context)
 
 def media(request):
     return HttpResponse("ULSO's media page")
@@ -89,7 +97,7 @@ def concerto(request):
         'winners': winners,
         'past_winners': past_winners
     }
-    return render(request, 'website/concerto.html', context)
+    return render(request, 'website/pages/concerto.html', context)
 
 def whatson(request):
     page = Page.objects.get(title="What's On")
@@ -102,4 +110,4 @@ def whatson(request):
         'current_pieces': current_pieces,
         'concerts': concerts,
     }
-    return render(request, 'website/whatson.html', context)
+    return render(request, 'website/pages/whatson.html', context)
