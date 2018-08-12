@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from .environ import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -140,9 +141,13 @@ MEDIA_URL = '/media/'
 
 # Email backend setup
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'testing@example.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-EMAIL_PORT = 1025
+EMAIL_HOST = SMTP_SERVER
+DEFAULT_FROM_EMAIL = WEBMASTER_EMAIL
+EMAIL_HOST_USER = WEBMASTER_EMAIL
+EMAIL_HOST_PASSWORD = WEBMASTER_PASSWORD
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#console backend
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

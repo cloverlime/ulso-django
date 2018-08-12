@@ -1,10 +1,11 @@
-{% extends 'website/base.html' %}
+{% extends 'website/organisms/base.html' %}
 {% load staticfiles %}
 
 {% block content %}
-<h1>Thank you for your submission!</h1>
 <p>
   {{ message }}
 </p>
+
+<a href="{% url 'index' %}"><p>Home</p></a>
 
 {% endblock %}

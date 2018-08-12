@@ -12,6 +12,7 @@ from ulsosite.models.people import (
 )
 from ulsosite.info.dates import CURRENT_SEASON
 
+from website.templates.messages.messages import CONTACT_MESSAGE_SUCCESS
 from website.forms.contact import ContactForm
 
 def contact(request):
@@ -74,11 +75,16 @@ def contact(request):
 
             try:
                 email_msg.send()
+
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
 
             # Redirect back to contacts page with a success message
-            return redirect(reverse('contact'))
+            return render(
+                request,
+                'website/forms/form-success.html',
+                {'message': CONTACT_MESSAGE_SUCCESS }
+            )
 
         # Form is not valid
         else:
