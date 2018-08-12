@@ -3,6 +3,7 @@ from django.db import models
 class Page(models.Model):
     def __str__(self):
         return self.title
+
     title = models.CharField(max_length=50)
     body = models.TextField(blank=True)
 
@@ -10,6 +11,7 @@ class Page(models.Model):
 class Section(models.Model):
     def __str__(self):
         return "{} {}".format(self.order, self.heading)
+
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
     order = models.PositiveIntegerField(primary_key=True)
     heading = models.CharField(max_length=100, blank=True, null=True)
@@ -36,6 +38,7 @@ class AccordionCard(models.Model):
 
 class Image(models.Model):
     accordion_card = models.ForeignKey(AccordionCard, on_delete=models.CASCADE, blank=True, null=True)
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, blank=True, null=True)
     section = models.ForeignKey(Section, on_delete=models.CASCADE, blank=True, null=True)
     image = models.ImageField()
     alt = models.CharField(max_length=200, blank=True, null=True, help_text='Text to show on hover and if image fails')

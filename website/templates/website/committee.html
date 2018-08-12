@@ -1,16 +1,20 @@
-{% extends 'website/base.html'%}
-{% block content %}
+{% extends 'website/base.html'%} 
 {% load staticfiles %}
+
+{% block content %} 
 
 <h2>{{ season }} Season</h2>
 <div id="chair" class="center-block">
   <h3 align="center" id="chair-title">Chair</h3>
   {% if chair.photo %}
-    <img src="{{ chair.photo.url }}" alt="Photo of current Chair" class="center-block thumbnail" id="chair-photo"></img>
+  <img src="{{ chair.photo.url }}" alt="Photo of current Chair" class="center-block thumbnail" id="chair-photo"></img>
   {% endif %}
-  <h4>{{ chair.name }} <small>{{ chair.instrument}}, {{ chair.uni }}</small></h4>
+  <h4>{{ chair.name }}
+    <small>{{ chair.instrument}}, {{ chair.uni }}</small>
+  </h4>
   <a href="mailto:{{chair.email}}">
-    <p class="committee-email"><img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{chair.email}}</p>
+    <p class="committee-email">
+      <img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{chair.email}}</p>
   </a>
   <p>{{ chair.description }}</p>
 </div>
@@ -18,10 +22,17 @@
   {% for member in committee %}
   <div class="col-sm-6 col-md-4 col-lg-3">
     <h3 align="center">{{ member.role }}</h3>
-    <img src="{{ member.photo.url }}" alt="Photo of current orchestral manager" class="circle committee-photo center-block"></img>
-    <h4>{{member.name}} <small>{{ member.instrument}}, {{ member.uni }}</small></h4>
+    {% if member.photo %}
+    <img src="{{ member.photo.url }}" alt="Photo of current {{ member.role }}" class="circle committee-photo center-block"></img>
+    {% else %}
+    <img src="{% static 'ulsosite/images/dahlia.jpg' %}" alt="Photo of current {{ member.role }}" class="circle committee-photo center-block"></img>
+    {% endif %}
+    <h4>{{ member.name }}
+      <small>{{ member.instrument}}, {{ member.uni }}</small>
+    </h4>
     <a href="mailto:{{ member.email }}">
-      <p class="committee-email"><img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{member.email}}</p>
+      <p class="committee-email">
+        <img src="{% static 'ulsosite/images/mail.png' %}" class="inline-icon"> {{member.email}}</p>
     </a>
     <p>{{ member.description }}</p>
   </div>

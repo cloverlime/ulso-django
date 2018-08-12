@@ -9,7 +9,7 @@
 <form action="{{ action }}" method="post">
   {% csrf_token %}
   {% for field in form %}
-      <div class="fieldWrapper">
+      <div class="field-wrapper">
           {{ field.errors }}
           {{ field.label }}
           <div class="form-field">
@@ -21,7 +21,7 @@
       </div>
   {% endfor %}
 
-  <input type="submit" value="Submit" />
+  <button class="btn" type="submit">Submit</button>
 </form>
 
 {% endblock %}

@@ -60,6 +60,7 @@ class CommitteeMemberAdmin(admin.ModelAdmin):
         return ''
     display_photo.allow_tags = True
 
+
 class ConductorAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'email', 'phone')
     fieldsets = [

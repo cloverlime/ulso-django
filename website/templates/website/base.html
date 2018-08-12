@@ -54,6 +54,10 @@
 <div class="container">
   <h1>{{ page.title }}</h1>
 
+  {% if page.image_set.first %}
+    <img src='{{ page.image_set.first.image.url }}' class="body-photo thumbnail"/>
+  {% endif %}
+
   {% if page.body %}
     {{ page.body | safe }}
   {% endif %}

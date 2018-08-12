@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 from website.models import (
-                        Page,
-                        Section,
-                        AccordionCard,
-                        Image
-                        )
+    Page,
+    Section,
+    AccordionCard,
+    Image
+)
 
 # class ImageSection(nested_admin.NestedStackedInline):
 #     model = ImageSection
@@ -31,7 +31,7 @@ class AccordionCardInline(admin.TabularInline):
 
 class PageAdmin(admin.ModelAdmin):
     fields = ['title', 'body']
-    inlines = [SectionInline, AccordionCardInline]
+    inlines = [ImageInline, SectionInline, AccordionCardInline]
 
 class SectionAdmin(admin.ModelAdmin):
     inlines = [ImageInline]
