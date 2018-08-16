@@ -7,12 +7,14 @@ from django.utils import timezone
 from ulsosite.utils import academic_year_calc
 from .model_managers import *
 
+# from ulsosite.models.concerts import Concert
+
 from ulsosite.info.info import (
-                   INSTRUMENT_LIST,
-                   YEAR_LIST,
-                   UNI_LIST,
-                   MEMBERSHIP_STATUS,
-                   )
+    INSTRUMENT_LIST,
+    YEAR_LIST,
+    UNI_LIST,
+    MEMBERSHIP_STATUS,
+)
 
 class Person(models.Model):
     created = models.DateTimeField(editable=False, blank=True, null=True)
@@ -40,6 +42,8 @@ class Person(models.Model):
         abstract = True
 
 class Musician(Person):
+    # concert = models.ManyToManyField(Concert, blank=True)
+
     instrument = models.CharField(max_length=20, choices=INSTRUMENT_LIST)
     doubling = models.CharField(max_length=50, default=None, blank=True) # optional
     uni = models.CharField(max_length=50, choices=UNI_LIST)
@@ -139,10 +143,12 @@ class ConcertoWinner(Person):
 
 class CommitteeMember(Person):
     def __repr__(self):
-        return '{} ({} {}) - {}'.format(self.role,
-                                       self.first_name,
-                                       self.last_name,
-                                       self.season)
+        return '{} ({} {}) - {}'.format(
+            self.role,
+            self.first_name,
+            self.last_name,
+            self.season
+        )
     instrument = models.CharField(max_length=20, choices=INSTRUMENT_LIST)
     uni = models.CharField(max_length=50, choices=UNI_LIST)
     role = models.CharField(max_length=100)

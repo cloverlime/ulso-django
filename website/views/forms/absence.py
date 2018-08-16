@@ -8,7 +8,7 @@ from website.forms.absence import AbsenceForm
 
 class AbsenceFormView(View):
     form = AbsenceForm()
-    form_template = 'website/forms/form.html'
+    form_template = 'website/pages/absence-signup.html'
     success_template = 'website/forms/form-success.html'
 
     def get(self, request, *args, **kwargs):

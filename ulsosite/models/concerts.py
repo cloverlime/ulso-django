@@ -8,8 +8,6 @@ from .people import Conductor, Musician
 from ulsosite.utils import format_time, format_date
 
 class Concert(models.Model):
-    def __str__(self):
-        return '{} - {} - {}'.format(self.project_term, self.date, self.conductor)
     current = models.BooleanField(default=False)
     season = models.CharField(max_length=10, null=True, blank=True)
     project_term = models.CharField(max_length=30, help_text="e.g. Autumn, Winter, Spring, Summer 1, Summer 2")
@@ -20,7 +18,12 @@ class Concert(models.Model):
     soloist_website = models.CharField(max_length=200, blank=True)
     concert_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
     # player list
-    player = models.ManyToManyField(Musician)
+    players = models.ManyToManyField(Musician, related_name='players')
+
+    def __str__(self):
+        return '{} - {} - {}'.format(
+            self.project_term, self.date, self.conductor)
+
 
 class Poster(models.Model):
     concert = models.ForeignKey(Concert, on_delete=models.CASCADE)

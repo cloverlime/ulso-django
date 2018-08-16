@@ -17,8 +17,6 @@ class AuditionSignUpView(GenericFormView):
         success_template = 'website/forms/form-success.html'
         success_message = "Thank you for signing up to ULSO."
 
-        print(form.errors)
-
         if form.is_valid():
             field_attr = form.cleaned_data
             musician = Musician.create(field_attr)
