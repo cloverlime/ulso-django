@@ -9,6 +9,7 @@ from website.views.forms import (
 )
 from website.views.forms.absence import AbsenceFormView
 from website.views.forms.audition_signup import AuditionSignUpView
+from website.views.forms.project_form_view import ProjectFormView
 # from ulsosite.views.views import SignUpView, ConcertoSignUp
 
 urlpatterns = [
@@ -21,8 +22,11 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('join/', views.join, name='join'),
     path('media/', views.media, name='media'),
-    path('auditions/signup/', AuditionSignUpView.as_view(), name='signup'),
-    # path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
     # path('committee', views.committee, name='committee'),
-    path('absence', AbsenceFormView.as_view(), name='absence')
+
+    # Forms and signups
+    path('auditions/signup/', AuditionSignUpView.as_view(), name='signup'),
+    path('absence', AbsenceFormView.as_view(), name='absence'),
+    path('project/signup/', ProjectFormView.as_view(), name='project_signup'),
+    # path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
 ]

@@ -1,0 +1,91 @@
+{% load staticfiles %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+<h2>{{ concert }}</h2>
+
+{% if form_text %}
+  {{ form_text | safe }}
+{% endif %}
+
+<form action="{{ action }}" method="post">
+  {% csrf_token %}
+  <div class="field-wrapper">
+        <label class="form-label" for="{{ form.first_name.id_for_label }}">
+            First Name
+        </label>
+        <p class="help">
+            {{ form.first_name.help_text|safe }}
+        </p>
+        {{ form.first_name }}
+        <p class="form-error">
+        {{ form.first_name.errors }}
+        </p>
+    </div>
+    <div class="field-wrapper">
+        <label class="form-label" for="{{ form.last_name.id_for_label }}">
+            Last Name
+        </label>
+        <p class="help">
+            {{ form.last_name.help_text|safe }}
+        </p>
+        {{ form.last_name }}
+        <p class="form-error">
+        {{ form.last_name.errors }}
+        </p>
+    </div>
+    <div class="field-wrapper">
+        <label class="form-label" for="{{ form.email.id_for_label }}">
+            Email Address
+        </label>
+        <p class="help">
+            {{ form.email.help_text|safe }}
+        </p>
+        {{ form.email }}
+        <p class="form-error">
+        {{ form.email.errors }}
+        </p>
+    </div>
+    <div class="field-wrapper">
+            <label class="form-label" for="{{ form.instrument.id_for_label }}">
+                Instrument
+            </label>
+            <p class="help">
+                {{ form.instrument.help_text|safe }}
+            </p>
+            {{ form.instrument }}
+            <p class="form-error">
+            {{ form.instrument.errors }}
+            </p>
+    </div>
+    <div class="field-wrapper">
+            <label class="form-label" for="{{ form.can_make_project.id_for_label }}">
+                <h2>Can you make this project/concert?</h2>
+            </label>
+            <p class="help">
+                {{ form.can_make_concert.help_text|safe }}
+            </p>
+            {{ form.can_make_concert }}
+            <p class="form-error">
+            {{ form.can_make_concert.errors }}
+            </p>
+        </div>
+        <div class="field-wrapper">
+            <label class="form-label" for="{{ form.attendance.id_for_label }}">
+                <h2>Rehearsal Attendance</h2>
+            </label>
+            <p class="help">
+                {{ form.attendance.help_text|safe }}
+            </p>
+            {{ form.attendance }}
+            <p class="form-error">
+            {{ form.attendance.errors }}
+            </p>
+        </div>
+
+  <button class="btn" type="submit">Submit</button>
+</form>
+
+{% endblock %}
