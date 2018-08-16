@@ -16,4 +16,10 @@ class AuditionSignUpView(GenericFormView):
             return render(request, self.success_template , context)
         else:
             return HttpResponse("Form wasn't valid")
-            
+
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'website/pages/audition-signup.html',
+            {'form': self.form}
+        )

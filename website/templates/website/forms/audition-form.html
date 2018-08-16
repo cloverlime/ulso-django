@@ -1,0 +1,157 @@
+<h2>{{ title }}</h2>
+
+{% if form_text %}
+  {{ form_text | safe }}
+{% endif %}
+
+<div class="form-container">
+
+    <form action="{{ action }}" method="post">
+            {% csrf_token %}
+        <section class="name-and-contact">  
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.first_name.id_for_label }}">
+                    First Name
+                </label>
+                <p class="help">
+                    {{ form.first_name.help_text|safe }}
+                </p>
+                {{ form.first_name }}
+                <p class="form-error">
+                {{ form.first_name.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.last_name.id_for_label }}">
+                    Last Name
+                </label>
+                <p class="help">
+                    {{ form.last_name.help_text|safe }}
+                </p>
+                {{ form.last_name }}
+                <p class="form-error">
+                {{ form.last_name.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.email.id_for_label }}">
+                    Email Address
+                </label>
+                <p class="help">
+                    {{ form.email.help_text|safe }}
+                </p>
+                {{ form.email }}
+                <p class="form-error">
+                {{ form.email.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.phone.id_for_label }}">
+                    Mobile Number
+                </label>
+                <p class="help">
+                    {{ form.phone.help_text|safe }}
+                </p>
+                {{ form.phone }}
+                <p class="form-error">
+                {{ form.phone.errors }}
+                </p>
+            </div>
+        </section>
+        {# --------------------------------- #}
+        <section class="uni-status">
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.uni.id_for_label }}">
+                    College or University
+                </label>
+                <p class="help">
+                    {{ form.uni.help_text|safe }}
+                </p>
+                {{ form.uni }}
+                <p class="form-error">
+                {{ form.uni.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.other_uni.id_for_label }}">
+                    Other
+                </label>
+                <p class="help">
+                    {{ form.other_uni.help_text|safe }}
+                </p>
+                {{ form.other_uni }}
+                <p class="form-error">
+                {{ form.other_uni.errors }}
+                </p>
+            </div>
+        </section>
+        {# --------------------------------- #}
+        <section class="instrument-experience">
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.subject.id_for_label }}">
+                    Instrument
+                </label>
+                <p class="help">
+                    {{ form.instrument.help_text|safe }}
+                </p>
+                {{ form.instrument }}
+                <p class="form-error">
+                {{ form.instrument.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.doubling.id_for_label }}">
+                    Doubling Instrument(s)
+                </label>
+                <p class="help">
+                    {{ form.doubling.help_text|safe }}
+                </p>
+                {{ form.doubling }}
+                <p class="form-error">
+                {{ form.doubling.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.experience.id_for_label }}">
+                    Previous Orchestral Experience
+                </label>
+                <p class="help">
+                    {{ form.experience.help_text|safe }}
+                </p>
+                {{ form.experience }}
+                <p class="form-error">
+                {{ form.experience.errors }}
+                </p>
+            </div>
+        </section>
+        {# --------------------------------- #}
+        <section class="agreements">
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.depping_policy.id_for_label }}">
+                    Depping Policy
+                </label>
+                <p class="help">
+                    {{ form.depping_policy.help_text|safe }}
+                </p>
+                {{ form.depping_policy }}
+                <p class="form-error">
+                {{ form.depping_policy.errors }}
+                </p>
+            </div>
+            <div class="field-wrapper">
+                <label class="form-label" for="{{ form.privacy_policy.id_for_label }}">
+                    Privacy Policy
+                </label>
+                <p class="help">
+                    {{ form.privacy_policy.help_text|safe }}
+                </p>
+                {{ form.privacy_policy }}
+                <p class="form-error">
+                {{ form.privacy_policy.errors }}
+                </p>
+            </div>
+        </section>
+        {# --------------------------------- #}
+        <button class="btn" type="submit">Submit</button>
+       </form> 
+</div>
