@@ -8,6 +8,37 @@ from .people import *
 
 
 # Musician Managers -------------------
+
+# class MusicianManager(models.Manager):
+#     def create_instance(self, attr):
+#         """
+#         Creates and saves a new model instance given 
+#         all the field values in the dictionary attr.
+#         """
+#         try:
+#             musician = self.create(
+#                 first_name=attr['first_name'],
+#                 last_name=attr['last_name'], 
+#                 email=attr['email'],
+#                 phone=attr['phone'],
+#                 instrument=attr['instrument'], 
+#                 doubling=attr['doubling'], 
+#                 uni=attr['uni'],
+#                 other_uni=attr['other_uni'], 
+#                 year=attr['year'], 
+#                 experience=attr['experience'], 
+#                 returning_member=attr['returning_member'], 
+#                 depping_policy=attr['depping_policy'], 
+#                 privacy_policy=attr['privacy_policy'],
+#             )
+#             return musician
+#         except:
+#             return None
+
+
+
+
+
 class MemberManager(models.Manager):
     def query_set(self):
         return super().get_queryset().filter(status='Member')

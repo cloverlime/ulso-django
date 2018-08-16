@@ -52,6 +52,7 @@ class Musician(Person):
     depping_policy = models.BooleanField(default=False, help_text='Agreed to depping policy')
     privacy_policy = models.BooleanField(default=False, help_text='Agreed to privacy policy.')
     season = models.CharField(max_length=10, null=True, blank=True)
+    notes = models.TextField(blank=True, null=True, help_text="Audition availability and other notes")
 
     def save(self, *args, **kwargs):
         ''' On creation, assign the academic year '''
@@ -62,8 +63,36 @@ class Musician(Person):
         self.modified = timezone.now()
         return super(Person, self).save(*args, **kwargs)
 
+
     def __repr__(self):
         return '{} {} ({})'.format(self.first_name, self.last_name, self.instrument)
+
+    @classmethod
+    def create(cls, attr):
+        """
+        Creates and saves a new model instance given 
+        all the field values in the dictionary attr.
+        """
+        try:
+            musician = cls(
+                first_name=attr['first_name'],
+                last_name=attr['last_name'], 
+                email=attr['email'],
+                phone=attr['phone'],
+                instrument=attr['instrument'], 
+                doubling=attr['doubling'], 
+                uni=attr['uni'],
+                other_uni=attr['other_uni'], 
+                year=attr['year'], 
+                experience=attr['experience'], 
+                returning_member=attr['returning_member'], 
+                depping_policy=attr['depping_policy'], 
+                privacy_policy=attr['privacy_policy'],
+                notes=attr['notes']
+            )
+            return musician
+        except:
+            return None
 
     # Managers -------
     objects = models.Manager()

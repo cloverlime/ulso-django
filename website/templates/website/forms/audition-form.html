@@ -1,13 +1,14 @@
-<h2>{{ title }}</h2>
+<h1>ULSO Audition Sign-up {{season}}</h1>
 
 {% if form_text %}
   {{ form_text | safe }}
 {% endif %}
 
 <div class="form-container">
-
-    <form action="{{ action }}" method="post">
+    <form id="audition-form" action="{{ action }}" method="post">
             {% csrf_token %}
+        <div class="thin-line"></div>
+        <h2>Your Details</h2>    
         <section class="name-and-contact">  
             <div class="field-wrapper">
                 <label class="form-label" for="{{ form.first_name.id_for_label }}">
@@ -59,6 +60,7 @@
             </div>
         </section>
         {# --------------------------------- #}
+        <div class="thin-line"></div>
         <section class="uni-status">
             <div class="field-wrapper">
                 <label class="form-label" for="{{ form.uni.id_for_label }}">
@@ -84,8 +86,21 @@
                 {{ form.other_uni.errors }}
                 </p>
             </div>
+            <div class="field-wrapper">
+                    <label class="form-label" for="{{ form.year.id_for_label }}">
+                        Year
+                    </label>
+                    <p class="help">
+                        {{ form.year.help_text|safe }}
+                    </p>
+                    {{ form.year }}
+                    <p class="form-error">
+                    {{ form.year.errors }}
+                    </p>
+                </div>
         </section>
         {# --------------------------------- #}
+        <div class="thin-line"></div>
         <section class="instrument-experience">
             <div class="field-wrapper">
                 <label class="form-label" for="{{ form.subject.id_for_label }}">
@@ -112,6 +127,18 @@
                 </p>
             </div>
             <div class="field-wrapper">
+                    <label class="form-label" for="{{ form.returning_member.id_for_label }}">
+                        Returning member
+                    </label>
+                    <p class="help">
+                        {{ form.returning_member.help_text|safe }}
+                    </p>
+                    {{ form.returning_member }}
+                    <p class="form-error">
+                    {{ form.returning_member.errors }}
+                    </p>
+                </div>
+            <div class="field-wrapper">
                 <label class="form-label" for="{{ form.experience.id_for_label }}">
                     Previous Orchestral Experience
                 </label>
@@ -125,6 +152,7 @@
             </div>
         </section>
         {# --------------------------------- #}
+        <div class="thin-line"></div>
         <section class="agreements">
             <div class="field-wrapper">
                 <label class="form-label" for="{{ form.depping_policy.id_for_label }}">
@@ -152,6 +180,53 @@
             </div>
         </section>
         {# --------------------------------- #}
+        <div class="thin-line"></div>
+        <section>
+            <h2>Audition Dates</h2>
+            <p class="help">
+                Please select the slots that you CANNOT attend. We will do our best to accommodate everyone's preferences, but please be as flexible as you can.
+            </p>
+            {% for date in audition_dates %}
+            <div>
+                <div class="checkbox-wrapper">
+                    <input class="audition-date" type="checkbox"><p class="checkbox-label">{{ date }} AM</p>
+                </div>
+                <div class="checkbox-wrapper">
+                    <input class="audition-date" type="checkbox"><p class="checkbox-label">{{ date }} PM</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="field-wrapper">
+                    <label class="form-label" for="{{ form.notes.id_for_label }}">
+                        Notes
+                    </label>
+                    <p class="help">
+                        {{ form.notes.help_text|safe }}
+                    </p>
+                    {{ form.notes }}
+                    <p class="form-error">
+                    {{ form.notes.errors }}
+                    </p>
+                </div>
+        </section>
+        <div class="thin-line"></div>
         <button class="btn" type="submit">Submit</button>
-       </form> 
+       </form>
 </div>
+
+{# Script tag to add everything ticked into the notes upon submit...#}
+<script>
+    notes = document.getElementById('id_notes')
+    dateInputs = document.getElementsByClassName("audition-date")
+    form = document.getElementById('audition-form')
+
+    form.addEventListener('submit', (e) => {
+        for (date of dateInputs) {
+            if (date.checked === true){
+                text = date.nextSibling.textContent;
+                notes.textContent += text + "\n";
+            }
+        }
+    }
+    )
+</script>

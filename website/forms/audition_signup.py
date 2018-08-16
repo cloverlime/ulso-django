@@ -1,18 +1,8 @@
 import datetime
 from django import forms
-from django.forms import ModelForm
 
-from ulsosite.models.people import Musician
 from ulsosite.utils import academic_year_calc
 from ulsosite.info.info import INSTRUMENT_LIST, UNI_LIST, YEAR_LIST
-
-# # Modelform
-# class AuditionSignUpForm(ModelForm):
-#     title = "Audition Sign-Up"
-#     class Meta:
-#         model = Musician
-#         exclude = ['modified', 'status', 'subs_paid', 'alias', 'season']
-
 
 # Not model form
 class AuditionSignUpForm(forms.Form):
@@ -61,6 +51,7 @@ class AuditionSignUpForm(forms.Form):
     # Instrument and experience
     returning_member = forms.BooleanField(
         label="Returning member",
+        required="false",
         help_text="Are you a returning member of ULSO?"
     )
     instrument = forms.ChoiceField(
@@ -75,7 +66,12 @@ class AuditionSignUpForm(forms.Form):
     )    
     experience = forms.CharField(
         max_length=300,
-        widget=forms.Textarea,
+        widget=forms.Textarea(
+            attrs={
+                'rows':'4',
+                'cols':'40',
+                }
+            ),
         help_text="Please give a brief list of your recent orchestral experience."
     )
     
@@ -84,5 +80,13 @@ class AuditionSignUpForm(forms.Form):
     privacy_policy = forms.BooleanField(help_text='Tick here to indicate that you have read and agreed to our privacy policy.')
 
     # Other
-    notes = forms.CharField(required=False, widget=forms.Textarea)
+    notes = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={
+            'placeholder': 'Your answer',
+            'rows':'4',
+            'cols':'40',
+            }),
+        help_text="If you are unable to make any of the dates above, please let us know when you might be available. Also add any other preferences or comments below."
+        )
     

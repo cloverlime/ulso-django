@@ -31,7 +31,7 @@ class MusicianAdmin(admin.ModelAdmin):
         (None, {'fields': ['first_name', 'last_name', 'status', 'subs_paid', 'season']}),
         ('Contact', {'fields': ['email', 'phone']}),
         ('Details', {'fields': ['instrument', 'doubling', 'uni', 'other_uni', 'year', 'experience',]}),
-        ('Audition Info', {'fields': ['returning_member']}),
+        ('Audition Info', {'fields': ['returning_member', 'notes']}),
         ('Agreements', {'fields': ['depping_policy', 'privacy_policy']}),
         ('Read-only', {'fields': ['created', 'modified']})
     ]
