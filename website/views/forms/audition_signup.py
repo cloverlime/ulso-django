@@ -3,14 +3,15 @@ import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
+from django.views import View
+
 from ulsosite.utils import academic_year_calc
 from ulsosite.models.auditions import AuditionDate
 from ulsosite.models.people import Musician
 
-from website.views.forms.generic import GenericFormView
 from website.forms.audition_signup import AuditionSignUpForm
 
-class AuditionSignUpView(GenericFormView):
+class AuditionSignUpView(View):
     form_template = 'website/pages/audition-signup.html'
     def post(self, request, *args, **kwargs):
         form = AuditionSignUpForm(data=request.POST)
@@ -32,8 +33,6 @@ class AuditionSignUpView(GenericFormView):
             return render(request, success_template , context)
         
         else:
-            # Render tempalte again with error messages
-            
             context = {
             'form': form,
             'season': season,

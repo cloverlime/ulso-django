@@ -3,6 +3,11 @@
 {% block content %}
 
 {% include 'website/organisms/page-header.html' %}
+
+{% if audition_applications_open %}
+    {% include 'website/molecules/audition-are-open.html' %}
+{% endif %}
+
 {% include 'website/molecules/accordion.html' %}
 
 {% endblock %}

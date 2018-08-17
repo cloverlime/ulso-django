@@ -1,20 +1,18 @@
+import datetime
+
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 
-# TODO refactor all admin pages
-# TODO write out everything imported
 from ulsosite.utils import academic_year_calc
-from .model_managers import *
-
-# from ulsosite.models.concerts import Concert
-
+from ulsosite.models.model_managers import *
 from ulsosite.info.info import (
     INSTRUMENT_LIST,
     YEAR_LIST,
     UNI_LIST,
     MEMBERSHIP_STATUS,
 )
+from ulsosite.info.dates import CURRENT_SEASON
 
 class Person(models.Model):
     created = models.DateTimeField(editable=False, blank=True, null=True)
@@ -42,8 +40,6 @@ class Person(models.Model):
         abstract = True
 
 class Musician(Person):
-    # concert = models.ManyToManyField(Concert, blank=True)
-
     instrument = models.CharField(max_length=20, choices=INSTRUMENT_LIST)
     doubling = models.CharField(max_length=50, default=None, blank=True) # optional
     uni = models.CharField(max_length=50, choices=UNI_LIST)
@@ -122,7 +118,8 @@ class ConcertoApplicant(Person):
     years_ulso_member = models.CharField(max_length=50, help_text="e.g. 2015-2017")
     notes = models.TextField(blank=True)
     second_round = models.BooleanField(default=False, help_text='Admitted to 2nd round')
-
+    season = models.CharField(default=CURRENT_SEASON, max_length=10, help_text='Season of competition')
+    
     # Managers
     objects = models.Manager()
     no_shortlist = NoSecondRoundManager()
@@ -138,7 +135,6 @@ class ConcertoWinner(Person):
     photo = models.ImageField(null=True, blank=True,  upload_to='concertowinners/')
     email = models.EmailField(max_length=50, null=True, blank=True)
     phone = models.CharField(max_length=30, null=True, blank=True)
-
     piece = models.CharField(max_length=50, null=True, blank=True, help_text="Piece performed with ULSO")
 
 

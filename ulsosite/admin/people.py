@@ -71,7 +71,7 @@ class ConductorAdmin(admin.ModelAdmin):
 
 
 class ConcertoApplicantAdmin(admin.ModelAdmin):
-    list_display = (full_name, 'instrument', 'piece', 'second_round')
+    list_display = (full_name, 'second_round', 'instrument', 'piece')
 
 class UsefulContactAdmin(admin.ModelAdmin):
     list_display = (full_name, 'role', 'email')

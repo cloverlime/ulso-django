@@ -8,7 +8,10 @@ from ulsosite.utils import academic_year_calc
 from ulsosite.models.people import ConcertoApplicant
 from website.forms.concerto_signup_form import ConcertoForm
 
+
 class ConcertoSignUp(View):
+    season = academic_year_calc(datetime.datetime.now())
+
     def post(self, request, *args, **kwargs):
         form = ConcertoForm(data=request.POST)
         success_template = 'website/forms/form-success.html'
@@ -29,11 +32,10 @@ class ConcertoSignUp(View):
                     piece=data['piece'],
                     years_ulso_member=data['years_ulso_member'],
                     notes=data['notes'],
+                    season=self.season
                 )
-                print(applicant)
                 applicant.save()
-            except Exception as e:
-                print(e)
+            except:
                 return render(request, fail_template, { 
                     'message': 'There was an error. Please report to webmaster@ulso.co.uk.'}
                     )
@@ -46,11 +48,10 @@ class ConcertoSignUp(View):
         form_template = 'website/pages/concerto-signup.html'
 
         title = "Concerto Competition"
-        season = academic_year_calc(datetime.datetime.now())
 
         context = {
             'form': form,
             'title': title,
-            'season': season,
+            'season': self.season,
         }
         return render(request, form_template, context)  
