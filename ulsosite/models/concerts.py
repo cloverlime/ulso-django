@@ -72,11 +72,10 @@ class Absence(models.Model):
     Ideally, the players would report these in advance (e.g. via the form). 
     The players must already be in the list of players assigned to the concert.
     """
-    def __str__(self):
-        return self.full_name
-
     rehearsal = models.ForeignKey(Rehearsal, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=20, help_text="As registered")
+    
+    first_name = models.CharField(max_length=30, help_text="As registered")
+    last_name = models.CharField(max_length=30, help_text="As registered")
     email = models.EmailField("Your email address", max_length=100, help_text="As registered")
     musician = models.ForeignKey(Musician, on_delete=models.CASCADE, blank=True, null=True)
     instrument = models.CharField(max_length=20)
@@ -86,6 +85,10 @@ class Absence(models.Model):
     reasons = models.CharField(max_length=500, blank=True, null=True)
     timestamp = models.DateTimeField(editable=False, blank=True, null=True)
 
+    # TODO Fill this out more
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
     def save(self, *args, **kwargs):
         ''' On receipt, create timestamps and assign to an existing Musician '''
         if not self.id or not self.timestamp:
@@ -94,17 +97,18 @@ class Absence(models.Model):
         # TODO decide if this part goes in the form or not....
         if not self.musician:
             try:
-                split = (self.full_name).split(' ')
-                first_name = split[0]
-                last_name = split[1]
+                # split = (self.full_name).split(' ')
+                # first_name = split[0]
+                # last_name = split[1]
                 self.musician = Musician.candidates.get(
-                    first_name=first_name,
-                    last_name=last_name,
+                    first_name=self.first_name,
+                    last_name=self.last_name,
                     email=self.email
                 )
             except:
                 return super(Absence, self).save(*args, **kwargs)
         return super(Absence, self).save(*args, **kwargs)
+
 
 
 # TODO - Currently not linked to anything - sort this out

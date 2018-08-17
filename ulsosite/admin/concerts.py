@@ -50,7 +50,7 @@ class RehearsalAdmin(admin.ModelAdmin):
 
 class AbsenceAdmin(admin.ModelAdmin):
     list_display = (
-        'rehearsal', 'full_name', 'instrument',
+        'rehearsal', 'first_name', 'last_name', 'instrument',
         'dep_name', 'dep_email', 'dep_phone'
     )
     list_filter = ('rehearsal',)
