@@ -58,21 +58,6 @@ def about(request):
     }
     return render(request, 'website/pages/about.html', context)
 
-# def committee(request):
-#     season = CURRENT_SEASON
-#     page = Page.objects.get(title="Committee")
-#     # chair = CommitteeMember.objects.get(role="Chair", season=academic_year_calc(datetime.now()))
-#     committee = CommitteeMember.objects.all().filter(season=season).exclude(role="Chair")
-#     chair = CommitteeMember.objects.all().filter(season=season).get(role="Chair")
-#     context = {
-#         'chair': chair,
-#         'committee': committee,
-#         'page': page,
-#         'season': season
-#     }
-#     return render(request, 'website/committee.html', context)
-
-
 def join(request):
     page = Page.objects.get(title="How to Join")
     accordion = page.accordioncard_set.all().order_by('order')

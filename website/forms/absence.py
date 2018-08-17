@@ -2,9 +2,6 @@ from django import forms
 from ulsosite.models.concerts import Concert, Rehearsal
 
 class AbsenceForm(forms.Form):
-    # rehearsal_set = Rehearsal.objects.filter(
-    #     concert=Concert.objects.get(current=True)
-    # )
     rehearsal = forms.ModelChoiceField(
         label="Rehearsal",
         queryset=Rehearsal.objects.filter(

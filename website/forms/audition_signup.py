@@ -2,7 +2,11 @@ import datetime
 from django import forms
 
 from ulsosite.utils import academic_year_calc
-from ulsosite.info.info import INSTRUMENT_LIST, UNI_LIST, YEAR_LIST
+from ulsosite.info.info import (
+    INSTRUMENT_LIST,
+    UNI_LIST,
+    YEAR_LIST
+)
 
 # Not model form
 class AuditionSignUpForm(forms.Form):

@@ -3,20 +3,21 @@ from django.contrib import admin
 from ulso.settings import BASE_DIR
 
 from ulsosite.models.people import (
-                        Musician,
-                        Conductor,
-                        ConcertoApplicant,
-                        CommitteeMember,
-                        ConcertoWinner,
-                        UsefulContact,
-                        )
+    Musician,
+    Conductor,
+    ConcertoApplicant,
+    CommitteeMember,
+    ConcertoWinner,
+    UsefulContact,
+)
 
-from .utils import (SectionListFilter,
-                    full_name,
-                    mark_as_member,
-                    mark_as_rejected,
-                    mark_as_reserve
-                    )
+from .utils import (
+    SectionListFilter,
+    full_name,
+    mark_as_member,
+    mark_as_rejected,
+    mark_as_reserve
+)
 
 from .auditions import AuditionSlotInline
 
