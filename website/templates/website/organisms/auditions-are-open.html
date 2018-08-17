@@ -1,0 +1,32 @@
+{% load staticfiles %} {% block content %}
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="auditions-open">
+      <h2>
+        <a data-toggle="collapse" data-target="#auditions-open-text" href="#auditions-open-text" aria-expanded="true" aria-controls="auditions-open-text">
+          Auditions are open for {{ season }}
+          <span class="caret"></span>
+        </a>
+      </h2>
+    </div>
+    <div id="auditions-open-text" class="collapse show" role="tabpanel" aria-labelledby="auditions-open">
+      <div class="card-block">
+        <p>We are currently accepting applications for the 2018/19 season. Auditions will be taking place at King’s College London, Strand Campus.</p>
+        <p>The dates are:</p>
+          <ul>
+            {% for date in audition_dates %}
+            <li>{{ date }}</li>
+            {% endfor %}
+          </ul>
+          <p>Read on for further information and don't hesitate to contact us if you have any questions. When you're ready, sign up using the link below!</p>
+          <div class="button-box flexwrap">
+            <a href="{% url 'audition_signup' %}" >
+              <button class="btn">Sign Up</button>
+            </a>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

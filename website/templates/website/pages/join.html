@@ -4,8 +4,11 @@
 
 {% include 'website/organisms/page-header.html' %}
 
-{% if audition_applications_open %}
-    {% include 'website/molecules/audition-are-open.html' %}
+{% if applications_open == True %}
+    {% include 'website/organisms/auditions-are-open.html' %}
+
+    {% else %}
+        <p>Applications are currently closed. Please <a href="{% url 'contact' %}">contact us</a> if you are interested in joining us in the middle of the year.</p>
 {% endif %}
 
 {% include 'website/molecules/accordion.html' %}

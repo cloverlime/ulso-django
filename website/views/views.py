@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
 
+from status.models import Status
 from ulsosite.utils import academic_year_calc
 from ulsosite.info.dates import CURRENT_SEASON
 
@@ -12,6 +13,7 @@ from ulsosite.models.concerts import (
     Piece,
     Rehearsal,
 )
+from ulsosite.models.auditions import AuditionDate
 
 from ulsosite.models.people import (
     CommitteeMember,
@@ -59,11 +61,18 @@ def about(request):
     return render(request, 'website/pages/about.html', context)
 
 def join(request):
+    applications_open = Status.objects.get(season=CURRENT_SEASON).auditions_open
     page = Page.objects.get(title="How to Join")
     accordion = page.accordioncard_set.all().order_by('order')
+    season = CURRENT_SEASON
+    audition_dates = AuditionDate.objects.filter(season=season)
+
     context = {
         'accordion': accordion,
-        'page': page
+        'page': page,
+        'applications_open': applications_open,
+        'audition_dates': audition_dates,
+        'season': season,
     }
     return render(request, 'website/pages/join.html', context)
 
@@ -71,12 +80,14 @@ def media(request):
     return HttpResponse("ULSO's media page")
 
 def concerto(request):
+    applications_open = Status.objects.get(season=CURRENT_SEASON).concerto_open
     page = Page.objects.get(title="Concerto Competition")
     accordion = page.accordioncard_set.all().order_by("order")
     winners = ConcertoWinner.objects.filter(season="2016/17")
     past_winners = ConcertoWinner.objects.exclude(season="2016/17")
     context = {
         'page': page,
+        'applications_open': applications_open,
         'accordion': accordion,
         'winners': winners,
         'past_winners': past_winners

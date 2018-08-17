@@ -17,15 +17,14 @@ urlpatterns = [
     path('rehearsals/', views.rehearsals, name='rehearsals'),
     path('contact/', contact.contact, name='contact'),
     path('concerto/', views.concerto, name='concerto'),
-    # path('auditions/', views.auditions, name='auditions'),
     path('about/', views.about, name='about'),
     path('join/', views.join, name='join'),
     path('media/', views.media, name='media'),
     # path('committee', views.committee, name='committee'),
 
     # Forms and signups
-    path('auditions/signup/', AuditionSignUpView.as_view(), name='signup'),
+    path('auditions/signup/', AuditionSignUpView.as_view(), name='audition_signup'),
     path('absence', AbsenceFormView.as_view(), name='absence'),
     path('project/signup/', ProjectFormView.as_view(), name='project_signup'),
-    path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
+    path('concerto/signup/', ConcertoSignUp.as_view(), name='concerto_signup'),
 ]
