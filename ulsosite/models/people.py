@@ -124,6 +124,7 @@ class ConcertoApplicant(Person):
     second_round = models.BooleanField(default=False, help_text='Admitted to 2nd round')
 
     # Managers
+    objects = models.Manager()
     no_shortlist = NoSecondRoundManager()
     shortlisted = SecondRoundManager()
 

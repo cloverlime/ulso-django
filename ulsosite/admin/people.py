@@ -22,7 +22,7 @@ from .auditions import AuditionSlotInline
 
 # Musicians Admin
 class MusicianAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'instrument', 'status', 'subs_paid', 'privacy_policy', 'season')
+    list_display = (full_name, 'instrument', 'status', 'subs_paid', 'privacy_policy', 'season')
     list_filter = ('season', 'status', SectionListFilter, 'instrument', 'subs_paid')
     readonly_fields = ('created', 'modified')
     search_fields = (['^first_name', '^last_name', '^instrument', '^university'])
@@ -46,7 +46,7 @@ class MusicianAdmin(admin.ModelAdmin):
 
 
 class CommitteeMemberAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'role', 'email', 'season')
+    list_display = (full_name, 'role', 'email', 'season')
     list_filter = ('season', 'role')
     exclude = ['created', 'modified']
     readonly_fields = ['display_photo']
@@ -62,7 +62,7 @@ class CommitteeMemberAdmin(admin.ModelAdmin):
 
 
 class ConductorAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'email', 'phone')
+    list_display = (full_name, 'email', 'phone')
     fieldsets = [
     (None, {'fields': ['first_name', 'last_name', 'alias', 'email', 'phone', 'website']}),
     ('Fees', {'fields': ['rate_per_rehearsal', 'rate_concert_day', 'notes']}),
@@ -71,10 +71,10 @@ class ConductorAdmin(admin.ModelAdmin):
 
 
 class ConcertoApplicantAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'instrument', 'piece', 'second_round')
+    list_display = (full_name, 'instrument', 'piece', 'second_round')
 
 class UsefulContactAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'role', 'email')
+    list_display = (full_name, 'role', 'email')
     exclude = ['modified']
 
 

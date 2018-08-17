@@ -7,7 +7,7 @@ from django.views import View
 from ulsosite.models.concerts import Concert, Absence
 from ulsosite.models.people import Musician
 
-from website.forms.project_signup import ProjectSignUp
+from website.forms.project_signup_form import ProjectSignUp
 
 class ProjectFormView(View):
     form_template = 'website/pages/project-signup-page.html'

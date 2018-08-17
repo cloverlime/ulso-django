@@ -1,11 +1,8 @@
-# TODO A big one!!!!
-
 from django import forms
 from django.forms import ModelForm
 
 from ulsosite.info.info import INSTRUMENT_LIST
 from ulsosite.models.concerts import (
-    # PlayerPerProject,
     Rehearsal,
     Absence,
     Concert

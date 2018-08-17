@@ -48,8 +48,7 @@ class AbsenceFormView(View):
             # TODO send dep an email
             # if created = True:
                 # send email dep
-
-            # render success
+            
             return render(request, self.success_template, { 'message': "Yay!"})
 
         else:

@@ -8,6 +8,8 @@ from ulsosite.models.concerts import (
     Absence
 )
 
+from .utils import full_name
+
 from ulsosite.models.people import Musician
 
 class PiecesInline(admin.TabularInline):
@@ -50,7 +52,7 @@ class RehearsalAdmin(admin.ModelAdmin):
 
 class AbsenceAdmin(admin.ModelAdmin):
     list_display = (
-        'rehearsal', 'first_name', 'last_name', 'instrument',
+        'rehearsal', full_name, 'instrument',
         'dep_name', 'dep_email', 'dep_phone'
     )
     list_filter = ('rehearsal',)

@@ -3,14 +3,13 @@ from django.views.generic import TemplateView
 
 # from ulsosite.views import views
 from website.views import views
-from website.views.forms import (
-    absence,
-    contact,
-)
+
+from website.views.forms import contact
 from website.views.forms.absence import AbsenceFormView
 from website.views.forms.audition_signup import AuditionSignUpView
-from website.views.forms.project_form_view import ProjectFormView
-# from ulsosite.views.views import SignUpView, ConcertoSignUp
+from website.views.forms.project_signup_view import ProjectFormView
+from website.views.forms.concerto_signup_view import ConcertoSignUp
+
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='website/pages/index.html'), name='index'),
@@ -28,5 +27,5 @@ urlpatterns = [
     path('auditions/signup/', AuditionSignUpView.as_view(), name='signup'),
     path('absence', AbsenceFormView.as_view(), name='absence'),
     path('project/signup/', ProjectFormView.as_view(), name='project_signup'),
-    # path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
+    path('concerto/signup/', ConcertoSignUp.as_view(), name='signup'),
 ]
