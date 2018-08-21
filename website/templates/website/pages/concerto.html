@@ -3,12 +3,14 @@
 {% block content %}
 
 {% include 'website/organisms/page-header.html' %}
-{% include 'website/molecules/accordion.html' %}
 
 {% if applications_open %}
-    {% include 'website/molecules/concerto-applications-open.html' %}
+    {% include 'website/organisms/concerto-competition-open.html' %}
+{% else %}
+    <p>Applications for the concerto compettion are currently closed.</p>
 {% endif %}
 
+{% include 'website/molecules/accordion.html' %}
 {% include 'website/organisms/concerto-winners-current.html' %}
 {% include 'website/organisms/concerto-winners-past.html' %}
 

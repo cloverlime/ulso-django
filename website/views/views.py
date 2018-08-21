@@ -26,7 +26,7 @@ from website.models import (
     AccordionCard,
 )
 
-CURRENT_SEASON = "2018/19"
+from ulsosite.info.dates import CURRENT_SEASON
 
 def rehearsals(request):
     page = Page.objects.get(title="Rehearsals")
@@ -80,13 +80,19 @@ def media(request):
     return HttpResponse("ULSO's media page")
 
 def concerto(request):
-    applications_open = Status.objects.get(season=CURRENT_SEASON).concerto_open
+    season = CURRENT_SEASON
+    last_season = academic_year_calc(
+        datetime.datetime.now() - datetime.timedelta(days=365)
+    )
+    applications_open = Status.objects.get(season=season).concerto_open
     page = Page.objects.get(title="Concerto Competition")
     accordion = page.accordioncard_set.all().order_by("order")
-    winners = ConcertoWinner.objects.filter(season="2016/17")
-    past_winners = ConcertoWinner.objects.exclude(season="2016/17")
+    winners = ConcertoWinner.objects.filter(season=last_season)
+    past_winners = ConcertoWinner.objects.exclude(season=last_season)
     context = {
         'page': page,
+        'season': season,
+        'last_season': last_season,
         'applications_open': applications_open,
         'accordion': accordion,
         'winners': winners,

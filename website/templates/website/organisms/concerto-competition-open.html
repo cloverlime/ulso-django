@@ -1,0 +1,30 @@
+{% load staticfiles %} {% block content %}
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    <div class="card-header" role="tab" id="concerto-open">
+      <h2>
+        <a data-toggle="collapse" data-target="#concerto-open-text" href="#concerto-open-text" aria-expanded="true" aria-controls="concerto-open-text">
+          {{ season }} Season
+          <span class="caret"></span>
+        </a>
+      </h2>
+    </div>
+    <div id="concerto-open-text" class="collapse show" role="tabpanel" aria-labelledby="concerto-open">
+      <div class="card-block">
+        <p>Registration for the current season's competition is now open.</p>
+
+        <p>To be eligible, you must be a current or past member of ULSO and you must have paid your subs.</p>
+
+        <p>Click the button below to apply!</p>
+    
+        <div class="button-box flexwrap">
+          <a href="{% url 'concerto_signup' %}" >
+            <button class="btn">Sign Up</button>
+          </a>
+        </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -12,7 +12,7 @@
         </div>
         <div id="current-winners-text" class="collapse show" role="tabpanel" aria-labelledby="current-winners">
             <div class="card-block">
-                <p>The winners of the 2016/17 competition are:</p>
+                <p>The winner(s) of the {{ last_season }} competition are:</p>
                 {% for winner in winners %}
                     <h3>{{ winner }}
                         <small>{{ winner.instrument }}</small>

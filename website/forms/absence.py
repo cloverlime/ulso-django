@@ -5,8 +5,8 @@ class AbsenceForm(forms.Form):
     rehearsal = forms.ModelChoiceField(
         label="Rehearsal",
         queryset=Rehearsal.objects.filter(
-        concert=Concert.objects.get(current=True)
-    ),
+            concert=Concert.objects.get(current=True)
+        ),
         widget=forms.Select
     )
     full_name = forms.CharField(max_length=20, help_text="As registered")
