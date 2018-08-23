@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 
-from ulsosite.models.concerts import Concert, Absence
+from ulsosite.models.concerts import Concert, Absence, Rehearsal
 from ulsosite.models.people import Musician
 
 from website.forms.project_signup_form import ProjectSignUp
@@ -14,9 +14,14 @@ class ProjectFormView(View):
     success_template = 'website/forms/form-success.html'
     fail_template = 'website/forms/form-fail.html'
 
-    # TODO may want to change the concert query!
-    concert = Concert.objects.get(current=True)
-    rehearsals = concert.rehearsal_set.all()
+    def get_current_concert():
+        return Concert.objects.filter(current=True)
+
+    def get_current_rehearsal_set():
+        return Rehearsal.objects.filter(concert=Concert.objects.filter(current=True))
+
+    concert = get_current_concert()
+    rehearsals = get_current_rehearsal_set()
 
     title = f"Project Sign-Up"
 

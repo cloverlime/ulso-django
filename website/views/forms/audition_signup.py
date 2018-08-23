@@ -15,16 +15,19 @@ from website.forms.audition_signup import AuditionSignUpForm
 from status.models import Status
 
 class AuditionSignUpView(View):
+
     form_template = 'website/pages/audition-signup.html'
-    is_open = Status.objects.get(season=CURRENT_SEASON).concerto_open
     fail_template = 'website/forms/form-fail.html'
+
+    def _concerto_is_open():
+        return Status.objects.get(season=CURRENT_SEASON).concerto_open
 
     def post(self, request, *args, **kwargs):
         form = AuditionSignUpForm(data=request.POST)
         success_template = 'website/forms/form-success.html'
         success_message = "Thank you for signing up to ULSO."
 
-        if not self.is_open:
+        if not self._concerto_is_open():
             context = {'message': 'We are currently closed for audition applications. Please contact us to discuss mid-year opportunities.' }
             return render(request, self.fail_template , context)
         
@@ -57,7 +60,7 @@ class AuditionSignUpView(View):
         form_title = "Audition Sign-Up"
         season = academic_year_calc(datetime.datetime.now())
 
-        if not self.is_open:
+        if not self._concerto_is_open():
             context = {'message': 'We are currently closed for audition applications. Please contact us to discuss mid-year opportunities.' }
             return render(request, self.fail_template , context)
 
