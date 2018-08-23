@@ -17,10 +17,6 @@ def mark_as_rejected(self, request, queryset):
     queryset.update(status='Rejected')
     mark_as_rejected.short_description = "Mark selected as rejected"
 
-def full_name(obj):
-    return '{} {}'.format(obj.first_name, obj.last_name)
-
-full_name.short_description = 'Name'
 
 class SectionListFilter(admin.SimpleListFilter):
     """Some queryset shortcuts to help us search players by section or instrument"""

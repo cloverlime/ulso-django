@@ -63,7 +63,9 @@ class Musician(Person):
         self.modified = timezone.now()
         return super(Person, self).save(*args, **kwargs)
 
-
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.last_name) 
+    
     def __repr__(self):
         return '{} {} ({})'.format(self.first_name, self.last_name, self.instrument)
 
@@ -138,6 +140,7 @@ class ConcertoWinner(Person):
     piece = models.CharField(max_length=50, null=True, blank=True, help_text="Piece performed with ULSO")
 
 
+# TODO Extend from built-in user class instead?
 class CommitteeMember(Person):
     def __repr__(self):
         return '{} ({} {}) - {}'.format(

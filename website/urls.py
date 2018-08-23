@@ -24,7 +24,7 @@ urlpatterns = [
 
     # Forms and signups
     path('auditions/signup/', AuditionSignUpView.as_view(), name='audition_signup'),
-    path('absence', AbsenceFormView.as_view(), name='absence'),
+    path('absence', AbsenceFormView.as_view(), name='absence_form'),
     path('project/signup/', ProjectFormView.as_view(), name='project_signup'),
     path('concerto/signup/', ConcertoSignUp.as_view(), name='concerto_signup'),
 ]

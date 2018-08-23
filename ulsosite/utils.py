@@ -44,3 +44,13 @@ def image_tag(self):
     return '<img src={} />'.format(self.url)
 # image_tag.short_description = 'Image'
 # image_tag.allow_tags = True
+
+
+def full_name(obj):
+    """
+    Takes an object, incl model object and returns their full name.
+    Requires first_name and last_name attributes
+    """
+    return '{} {}'.format(obj.first_name, obj.last_name)
+
+full_name.short_description = 'Name'

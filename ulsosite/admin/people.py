@@ -13,11 +13,12 @@ from ulsosite.models.people import (
 
 from .utils import (
     SectionListFilter,
-    full_name,
     mark_as_member,
     mark_as_rejected,
     mark_as_reserve
 )
+
+from ulsosite.utils import full_name
 
 from .auditions import AuditionSlotInline
 

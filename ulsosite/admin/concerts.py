@@ -8,7 +8,7 @@ from ulsosite.models.concerts import (
     Absence
 )
 
-from .utils import full_name
+from ulsosite.utils import full_name
 
 from ulsosite.models.people import Musician
 
