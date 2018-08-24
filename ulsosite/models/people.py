@@ -123,9 +123,9 @@ class ConcertoApplicant(Person):
     season = models.CharField(default=CURRENT_SEASON, max_length=10, help_text='Season of competition')
     
     # Managers
-    objects = models.Manager()
-    no_shortlist = NoSecondRoundManager()
-    shortlisted = SecondRoundManager()
+    # objects = models.Manager()
+    # no_shortlist = NoSecondRoundManager()
+    # shortlisted = SecondRoundManager()
 
 
 class ConcertoWinner(Person):

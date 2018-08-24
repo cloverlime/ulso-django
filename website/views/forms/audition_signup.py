@@ -60,7 +60,7 @@ class AuditionSignUpView(View):
         form_title = "Audition Sign-Up"
         season = academic_year_calc(datetime.datetime.now())
 
-        if not self._concerto_is_open():
+        if not self._concerto_is_open:
             context = {'message': 'We are currently closed for audition applications. Please contact us to discuss mid-year opportunities.' }
             return render(request, self.fail_template , context)
 

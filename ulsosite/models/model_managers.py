@@ -94,10 +94,10 @@ class HarpsManager(models.Manager):
 
 # Concerto Audition Managers ------------- Not sure if necessary
 
-class NoSecondRoundManager(models.Manager):
-    def query_set(self):
-        return super().get_queryset().filter(second_round=False)
+# class NoSecondRoundManager(models.Manager):
+#     def query_set(self):
+#         return super().get_queryset().filter(second_round=False)
 
-class SecondRoundManager(models.Manager):
-    def query_set(self):
-      return super().get_queryset().filter(second_round=True)
+# class SecondRoundManager(models.Manager):
+#     def query_set(self):
+#       return super().get_queryset().filter(second_round=True)

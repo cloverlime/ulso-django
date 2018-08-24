@@ -49,7 +49,7 @@ def about(request):
     accordion = page.accordioncard_set.all().order_by("order")
     season = CURRENT_SEASON
     committee = CommitteeMember.objects.all().filter(season=season).exclude(role="Chair")
-    chair = CommitteeMember.objects.all().filter(season=season).get(role="Chair")
+    chair = CommitteeMember.objects.all().filter(season=season).filter(role="Chair")
     context = {
         'accordion': accordion,
         'page': page,

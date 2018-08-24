@@ -12,7 +12,7 @@ class ProjectSignUp(forms.Form):
 
     def get_current_rehearsals():
         return Rehearsal.objects.filter(
-            concert=Concert.objects.filter(current=True)
+            concert=Concert.objects.filter(current=True).first()
             ).order_by('date')
 
     first_name = forms.CharField(max_length=50, help_text="As registered")

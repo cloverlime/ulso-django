@@ -33,14 +33,14 @@ class Poster(models.Model):
 
 
 class Piece(models.Model):
-    def __str__(self):
-        return '{} - {}'.format(self.composer, self.piece)
-
     concert = models.ManyToManyField(Concert, blank=True)
     composer = models.CharField(max_length=20, help_text='Surname only')
     piece = models.CharField(max_length=200, help_text='Name of piece')
     order = models.IntegerField(blank=True, help_text='The order of the piece in the concert e.g. 1')
     duration = models.IntegerField(default=0, help_text="Length in minutes",blank=True, null=True)
+    
+    def __str__(self):
+        return '{} - {}'.format(self.composer, self.piece)
 
 
 class Rehearsal(models.Model):
@@ -62,7 +62,6 @@ class Rehearsal(models.Model):
     start_time = models.TimeField(default='19:00:00')
     end_time = models.TimeField(default='22:00:00')
     rehearsal_venue = models.CharField(max_length=300, default=DEFAULT_VENUE)
-    # venue = models.ManyToManyField(Venue)
     notes = models.CharField(max_length=400, blank=True)
 
 
@@ -93,13 +92,9 @@ class Absence(models.Model):
         ''' On receipt, create timestamps and assign to an existing Musician '''
         if not self.id or not self.timestamp:
             self.timestamp = timezone.now()
-        # Try to reference musician from Musician database
         # TODO decide if this part goes in the form or not....
         if not self.musician:
             try:
-                # split = (self.full_name).split(' ')
-                # first_name = split[0]
-                # last_name = split[1]
                 self.musician = Musician.candidates.get(
                     first_name=self.first_name,
                     last_name=self.last_name,
@@ -108,7 +103,6 @@ class Absence(models.Model):
             except:
                 return super(Absence, self).save(*args, **kwargs)
         return super(Absence, self).save(*args, **kwargs)
-
 
 
 # TODO - Currently not linked to anything - sort this out

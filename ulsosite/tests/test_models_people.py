@@ -53,6 +53,8 @@ class MusicianTestCase(TestCase):
         self.assertIsNotNone(self.musician.season)
 
 
+
+
 def MusicianFromDictTestCase(TestCase):
     DICT = []
 

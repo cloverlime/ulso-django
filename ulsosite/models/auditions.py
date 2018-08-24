@@ -54,6 +54,7 @@ class AuditionSlot(models.Model):
                 )
             except: # save anyway without linking to Musician entry
                 return super(AuditionSlot, self).save(*args, **kwargs)
+                
         elif self.musician and not (self.first_name or self.last_name or self.instrument):
             self.first_name = (self.musician).first_name
             self.last_name = (self.musician).last_name
