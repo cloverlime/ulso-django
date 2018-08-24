@@ -76,6 +76,16 @@ To see help text, type:
 
     python manage.py <command> --help
 
+### Run tests
+
+To run all tests (or in a specific app):
+
+    python manage.py test [app_name]
+
+Increase verbosity:
+
+    python manage.py test -v 2
+
 
 ### Priorities
 

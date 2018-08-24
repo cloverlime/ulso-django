@@ -20,39 +20,39 @@ def mark_as_rejected(self, request, queryset):
 
 class SectionListFilter(admin.SimpleListFilter):
     """Some queryset shortcuts to help us search players by section or instrument"""
-    title = _('section')
+    title = ('section')
     parameter_name = 'instrument'
 
     def lookups(self, request, model_admin):
         return (
-        ('Wind', 'Wind' ),
-        ('Brass', 'Brass'),
-        ('Strings', 'Strings'),
-        ('Percussion', 'Percussion'),
-        ('Other', 'Other'),
+            ('Wind', 'Wind' ),
+            ('Brass', 'Brass'),
+            ('Strings', 'Strings'),
+            ('Percussion', 'Percussion'),
+            ('Other', 'Other'),
         )
 
     def queryset(self, request, queryset):
         if self.value() == "Wind":
             return queryset.filter(
-                                    Q(instrument='Flute') |
-                                    Q(instrument='Clarinet') |
-                                    Q(instrument='Oboe') |
-                                    Q(instrument='Bassoon')
-                                    )
+                Q(instrument='Flute') |
+                Q(instrument='Clarinet') |
+                Q(instrument='Oboe') |
+                Q(instrument='Bassoon')
+            )
         if self.value() == "Brass":
             return queryset.filter(
-                                    Q(instrument='Horn') |
-                                    Q(instrument='Trumpet') |
-                                    Q(instrument='Trombone') |
-                                    Q(instrument='Tuba')
-                                    )
+                Q(instrument='Horn') |
+                Q(instrument='Trumpet') |
+                Q(instrument='Trombone') |
+                Q(instrument='Tuba')
+            )
         if self.value() == "Strings":
             return queryset.filter(
-                                    Q(instrument='Violin') |
-                                    Q(instrument='Viola') |
-                                    Q(instrument='Cello') |
-                                    Q(instrument='Bass')
-                                    )
+                Q(instrument='Violin') |
+                Q(instrument='Viola') |
+                Q(instrument='Cello') |
+                Q(instrument='Bass')
+            )
         if self.value() == "Percussion":
             return queryset.filter(instrument='Percussion')

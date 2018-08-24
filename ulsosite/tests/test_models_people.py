@@ -33,13 +33,13 @@ class MusicianTestCase(TestCase):
             season='',
             notes='Available for all audition dates',
         )
-        self.musician.save()
 
     def test_string_representation(self):
         string = self.musician.__str__()
         self.assertEquals(string, 'Stacey Lewis')
 
     def test_has_attributes(self):
+        """Tests that all the attributes are as expected"""
         pass
 
     def test_has_creation_date(self):
@@ -51,9 +51,6 @@ class MusicianTestCase(TestCase):
     def test_has_season(self):
         # Was initialised without a season but one should be auto-saved
         self.assertIsNotNone(self.musician.season)
-
-    def test_create_method(self):
-        pass 
 
 
 def MusicianFromDictTestCase(TestCase):

@@ -15,10 +15,30 @@ from ulsosite.models.auditions import (
 )
 
 class AuditionSlotAdmin(admin.ModelAdmin):
-    list_display = ['__str__', full_name, 'instrument','date']
+    list_display = ['__str__', full_name, 'instrument','date', 'verdict']
     list_filter  = ['date', SectionListFilter, 'instrument',]
     search_fields = (['^first_name', '^last_name', '^instrument'])
     ordering = ['date', 'time']
+
+    def mark_as_member(self, request, queryset):
+        queryset.update(verdict='Member')
+        for model in queryset:
+            model.save()
+        mark_as_member.short_description = "Mark selected as members"
+
+    def mark_as_reserve(self, request, queryset):
+        queryset.update(verdict='Reserve')
+        for model in queryset:
+            model.save()
+        mark_as_reserve.short_description = "Mark selected as reserves"
+
+    def mark_as_rejected(self, request, queryset):
+        queryset.update(verdict='Rejected')
+        for model in queryset:
+            model.save()
+        mark_as_rejected.short_description = "Mark selected as rejected"
+
+    actions = [mark_as_member, mark_as_reserve, mark_as_rejected]
 
 
 class AuditionSlotInline(admin.TabularInline):
