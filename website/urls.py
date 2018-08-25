@@ -20,6 +20,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('join/', views.join, name='join'),
     path('media/', views.media, name='media'),
+    path('depping-policy', views.depping_policy, name='depping_policy'),
+    path('privacy-policy', views.privacy_policy, name='privacy_policy'),
     # path('committee', views.committee, name='committee'),
 
     # Forms and signups

@@ -1,4 +1,3 @@
-import unittest
 import datetime as dt
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -18,7 +17,7 @@ class WebsiteViewsTestCase(TestCase):
         Also sets up the test client.
         """
         self.client = Client()
-
+        
         self.season = '2017/18'
 
         Status.objects.create(

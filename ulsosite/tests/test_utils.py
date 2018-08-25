@@ -9,7 +9,6 @@ from ulsosite.utils import (
     format_time
 )
 
-
 class AcademicYearCalcTestCase(TestCase):
     """Tests the function academic_year_calc(date) with a range of dates"""
     def test_before_1000(self):

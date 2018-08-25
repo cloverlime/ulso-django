@@ -112,3 +112,11 @@ def whatson(request):
         'concerts': concerts,
     }
     return render(request, 'website/pages/whatson.html', context)
+
+def depping_policy(request):
+    page = Page.objects.get(title="Depping Policy")
+    return render(request, 'website/pages/page-simple.html', { 'page': page })
+
+def privacy_policy(request):
+    page = Page.objects.get(title="Privacy Policy")
+    return render(request, 'website/pages/page-simple.html', { 'page': page })
