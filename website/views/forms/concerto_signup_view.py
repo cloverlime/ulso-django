@@ -20,7 +20,6 @@ class ConcertoSignUp(View):
         # create instances!
         if form.is_valid():
             data = form.cleaned_data
-            pp.pprint(data)
 
             try:
                 applicant = ConcertoApplicant.objects.create(

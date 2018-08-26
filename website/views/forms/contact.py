@@ -40,7 +40,7 @@ def contact(request):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             topic = form.cleaned_data['topic']
-            full_subject = topic + ': ' + form.cleaned_data['subject']
+            full_subject = topic.upper() + ': ' + form.cleaned_data['subject']
             message = form.cleaned_data['message']
             send_self = form.cleaned_data['send_self']
             recipients = ['chair@ulso.co.uk']
@@ -80,6 +80,7 @@ def contact(request):
                 return HttpResponse("Invalid header found.")
 
             # Redirect back to contacts page with a success message
+            # TODO change to proper redirect
             return render(
                 request,
                 'website/forms/form-success.html',

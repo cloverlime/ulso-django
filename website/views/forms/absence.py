@@ -7,14 +7,14 @@ from ulsosite.models.concerts import Absence
 from website.forms.absence import AbsenceForm
 
 class AbsenceFormView(View):
-    form = AbsenceForm()
     form_template = 'website/pages/absence-signup.html'
     success_template = 'website/forms/form-success.html'
 
     def get(self, request, *args, **kwargs):
+        form = AbsenceForm()
         title = 'Absence'
         context = {
-            'form': self.form,
+            'form': form,
             'title': title
         }
         return render(request, self.form_template, context)
@@ -25,7 +25,8 @@ class AbsenceFormView(View):
         # Clean the form data
         if form.is_valid():
             rehearsal = form.cleaned_data['rehearsal']
-            full_name = form.cleaned_data['full_name']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             instrument = form.cleaned_data['instrument']
             dep_name = form.cleaned_data['dep_name']
@@ -33,10 +34,13 @@ class AbsenceFormView(View):
             dep_phone =  form.cleaned_data['dep_phone']
             reasons = form.cleaned_data['reasons']
 
+            print(form.data)   
+            print(form.cleaned_data)
             # Save entry to database
             absence, created = Absence.objects.get_or_create(
                 rehearsal=rehearsal,
-                full_name=full_name,
+                first_name=first_name,
+                last_name=last_name,
                 email=email,
                 instrument=instrument,
                 dep_name=dep_name,
@@ -48,8 +52,9 @@ class AbsenceFormView(View):
             # TODO send dep an email
             # if created = True:
                 # send email dep
-            
-            return render(request, self.success_template, { 'message': "Yay!"})
+
+            # TODO MAKE REDIRECT
+            return render(request, self.success_template, {'message': "Yay!"})
 
         else:
-            return HttpRequest("Uh oh form not valid")
+            return HttpResponse("Uh oh form not valid")

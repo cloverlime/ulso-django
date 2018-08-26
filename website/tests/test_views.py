@@ -41,8 +41,8 @@ class WebsiteViewsTestCase(TestCase):
             date=dt.date(year=2017, month=11, day=17),
             conductor=None,
             soloist='',
-            soloist_website='St Stephen\'s',
-            concert_venue='',
+            soloist_website='',
+            concert_venue='St Stephen\'s',
         )
 
         CommitteeMember.objects.create(
