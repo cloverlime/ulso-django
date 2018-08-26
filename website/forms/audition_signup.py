@@ -8,7 +8,7 @@ from ulsosite.info.info import (
     YEAR_LIST
 )
 
-# Not model form
+
 class AuditionSignUpForm(forms.Form):
     season = academic_year_calc(datetime.datetime.now())
     title = f"Audition Sign-Up {season}"
@@ -55,7 +55,7 @@ class AuditionSignUpForm(forms.Form):
     # Instrument and experience
     returning_member = forms.BooleanField(
         label="Returning member",
-        required="false",
+        required=False,
         help_text="Are you a returning member of ULSO?"
     )
     instrument = forms.ChoiceField(
@@ -63,7 +63,7 @@ class AuditionSignUpForm(forms.Form):
         choices=INSTRUMENT_LIST,
         help_text="Please select your main instrument here. If you play the harp, piano or saxophone, you will be considered for addition to ULSO's extras list for this season and may be invited to play depending on the repertoire.")
     doubling = forms.CharField(
-        max_length=20,
+        max_length=50,
         required=False,
         widget=forms.TextInput(attrs={'placeholder': 'e.g. piccolo, Eb clarinet, cor anglais...'}),
         help_text="Please list any doubling or additional instruments you wish to be considered on."
@@ -80,11 +80,12 @@ class AuditionSignUpForm(forms.Form):
     )
     
     # Agreements
-    depping_policy = forms.BooleanField(help_text='Tick here to agree to abide to our depping policy.')
-    privacy_policy = forms.BooleanField(help_text='Tick here to indicate that you have read and agreed to our privacy policy.')
+    depping_policy = forms.BooleanField(required=True, help_text='Tick here to agree to abide to our depping policy.')
+    privacy_policy = forms.BooleanField(required=True, help_text='Tick here to indicate that you have read and agreed to our privacy policy.')
 
     # Other
     notes = forms.CharField(
+        max_length=500,
         required=False,
         widget=forms.Textarea(attrs={
             'placeholder': 'Your answer',

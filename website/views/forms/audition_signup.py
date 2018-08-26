@@ -27,7 +27,7 @@ class AuditionSignUpView(View):
         success_template = 'website/forms/form-success.html'
         success_message = "Thank you for signing up to ULSO."
 
-        if not self._concerto_is_open():
+        if not self._concerto_is_open:
             context = {'message': 'We are currently closed for audition applications. Please contact us to discuss mid-year opportunities.' }
             return render(request, self.fail_template , context)
         
@@ -44,16 +44,8 @@ class AuditionSignUpView(View):
 
             context = {'message': success_message }
             return render(request, success_template , context)
-        
         else:
-            context = {
-            'form': form,
-            'season': season,
-            'audition_dates': audition_dates
-        }
-            return render(request, self.form_template, context)
-
-        return HttpResponse("oops something went wrong")
+           return HttpResponse("oops something went wrong")
 
     def get(self, request, *args, **kwargs):
         form = AuditionSignUpForm()
