@@ -16,11 +16,12 @@ from ulsosite.info.dates import CURRENT_SEASON
 from website.templates.messages.messages import CONTACT_MESSAGE_SUCCESS
 from website.forms.contact import ContactForm
 
-def contact(request):
+
+class ContactFormView(View):
     """
     Logic for the website's contact form. Sends an email directly to committee members' role@ulso.co.uk email addresses depending on the topic chosen by the sender.
     """
-    if request.method == 'GET':
+    def get(self, request):
         page = Page.objects.get(title="Contact Us")
         form = ContactForm()
         form_text = '<h2>Contact Form</h2>'
@@ -33,10 +34,10 @@ def contact(request):
         }
         return render(request, 'website/pages/contact.html', context)
 
-    else:
+
+    def post(self, request):
         form = ContactForm(request.POST)
 
-        # Validate form data
         if form.is_valid():
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
@@ -79,9 +80,6 @@ def contact(request):
 
             except BadHeaderError:
                 return HttpResponse("Invalid header found. Email was not sent.")
-
-            # Redirect back to contacts page with a success message
-            # TODO change to proper redirect
 
             messages.add_message(request, messages.SUCCESS, CONTACT_MESSAGE_SUCCESS)
             return redirect(reverse('form_success'))
