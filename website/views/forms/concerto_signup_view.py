@@ -1,8 +1,10 @@
 import datetime
-import pprint as pp
-from django.shortcuts import render
+
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.core.mail import EmailMessage, BadHeaderError
 from django.views import View
+from django.urls import reverse
 
 from ulsosite.utils import academic_year_calc
 from ulsosite.models.people import ConcertoApplicant
@@ -35,12 +37,11 @@ class ConcertoSignUp(View):
                 )
                 applicant.save()
             except:
-                return render(request, fail_template, { 
-                    'message': 'There was an error. Please report to webmaster@ulso.co.uk.'}
-                    )
-            
-            context = { 'message': 'Thank you for your submission.'}
-            return render(request, success_template, context) 
+                messages.add_message(request, messages.ERROR, 'There was a database error. Please report this issue immediately to webmaster@ulso.co.uk.')
+                return redirect(reverse('form_error'))
+                        
+            messages.add_message(request, messages.SUCCESS, 'Thank you for your submission. We will get back to you soon.')
+            return redirect(reverse('form_success'))
 
     def get(self, request, *args, **kwargs):
         form = ConcertoForm()

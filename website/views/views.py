@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import View
+from django.contrib.messages import get_messages
+
 
 from status.models import Status
 from ulsosite.utils import academic_year_calc
@@ -120,3 +122,11 @@ def depping_policy(request):
 def privacy_policy(request):
     page = Page.objects.get(title="Privacy Policy")
     return render(request, 'website/pages/page-simple.html', { 'page': page })
+
+def form_success(request):
+    messages = get_messages(request)
+    return render(request, 'website/forms/form-success.html', {'messages': messages})
+
+def form_error(request):
+    messages = get_messages(request)
+    return render(request, 'website/forms/form-error.html', {'messages': messages})

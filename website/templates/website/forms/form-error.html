@@ -1,8 +1,9 @@
 {% extends 'website/organisms/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 
-<h1>Success</h1>
+<h1>Error</h1>
 
 {% if messages %}
 <div class="messages">
@@ -10,6 +11,13 @@
     <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
+
+{% else %}
+<div>
+  <p>Sorry, there was an error with the request. Please check you have filled in everything correctly.</p>
+</div>
 {% endif %}
+
+<a href="{% url 'index' %}"><p>Home</p></a>
 
 {% endblock %}

@@ -1,5 +1,6 @@
 import datetime
-import pprint as pp
+
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
@@ -31,7 +32,6 @@ class ProjectFormView(View):
         if form.is_valid():
             # Get cleaned data...
             data = form.cleaned_data
-            pp.pprint(data)
 
             # Identify the musician
             try:
@@ -41,10 +41,9 @@ class ProjectFormView(View):
                     email=data['email']
                 )
             except:
-                context = {
-                    'message': 'We don\t recognise you. Are you sure you entered your details as registered?'
-                        }
-                return render(request, self.fail_template, context)
+                FAIL_MESSAGE = 'We don\t recognise you. Are you sure you entered your details as registered?'
+                messages.add_message(request, messages.ERROR, FAIL_MESSAGE)
+                return redirect(reverse('form_error'))
 
             # If can't make the project, continue.
             if data['can_make_concert'] == 'Yes':
@@ -66,27 +65,23 @@ class ProjectFormView(View):
                         )
 
                         if absence == None:
-                            context = {
-                                'message': 'There was a internal error. Please report this to webmaster@ulso.co.uk!'
-                            }
-                            return render(request, self.fail_template, context)
-                        
+                            messages.add_message(request, messages.ERROR, 'There was a internal error. Please report this to webmaster@ulso.co.uk!' )
+                            return redirect(reverse('form_success'))
+
                         absence.save()
 
-                context = {
-                    'message': 'Thank you for signing up for our next project. We will contact you by email with further information.'
-                }
             else: # Can't make concert
-                context ={
-                    'message': 'Thank you for filling in our form. We\'re sorry to hear that you can\'t make it this time, but we hope to see you again soon.'
-                }    
-            return render(request, self.success_template, context)
+                PROJECT_SIGNUP_SUCCESS = 'Thank you for signing up for our next project. We will contact you by email with further information.'
+                messages.add_message(request, messages.SUCCESS, PROJECT_SIGNUP_SUCCESS)
+                return redirect(reverse('form_success'))
+                
+            PROJECT_NO_SIGNUP_SUCCESS = 'Thank you for filling in our form. We\'re sorry to hear that you can\'t make it this time, but we hope to see you again soon.'
+            messages.add_message(request, messages.SUCCESS, PROJECT_NO_SIGNUP_SUCCESS)
+            return redirect(reverse('form_success'))
+
         else: # Invalid  or didn't choose any rehearsals
-            context ={
-                'message': 'Your form could not be processed. Did you forget to select any rehearsals?'
-            }    
-            return render(request, self.fail_template, context)
-    
+            messages.add_message(request, messages.ERROR, 'Your form could not be processed. Did you forget to select any rehearsals?' )
+            return redirect(reverse('form_error'))
     
     def get(self, request):
         form = ProjectSignUp()

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMessage, BadHeaderError
@@ -19,7 +20,7 @@ def contact(request):
     """
     Logic for the website's contact form. Sends an email directly to committee members' role@ulso.co.uk email addresses depending on the topic chosen by the sender.
     """
-    if request.method != 'POST':
+    if request.method == 'GET':
         page = Page.objects.get(title="Contact Us")
         form = ContactForm()
         form_text = '<h2>Contact Form</h2>'
@@ -77,16 +78,18 @@ def contact(request):
                 email_msg.send()
 
             except BadHeaderError:
-                return HttpResponse("Invalid header found.")
+                return HttpResponse("Invalid header found. Email was not sent.")
 
             # Redirect back to contacts page with a success message
             # TODO change to proper redirect
-            return render(
-                request,
-                'website/forms/form-success.html',
-                {'message': CONTACT_MESSAGE_SUCCESS }
-            )
+
+            messages.add_message(request, messages.SUCCESS, CONTACT_MESSAGE_SUCCESS)
+            return redirect(reverse('form_success'))
 
         # Form is not valid
         else:
-            return HttpResponse("Invalid form")
+            messages.add_message(
+                request, messages.ERROR,
+                'Sorry, something went wrong. Please try again. Did you fill in all the details correctly?'
+                )
+            return redirect(reverse('form_error'))

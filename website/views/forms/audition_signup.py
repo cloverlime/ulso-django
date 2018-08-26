@@ -1,9 +1,11 @@
 import datetime
 
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template.defaultfilters import slugify
 from django.views import View
+from django.urls import reverse
 
 from ulsosite.utils import academic_year_calc
 from ulsosite.models.auditions import AuditionDate
@@ -26,6 +28,7 @@ class AuditionSignUpView(View):
         form = AuditionSignUpForm(data=request.POST)
         success_template = 'website/forms/form-success.html'
         success_message = "Thank you for signing up to ULSO."
+        form_error_message = 'Sorry, your form was invalid. Please try again.'
 
         if not self._concerto_is_open:
             context = {'message': 'We are currently closed for audition applications. Please contact us to discuss mid-year opportunities.' }
@@ -42,10 +45,11 @@ class AuditionSignUpView(View):
 
             # TODO Send acknowledgement email
 
-            context = {'message': success_message }
-            return render(request, success_template , context)
+            messages.add_message(request, messages.SUCCESS, success_message)
+            return redirect(reverse('form_success'))
         else:
-           return HttpResponse("oops something went wrong")
+            messages.add_message(request, messages.ERROR, form_error_message)
+            return redirect(reverse('form_error'))
 
     def get(self, request, *args, **kwargs):
         form = AuditionSignUpForm()

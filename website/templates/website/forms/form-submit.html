@@ -4,10 +4,12 @@
 
 <h1>Success</h1>
 
+<h2>Message Framework Stuff</h2>
+
 {% if messages %}
 <div class="messages">
     {% for message in messages %}
-    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    <p>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
     {% endfor %}
 </div>
 {% endif %}
