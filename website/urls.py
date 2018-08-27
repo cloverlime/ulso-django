@@ -31,4 +31,6 @@ urlpatterns = [
     path('contact/', ContactFormView.as_view(), name='contact'),
     path('form-success/', views.form_success, name='form_success'),
     path('form-error/', views.form_error, name='form_error'),
+
+    # Dynamic project form
 ]

@@ -5,10 +5,13 @@ from ulsosite.info.info import DEFAULT_VENUE
 
 from .people import Conductor, Musician
 
-from ulsosite.utils import format_time, format_date
+from ulsosite.utils import (
+    academic_year_calc, format_time, format_date
+)
 
 class Concert(models.Model):
-    current = models.BooleanField(default=False)
+    current = models.BooleanField(default=False, help_text='Is this the current project i.e. are rehearsals imminent or underway?')
+    recruiting = models.BooleanField(default=False, help_text="Do you want the project form to display this project?")
     season = models.CharField(max_length=10, null=True, blank=True)
     project_term = models.CharField(max_length=30, help_text="e.g. Autumn, Winter, Spring, Summer 1, Summer 2")
     start_time = models.TimeField(help_text="Start time of concert", default='19:00:00')
@@ -24,6 +27,11 @@ class Concert(models.Model):
         return '{} - {} - {}'.format(
             self.project_term, self.date, self.conductor)
 
+    def save(self, *args, **kwargs):
+        """Calculates season upon save"""
+        if not self.season:
+            self.season = academic_year_calc(self.date)
+        return super(Concert, self).save(*args, **kwargs)    
 
 class Poster(models.Model):
     concert = models.ForeignKey(Concert, on_delete=models.CASCADE)
