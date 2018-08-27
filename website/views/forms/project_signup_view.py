@@ -10,7 +10,7 @@ from ulsosite.models.people import Musician
 
 from website.forms.project_signup_form import ProjectSignUp
 from website import responses
-from website.utils import redirect_success, redirect_success
+from website.utils import redirect_success, redirect_error
 
 
 class ProjectFormView(View):
@@ -18,14 +18,20 @@ class ProjectFormView(View):
     success_template = 'website/forms/form-success.html'
     fail_template = 'website/forms/form-fail.html'
 
-    def get_current_concert():
-        return Concert.objects.filter(current=True)
+    # def get_current_concert():
+    #     return Concert.objects.filter(current=True)
 
-    def get_current_rehearsal_set():
-        return Rehearsal.objects.filter(concert=Concert.objects.filter(current=True))
+    # def get_current_rehearsal_set():
+    #     return Rehearsal.objects.filter(concert=Concert.objects.filter(current=True))
+    
+    def get_recruiting_concert():
+        return Concert.objects.filter(recruiting=True)
 
-    concert = get_current_concert()
-    rehearsals = get_current_rehearsal_set()
+    def get_recruiting_rehearsals():
+        return Rehearsal.objects.filter(concert=Concert.objects.filter(recruiting=True))
+
+    concert = get_recruiting_concert()
+    rehearsals = get_recruiting_rehearsals()
 
     title = f"Project Sign-Up"
 
@@ -40,6 +46,7 @@ class ProjectFormView(View):
                 musician = Musician.objects.get(
                     first_name=data['first_name'],
                     last_name=data['last_name'],
+                    instrument=data['instrument'],
                     email=data['email']
                 )
             except:

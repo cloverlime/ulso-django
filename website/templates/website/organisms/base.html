@@ -34,13 +34,13 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="ulsoNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'whatson' %}">What's On</a></li>
-            <li><a href="{% url 'join' %}">Join</a></li>
-            <!-- <li><a href="{% url 'media' %}">Media</a></li> -->
-            <li><a href="{% url 'rehearsals' %}">Rehearsals</a></li>
-            <li><a href="{% url 'concerto' %}">Concerto Competition</a></li>
+            <li id="home" class="active"><a href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a></li>
+            <li id="about"><a href="{% url 'about' %}">About</a></li>
+            <li id="whatson"><a href="{% url 'whatson' %}">What's On</a></li>
+            <li id="join"><a href="{% url 'join' %}">Join</a></li>
+            <!-- ><a href="{% url 'media' %}">Media</a></li> -->
+            <li id="rehearsals"><a href="{% url 'rehearsals' %}">Rehearsals</a></li>
+            <li id="concerto"><a href="{% url 'concerto' %}">Concerto Competition</a></li>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -74,7 +74,7 @@
       </div>
     </div>
     <div class="col-lg-4">
-      <p id="credits">© ULSO 2017/18 <a href="mailto:webmaster@ulso.co.uk">Wenye Zhao</a></p>
+      <p id="credits">© ULSO 2018/19 <a href="mailto:webmaster@ulso.co.uk">Wenye Zhao</a></p>
     </div>
   </div>
 </footer>

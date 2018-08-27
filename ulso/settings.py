@@ -20,10 +20,7 @@ BASE_DIR = '/home/wenye/Documents/Projects/ulso'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'not-a-secret'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -72,7 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ulso.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
