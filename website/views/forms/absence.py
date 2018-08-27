@@ -1,10 +1,13 @@
 import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 
 from ulsosite.models.concerts import Absence
+
 from website.forms.absence import AbsenceForm
+from website.utils import redirect_error, redirect_success
+from website import responses
 
 class AbsenceFormView(View):
     form_template = 'website/pages/absence-signup.html'
@@ -49,12 +52,12 @@ class AbsenceFormView(View):
                 reasons=reasons
             )
             absence.save()
+            
             # TODO send dep an email
             # if created = True:
                 # send email dep
 
-            # TODO MAKE REDIRECT
-            return render(request, self.success_template, {'message': "Yay!"})
+            return redirect_success(request, responses.ABSENCE_SUCCESS)
 
         else:
-            return HttpResponse("Uh oh form not valid")
+            return redirect_error(request, responses.ABSENCE_ERROR)

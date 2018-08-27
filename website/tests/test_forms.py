@@ -21,6 +21,9 @@ from ulsosite.models.concerts import (
 class AuditionSignUpTestCase(TestCase):
     def setUp(self):
         self.client = Client()
+        self.post_url = reverse('audition_signup')
+        self.success_url = reverse('form_success')
+        self.error_url = reverse('form_error')
         self.season = '2017/18'
         
         Status.objects.create(
@@ -68,7 +71,7 @@ class AuditionSignUpTestCase(TestCase):
 
     @tag('integration')
     def test_valid_form_saves_to_database(self):
-        self.client.post('/auditions/signup/',data=self.data)
+        self.client.post(self.post_url, data=self.data)
 
         entry_exists = Musician.objects.filter(
             first_name= self.data['first_name'],
@@ -81,15 +84,25 @@ class AuditionSignUpTestCase(TestCase):
     @tag('integration')
     def test_invalid_form_does_not_save_to_database(self):
         self.data['instrument'] = 'Zither'
-        self.client.post('/auditions/signup/',data=self.data)
+        self.client.post(self.post_url, data=self.data)
         entry_exists = Musician.objects.filter(
             first_name= self.data['first_name'],
             last_name= self.data['last_name'],
             instrument= self.data['instrument'],
             ).exists()
 
-        self.assertFalse(entry_exists)    
+        self.assertFalse(entry_exists)   
 
+    @tag('integration')
+    def test_redirect_success_after_POST(self):
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.success_url)
+
+    @tag('integration')
+    def test_redirect_error_after_POST(self):
+        self.data['instrument'] = 'Zither'
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.error_url)
 
     # def test_redirects_after_POST(self):
     #     response = self.client.post('/', data={'item_text': 'A new list item'})
@@ -100,6 +113,9 @@ class AuditionSignUpTestCase(TestCase):
 class ConcertoSignUpTestCase(TestCase):
     def setUp(self):
         self.client = Client()
+        self.post_url = reverse('concerto_signup')
+        self.success_url = reverse('form_success')
+        self.error_url = reverse('form_error')
         self.season = '2017/18'
         
         Status.objects.create(
@@ -130,7 +146,7 @@ class ConcertoSignUpTestCase(TestCase):
 
     @tag('integration')
     def test_valid_form_saves_to_database(self):
-        self.client.post('/concerto/signup/',data=self.data)
+        self.client.post(self.post_url, data=self.data)
 
         entry_exists = ConcertoApplicant.objects.filter(
             first_name= self.data['first_name'],
@@ -144,7 +160,7 @@ class ConcertoSignUpTestCase(TestCase):
     @tag('integration')
     def test_invalid_form_does_not_save_to_database(self):
         self.data['first_name'] = ''
-        self.client.post('/auditions/signup/',data=self.data)
+        self.client.post(self.post_url, data=self.data)
         entry_exists = ConcertoApplicant.objects.filter(
             first_name= self.data['first_name'],
             last_name= self.data['last_name'],
@@ -153,6 +169,17 @@ class ConcertoSignUpTestCase(TestCase):
             ).exists()
 
         self.assertFalse(entry_exists)    
+
+    @tag('integration')
+    def test_redirect_success_after_POST(self):
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.success_url)
+
+    @tag('integration')
+    def test_redirect_error_after_POST(self):
+        self.data['first_name'] = ''
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.error_url)
 
 
     # def test_redirects_after_POST(self):
@@ -164,6 +191,9 @@ class ConcertoSignUpTestCase(TestCase):
 class ContactFormTestCase(TestCase):
     def setUp(self):
         self.client = Client()
+        self.post_url = reverse('contact')
+        self.success_url = reverse('form_success')
+        self.error_url = reverse('form_error')
 
         self.data = {
             'name': 'Moo Baa',
@@ -206,19 +236,34 @@ class ContactFormTestCase(TestCase):
     @tag('integration')
     def test_self_sends_more_emails(self):
         self.data['send_self'] = True
-        self.client.post('/contact/',data=self.data)
+        self.client.post(self.post_url, data=self.data)
         self.assertEqual(mail.outbox[0].cc, [self.data['email']])       
 
     @tag('integration')
     def test_invalid_form_does_not_send_email(self):
         self.data['name'] = ''
-        self.client.post('/auditions/signup/',data=self.data)
-        self.assertEqual(len(mail.outbox), 0)            
+        self.client.post(self.post_url, data=self.data)
+        self.assertEqual(len(mail.outbox), 0)      
+
+    @tag('integration')
+    def test_redirect_success_after_POST(self):
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.success_url)
+
+    @tag('integration')
+    def test_redirect_error_after_POST(self):
+        self.data['name'] = ''
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.error_url)
+    
 
 
 class AbsenceFormTestCase(TestCase):
     def setUp(self):
         self.client = Client()
+        self.post_url = reverse('absence_form')
+        self.success_url = reverse('form_success')
+        self.error_url = reverse('form_error')
 
         self.concert = Concert.objects.create(
             current=True,
@@ -278,10 +323,26 @@ class AbsenceFormTestCase(TestCase):
     def test_invalid_form_does_not_save_to_database(self):
         pass   
 
+    @unittest.skip
+    @tag('integration')
+    def test_redirect_success_after_POST(self):
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.success_url)
+    
+    @unittest.skip
+    @tag('integration')
+    def test_redirect_error_after_POST(self):
+        self.data['first_name'] = ''
+        response = self.client.post(self.post_url, data=self.data)
+        self.assertRedirects(response, self.error_url)
+
 
 class ProjectSignUpTestCase(TestCase):
     def setUp(self):
-        pass
+        self.client = Client()
+        self.post_url = reverse('project_signup')
+        self.success_url = reverse('form_success')
+        self.error_url = reverse('form_error')
 
     def test_valid_data(self):
         pass

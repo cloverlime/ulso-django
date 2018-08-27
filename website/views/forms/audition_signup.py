@@ -7,14 +7,16 @@ from django.template.defaultfilters import slugify
 from django.views import View
 from django.urls import reverse
 
+from status.models import Status
+
 from ulsosite.utils import academic_year_calc
 from ulsosite.models.auditions import AuditionDate
 from ulsosite.models.people import Musician
 from ulsosite.info.dates import CURRENT_SEASON
 
 from website.forms.audition_signup import AuditionSignUpForm
-
-from status.models import Status
+from website.utils import redirect_error, redirect_success
+from website import responses
 
 class AuditionSignUpView(View):
 
@@ -27,8 +29,6 @@ class AuditionSignUpView(View):
     def post(self, request, *args, **kwargs):
         form = AuditionSignUpForm(data=request.POST)
         success_template = 'website/forms/form-success.html'
-        success_message = "Thank you for signing up to ULSO."
-        form_error_message = 'Sorry, your form was invalid. Please try again.'
 
         if not self._concerto_is_open:
             context = {'message': 'We are currently closed for audition applications. Please contact us to discuss mid-year opportunities.' }
@@ -39,17 +39,15 @@ class AuditionSignUpView(View):
             musician = Musician.create(field_attr)
 
             if musician == None:
-                return HttpResponse("There was an error. Please report this to webmaster@ulso.co.uk.")
+                return redirect_error(request, responses.DATABASE_ERROR)
 
             musician.save()
 
             # TODO Send acknowledgement email
 
-            messages.add_message(request, messages.SUCCESS, success_message)
-            return redirect(reverse('form_success'))
+            return redirect_success(request, responses.AUDITION_SIGNUP_SUCCESS)
         else:
-            messages.add_message(request, messages.ERROR, form_error_message)
-            return redirect(reverse('form_error'))
+            return redirect_error(request, responses.AUDITION_SIGNUP_ERROR)
 
     def get(self, request, *args, **kwargs):
         form = AuditionSignUpForm()

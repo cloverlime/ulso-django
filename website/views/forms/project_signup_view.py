@@ -9,6 +9,9 @@ from ulsosite.models.concerts import Concert, Absence, Rehearsal
 from ulsosite.models.people import Musician
 
 from website.forms.project_signup_form import ProjectSignUp
+from website import responses
+from website.utils import redirect_success, redirect_success
+
 
 class ProjectFormView(View):
     form_template = 'website/pages/project-signup-page.html'
@@ -30,7 +33,6 @@ class ProjectFormView(View):
         form = ProjectSignUp(data=request.POST)
         
         if form.is_valid():
-            # Get cleaned data...
             data = form.cleaned_data
 
             # Identify the musician
@@ -41,9 +43,7 @@ class ProjectFormView(View):
                     email=data['email']
                 )
             except:
-                FAIL_MESSAGE = 'We don\t recognise you. Are you sure you entered your details as registered?'
-                messages.add_message(request, messages.ERROR, FAIL_MESSAGE)
-                return redirect(reverse('form_error'))
+                return redirect_error(request, responses.CANNOT_MATCH_MUSICIAN)
 
             # If can't make the project, continue.
             if data['can_make_concert'] == 'Yes':
@@ -52,7 +52,6 @@ class ProjectFormView(View):
 
                 # For any absences, add to absence list
                 for rehearsal in self.rehearsals:
-                    print(rehearsal)
                     if rehearsal not in data['attendance']:
                         # create absence
                         absence = Absence.objects.create(
@@ -65,23 +64,17 @@ class ProjectFormView(View):
                         )
 
                         if absence == None:
-                            messages.add_message(request, messages.ERROR, 'There was a internal error. Please report this to webmaster@ulso.co.uk!' )
-                            return redirect(reverse('form_success'))
+                            return redirect_error(request, responses.DATABASE_ERROR)
 
                         absence.save()
 
-            else: # Can't make concert
-                PROJECT_SIGNUP_SUCCESS = 'Thank you for signing up for our next project. We will contact you by email with further information.'
-                messages.add_message(request, messages.SUCCESS, PROJECT_SIGNUP_SUCCESS)
-                return redirect(reverse('form_success'))
-                
-            PROJECT_NO_SIGNUP_SUCCESS = 'Thank you for filling in our form. We\'re sorry to hear that you can\'t make it this time, but we hope to see you again soon.'
-            messages.add_message(request, messages.SUCCESS, PROJECT_NO_SIGNUP_SUCCESS)
-            return redirect(reverse('form_success'))
+                return redirect_success(request, responses.PROJECT_SIGNUP_SUCCESS)
+
+            else: # can't make concert
+                return redirect_success(request, responses.PROJECT_NO_SIGNUP_SUCCESS) 
 
         else: # Invalid  or didn't choose any rehearsals
-            messages.add_message(request, messages.ERROR, 'Your form could not be processed. Did you forget to select any rehearsals?' )
-            return redirect(reverse('form_error'))
+                return redirect_error(request, responses.PROJECT_SIGNUP_ERROR)
     
     def get(self, request):
         form = ProjectSignUp()

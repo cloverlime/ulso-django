@@ -8,8 +8,10 @@ from django.urls import reverse
 
 from ulsosite.utils import academic_year_calc
 from ulsosite.models.people import ConcertoApplicant
-from website.forms.concerto_signup_form import ConcertoForm
 
+from website.forms.concerto_signup_form import ConcertoForm
+from website.utils import redirect_success, redirect_error
+from website import responses
 
 class ConcertoSignUp(View):
     season = academic_year_calc(datetime.datetime.now())
@@ -19,7 +21,6 @@ class ConcertoSignUp(View):
         success_template = 'website/forms/form-success.html'
         fail_template = 'website/forms/form-fail.html'
 
-        # create instances!
         if form.is_valid():
             data = form.cleaned_data
 
@@ -37,11 +38,12 @@ class ConcertoSignUp(View):
                 )
                 applicant.save()
             except:
-                messages.add_message(request, messages.ERROR, 'There was a database error. Please report this issue immediately to webmaster@ulso.co.uk.')
-                return redirect(reverse('form_error'))
+                return redirect_error(request, responses.DATABASE_ERROR)
                         
-            messages.add_message(request, messages.SUCCESS, 'Thank you for your submission. We will get back to you soon.')
-            return redirect(reverse('form_success'))
+            return redirect_success(request, responses.CONCERTO_SIGNUP_SUCCESS)
+
+        else: # form is invalid
+            return redirect_error(request, responses.CONCERTO_SIGNUP_ERROR)
 
     def get(self, request, *args, **kwargs):
         form = ConcertoForm()

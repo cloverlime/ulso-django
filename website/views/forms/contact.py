@@ -6,16 +6,16 @@ from django.urls import reverse
 from django.views import View
 
 from website.models import Page
+from website.utils import redirect_success, redirect_success
 
 from ulsosite.models.people import (
     CommitteeMember,
     ConcertoWinner,
 )
 from ulsosite.info.dates import CURRENT_SEASON
-
-from website.templates.messages.messages import CONTACT_MESSAGE_SUCCESS
 from website.forms.contact import ContactForm
-
+from website.utils import redirect_error, redirect_success
+from website import responses
 
 class ContactFormView(View):
     """
@@ -79,15 +79,10 @@ class ContactFormView(View):
                 email_msg.send()
 
             except BadHeaderError:
-                return HttpResponse("Invalid header found. Email was not sent.")
+                return HttpResponse(responses.BAD_HEADER)
 
-            messages.add_message(request, messages.SUCCESS, CONTACT_MESSAGE_SUCCESS)
-            return redirect(reverse('form_success'))
+            return redirect_success(request, responses.CONTACT_SUCCESS)
 
-        # Form is not valid
-        else:
-            messages.add_message(
-                request, messages.ERROR,
-                'Sorry, something went wrong. Please try again. Did you fill in all the details correctly?'
-                )
-            return redirect(reverse('form_error'))
+
+        else: # Form is not valid
+            return redirect_error(request, responses.CONTACT_ERROR)
