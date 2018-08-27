@@ -9,6 +9,11 @@
 
     {% else %}
         <p>Applications are currently closed. Please <a href="{% url 'contact' %}">contact us</a> if you are interested in joining us in the middle of the year.</p>
+
+{% endif %}
+
+{% if excerpts %}
+    {% include 'website/organisms/excerpts-are-online.html' %}    
 {% endif %}
 
 {% include 'website/molecules/accordion.html' %}

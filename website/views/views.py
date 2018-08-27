@@ -63,10 +63,13 @@ def about(request):
     return render(request, 'website/pages/about.html', context)
 
 def join(request):
-    applications_open = Status.objects.get(season=CURRENT_SEASON).auditions_open
+    season = CURRENT_SEASON
+    status = Status.objects.get(season=season)
+    applications_open = status.auditions_open
+    excerpts = status.excerpts
+    excerpts_url = status.excerpts_url
     page = Page.objects.get(title="How to Join")
     accordion = page.accordioncard_set.all().order_by('order')
-    season = CURRENT_SEASON
     audition_dates = AuditionDate.objects.filter(season=season)
 
     context = {
@@ -75,6 +78,8 @@ def join(request):
         'applications_open': applications_open,
         'audition_dates': audition_dates,
         'season': season,
+        'excerpts': excerpts,
+        'excepts_url': excerpts_url,
     }
     return render(request, 'website/pages/join.html', context)
 

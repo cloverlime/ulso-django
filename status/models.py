@@ -5,10 +5,11 @@ from ulsosite.utils import academic_year_calc
 
 # Create your models here.
 class Status(models.Model):
+    season = models.CharField(max_length=10)
     auditions_open = models.BooleanField(default=False, help_text="Shows if ULSO is open to applications or not. Affects the display of the form on the website.")
     concerto_open = models.BooleanField(default=False, help_text="Shows if ULSO is open to applications or not. Affects the display of the form on the website.")
-    season = models.CharField(max_length=10)
-
+    excerpts = models.BooleanField(default=False, help_text="Shows if audition excerpts are online or not. Affects the display of the form on the website.")
+    excerpts_url = models.URLField('Excerpts URL', blank=True, null=True, help_text='URL for repository of auditions e.g. in a Google Drive')
     created = models.DateTimeField(editable=False, blank=True, null=True)
     modified = models.DateTimeField(blank=True, null=True)
 
